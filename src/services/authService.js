@@ -2,7 +2,7 @@ import { apiFetch } from "../lib/api";
 import { tokenStorage } from "../lib/token";
 
 export async function loginUser(payload) {
-  const data = await apiFetch("/api/auth/login", {
+  const data = await apiFetch("api/auth/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -20,14 +20,14 @@ export async function loginUser(payload) {
 }
 
 export async function registerUser(payload) {
-  return apiFetch("/api/auth/register", {
+  return apiFetch("api/auth/register", {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
 export async function getUserProfile() {
-  const data = await apiFetch("/api/users/profile", {
+  const data = await apiFetch("api/users/profile", {
     method: "GET",
   });
 
@@ -39,7 +39,7 @@ export async function getUserProfile() {
 }
 
 export async function updateUserProfile(payload) {
-  const data = await apiFetch("/api/users/profile", {
+  const data = await apiFetch("api/users/profile", {
     method: "PATCH",
     body: JSON.stringify(payload),
   });
@@ -58,7 +58,7 @@ export async function refreshAccessToken() {
     throw new Error("Refresh token tidak ditemukan");
   }
 
-  const data = await apiFetch("/api/auth/refresh-token", {
+  const data = await apiFetch("api/auth/refresh-token", {
     method: "POST",
     body: JSON.stringify({ refreshToken }),
   });
