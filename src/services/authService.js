@@ -32,7 +32,13 @@ export async function getUserProfile() {
   });
 
   if (data.data) {
-    tokenStorage.setUser(data.data);
+    // tokenStorage.setUser(data.data);
+    const currentUser = tokenStorage.getUser();
+
+    tokenStorage.setUser({
+      ...currentUser,
+      ...data.data,
+    });
   }
 
   return data;
@@ -45,7 +51,13 @@ export async function updateUserProfile(payload) {
   });
 
   if (data.data) {
-    tokenStorage.setUser(data.data);
+    // tokenStorage.setUser(data.data);
+    const currentUser = tokenStorage.getUser();
+
+    tokenStorage.setUser({
+      ...currentUser,
+      ...data.data,
+    });
   }
 
   return data;
@@ -65,6 +77,7 @@ export async function refreshAccessToken() {
 
   tokenStorage.setTokens({
     accessToken: data.accessToken,
+    refreshToken,
   });
 
   return data;
@@ -84,4 +97,12 @@ export function getRefreshToken() {
 
 export function getCurrentUser() {
   return tokenStorage.getUser();
+}
+export function isAuthenticated() {
+  return !!tokenStorage.getAccessToken();
+}
+
+export function isAdmin() {
+  const user = tokenStorage.getUser();
+  return user?.role === "admin";
 }
