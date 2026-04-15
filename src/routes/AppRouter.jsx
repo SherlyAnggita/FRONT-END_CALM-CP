@@ -1,18 +1,32 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+
+// halaman user
 import HomePage from "../pages/User/HomePage";
 import ProfilePage from "../pages/User/ProfilePage";
 import MoodJarPage from "../pages/User/MoodJarPage";
 
 import UserLayout from "../layouts/User/UserLayout";
+
+// halaman admin
+import AdminRoute from "../routes/AdminRoute";
+import AdminHomePage from "../pages/Admin/AdminHomePage";
+import AdminLayout from "../layouts/Admin/AdminLayout";
+
 import { tokenStorage } from "../lib/token";
 
+// Route milik User
 function ProtectedRoute({ children }) {
   const accessToken = tokenStorage.getAccessToken();
+  const user = tokenStorage.getUser();
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (user?.role === "admin") {
+    return <Navigate to="/admin" replace />;
   }
 
   return children;
@@ -20,8 +34,12 @@ function ProtectedRoute({ children }) {
 
 function GuestRoute({ children }) {
   const accessToken = tokenStorage.getAccessToken();
+  const user = tokenStorage.getUser();
 
   if (accessToken) {
+    if (user?.role === "admin") {
+      return <Navigate to="/admin" replace />;
+    }
     return <Navigate to="/user" replace />;
   }
 
@@ -52,6 +70,7 @@ export default function AppRouter() {
 
         <Route path="/" element={<Navigate to="/user" replace />} />
 
+        {/* halaman user */}
         <Route
           path="/user"
           element={
@@ -63,6 +82,17 @@ export default function AppRouter() {
           <Route index element={<HomePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="mood" element={<MoodJarPage />} />
+        </Route>
+        {/* halaman admin */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route index element={<AdminHomePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
