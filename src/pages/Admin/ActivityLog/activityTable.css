@@ -1,0 +1,69 @@
+.activity-table .rdt_Pagination {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.activity-table .rdt_Pagination select {
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.activity-table .rdt_Pagination option {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.activity-table .rdt_Pagination svg {
+  fill: #111827;
+}
+
+.activity-table .rdt_Pagination span,
+.activity-table .rdt_Pagination div,
+.activity-table .rdt_Pagination button {
+  color: #111827;
+}
+
+@media (prefers-color-scheme: dark) {
+  .activity-table .rdt_Pagination {
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+
+  .activity-table .rdt_Pagination select {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    border: 1px solid #374151;
+  }
+
+  .activity-table .rdt_Pagination option {
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+
+  .activity-table .rdt_Pagination svg {
+    fill: #e5e7eb;
+  }
+
+  .activity-table .rdt_Pagination span,
+  .activity-table .rdt_Pagination div,
+  .activity-table .rdt_Pagination button {
+    color: #e5e7eb;
+  }
+}
+
+.activity-limit-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  min-width: 64px;
+  text-align: center;
+  padding-right: 12px;
+}
+
+.activity-limit-select::-ms-expand {
+  display: none;
+}

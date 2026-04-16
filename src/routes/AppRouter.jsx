@@ -12,6 +12,8 @@ import UserLayout from "../layouts/User/UserLayout";
 // halaman admin
 import AdminRoute from "../routes/AdminRoute";
 import AdminHomePage from "../pages/Admin/AdminHomePage";
+import ActivityPage from "../pages/Admin/ActivityLog/ActivityPage";
+
 import AdminLayout from "../layouts/Admin/AdminLayout";
 
 import { tokenStorage } from "../lib/token";
@@ -83,6 +85,7 @@ export default function AppRouter() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="mood" element={<MoodJarPage />} />
         </Route>
+
         {/* halaman admin */}
         <Route
           path="/admin"
@@ -93,6 +96,7 @@ export default function AppRouter() {
           }
         >
           <Route index element={<AdminHomePage />} />
+          <Route path="activity" element={<ActivityPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

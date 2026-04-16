@@ -20,8 +20,8 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="flex min-h-screen">
+    <div className="min-h-screen overflow-x-hidden bg-base-200">
+      <div className="flex min-h-screen overflow-x-hidden">
         {/* Sidebar desktop */}
         <aside
           className={`fixed top-0 left-0 z-40 hidden h-screen border-r border-base-300 bg-base-100 shadow-sm transition-all duration-300 md:block ${
@@ -46,13 +46,13 @@ export default function AdminLayout() {
 
         {/* Main content */}
         <div
-          className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${
+          className={`flex min-h-screen min-w-0 flex-1 flex-col overflow-x-hidden transition-all duration-300 ${
             isCollapsed ? "md:ml-20" : "md:ml-64"
           }`}
         >
           <HeaderAdmin toggleSidebar={handleToggleSidebar} />
 
-          <main className="flex-1 p-4 pb-24 md:p-6 md:pb-6">
+          <main className="min-w-0 flex-1 overflow-x-hidden p-4 pb-24 md:p-6 md:pb-6">
             <Outlet />
           </main>
         </div>
