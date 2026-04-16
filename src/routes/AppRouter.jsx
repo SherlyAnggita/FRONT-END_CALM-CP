@@ -6,6 +6,7 @@ import RegisterPage from "../pages/RegisterPage";
 import HomePage from "../pages/User/HomePage";
 import ProfilePage from "../pages/User/ProfilePage";
 import MoodJarPage from "../pages/User/MoodJarPage";
+import CalendarEventPage from "../pages/User/CalendarEventPage";
 
 import UserLayout from "../layouts/User/UserLayout";
 
@@ -84,6 +85,7 @@ export default function AppRouter() {
           <Route index element={<HomePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="mood" element={<MoodJarPage />} />
+          <Route path="calendar" element={<CalendarEventPage />} />
         </Route>
 
         {/* halaman admin */}
