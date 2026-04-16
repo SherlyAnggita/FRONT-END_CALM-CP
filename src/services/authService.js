@@ -83,8 +83,25 @@ export async function refreshAccessToken() {
   return data;
 }
 
-export function logoutUser() {
-  tokenStorage.clearTokens();
+// export function logoutUser() {
+//   tokenStorage.clearTokens();
+// }
+export async function logoutUser() {
+  const refreshToken = tokenStorage.getRefreshToken();
+  try {
+    if (refreshToken) {
+      await apiFetch("api/auth/logout", {
+        method: "POST",
+        body: JSON.stringify({ refreshToken }),
+      });
+    }
+  } catch (error) {
+    // console.error("Logout API error:", error);
+    console.warn("Logout API gagal, tapi tetap clear token");
+    // tetap lanjut hapus token walaupun gagal
+  } finally {
+    tokenStorage.clearTokens();
+  }
 }
 
 export function getAccessToken() {
