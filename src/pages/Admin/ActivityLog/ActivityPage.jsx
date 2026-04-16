@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import * as RDT from "react-data-table-component";
-import { getActivityLogs } from "../../../services/Admin/activityLogService";
+import {
+  getActivityLogs,
+  exportActivityLogsExcel,
+  exportActivityLogsPdf,
+} from "../../../services/Admin/activityLogService";
 import { UAParser } from "ua-parser-js";
-import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
-import { FaFileExcel } from "react-icons/fa";
+import { FaFileExcel, FaFilePdf } from "react-icons/fa";
 
 import "./activityTable.css";
 
@@ -16,46 +19,15 @@ export default function ActivityPage() {
   const [limit, setLimit] = useState(10);
   const [pagination, setPagination] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [exportLoading, setExportLoading] = useState(false);
+  const [pdfLoadingUserId, setPdfLoadingUserId] = useState(null);
   const [error, setError] = useState("");
+
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
 
-  function handleExportExcel() {
-    if (!processedLogs.length) {
-      alert("Tidak ada data untuk diexport");
-      return;
-    }
-
-    const exportData = processedLogs.map((log, index) => {
-      const parsed = parseUserAgent(log.userAgent);
-
-      return {
-        No: index + 1,
-        "Nama User": log.user?.fullName || "-",
-        Username: log.user?.username || "-",
-        Role: log.user?.role || "-",
-        "Alamat IP": formatIP(log.ipAddress),
-        Device: parsed.device,
-        OS: parsed.os,
-        Browser: parsed.browser,
-        Aktivitas: log.action || "-",
-        Deskripsi: log.description || "-",
-        "Waktu Kejadian": formatDateTime(log.createdAt),
-      };
-    });
-
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-
-    // auto width kolom biar rapi
-    const columnWidths = Object.keys(exportData[0]).map((key) => ({
-      wch: key.length + 5,
-    }));
-    worksheet["!cols"] = columnWidths;
-
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Activity Logs");
-
-    XLSX.writeFile(workbook, "activity-logs.xlsx");
-  }
+  const [sortBy, setSortBy] = useState("createdAt");
+  const [order, setOrder] = useState("desc");
 
   function formatDateTime(date) {
     if (!date) return "-";
@@ -68,6 +40,66 @@ export default function ActivityPage() {
       hour: "2-digit",
       minute: "2-digit",
     }).format(new Date(date));
+  }
+
+  function handleDownloadFile(blob, filename) {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+  }
+
+  async function handleExportExcel() {
+    try {
+      setExportLoading(true);
+
+      const blob = await exportActivityLogsExcel({
+        search,
+        sortBy,
+        order,
+      });
+
+      handleDownloadFile(blob, "activity-logs.xlsx");
+      toast.success("Export Excel berhasil");
+    } catch (err) {
+      toast.error(err.message || "Gagal export Excel");
+    } finally {
+      setExportLoading(false);
+    }
+  }
+
+  async function handleExportPdf(row) {
+    try {
+      const selectedUserId = row?.user?.id;
+
+      if (!selectedUserId) {
+        toast.error("User ID tidak ditemukan");
+        return;
+      }
+
+      setPdfLoadingUserId(selectedUserId);
+
+      const blob = await exportActivityLogsPdf(selectedUserId);
+
+      const safeUsername =
+        row?.user?.username ||
+        row?.user?.fullName?.replace(/\s+/g, "-").toLowerCase() ||
+        selectedUserId;
+
+      handleDownloadFile(blob, `activity-log-${safeUsername}.pdf`);
+      toast.success("Export PDF berhasil");
+    } catch (err) {
+      toast.error(err.message || "Gagal export PDF");
+    } finally {
+      setPdfLoadingUserId(null);
+    }
   }
 
   function handleCopy(row) {
@@ -84,7 +116,7 @@ Perangkat     : ${parsed.device}
 Sistem Operasi: ${parsed.os}
 Browser       : ${parsed.browser}
 
-Aktivitas     : ${row.action}
+Aktivitas     : ${row.action || "-"}
 Deskripsi     : ${row.description || "-"}
 
 Waktu Kejadian: ${formatDateTime(row.createdAt)}
@@ -99,11 +131,13 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
         toast.error("Gagal menyalin data");
       });
   }
+
   function formatIP(ip) {
     if (!ip) return "-";
     if (ip === "::1") return "127.0.0.1 (localhost)";
     return ip;
   }
+
   function parseUserAgent(ua) {
     if (!ua) {
       return {
@@ -178,14 +212,30 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
   }, []);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(searchInput.trim());
+      setPage(1);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  useEffect(() => {
     async function fetchActivityLogs() {
       try {
         setLoading(true);
         setError("");
 
-        const response = await getActivityLogs(page, limit);
-        setLogs(response.data || []);
-        setPagination(response.pagination || null);
+        const response = await getActivityLogs({
+          page,
+          limit,
+          search,
+          sortBy,
+          order,
+        });
+
+        setLogs(response?.data || []);
+        setPagination(response?.pagination || null);
       } catch (err) {
         setError(err.message || "Gagal mengambil activity logs");
       } finally {
@@ -194,27 +244,7 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
     }
 
     fetchActivityLogs();
-  }, [page, limit]);
-
-  const processedLogs = useMemo(() => {
-    const keyword = search.trim().toLowerCase();
-
-    const filtered = logs.filter((log) => {
-      if (!keyword) return true;
-
-      return (
-        log.user?.fullName?.toLowerCase().includes(keyword) ||
-        log.user?.username?.toLowerCase().includes(keyword) ||
-        log.user?.role?.toLowerCase().includes(keyword) ||
-        log.action?.toLowerCase().includes(keyword) ||
-        log.description?.toLowerCase().includes(keyword)
-      );
-    });
-
-    return [...filtered].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-    );
-  }, [logs, search]);
+  }, [page, limit, search, sortBy, order]);
 
   const columns = [
     {
@@ -222,26 +252,27 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
       name: "No",
       width: "70px",
       cell: (row, index) => <span>{(page - 1) * limit + index + 1}</span>,
+      sortable: false,
     },
     {
       id: "fullName",
       name: "Nama User",
       selector: (row) => row.user?.fullName || "-",
-      sortable: true,
+      sortable: false,
       wrap: true,
     },
     {
       id: "username",
       name: "Username",
       selector: (row) => row.user?.username || "-",
-      sortable: true,
+      sortable: false,
       wrap: true,
     },
     {
       id: "role",
       name: "Role",
       selector: (row) => row.user?.role || "-",
-      sortable: true,
+      sortable: false,
       wrap: true,
     },
     {
@@ -249,15 +280,15 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
       name: "Action",
       selector: (row) => row.action || "-",
       sortable: true,
+      sortField: "action",
       wrap: true,
     },
     {
       id: "ipAddress",
       name: "IP Address",
       selector: (row) => formatIP(row.ipAddress),
-      sortable: true,
+      sortable: false,
       wrap: true,
-      // hide: "md",
     },
     {
       id: "userAgent",
@@ -286,9 +317,8 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
           </div>
         );
       },
-      sortable: true,
+      sortable: false,
       wrap: true,
-      // hide: "md",
     },
     {
       id: "description",
@@ -306,36 +336,39 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
         </div>
       ),
       wrap: true,
+      sortable: false,
     },
     {
       id: "createdAt",
       name: "Created At",
       selector: (row) =>
         row.createdAt ? new Date(row.createdAt).getTime() : 0,
-      cell: (row) =>
-        row.createdAt
-          ? new Intl.DateTimeFormat("id-ID", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            }).format(new Date(row.createdAt))
-          : "-",
+      cell: (row) => (row.createdAt ? formatDateTime(row.createdAt) : "-"),
       sortable: true,
+      sortField: "createdAt",
       wrap: true,
     },
     {
       id: "aksi",
       name: "Aksi",
       cell: (row) => (
-        <button
-          onClick={() => handleCopy(row)}
-          className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
-        >
-          Copy
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => handleCopy(row)}
+            className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+          >
+            Copy
+          </button>
+
+          <button
+            onClick={() => handleExportPdf(row)}
+            disabled={pdfLoadingUserId === row.user?.id}
+            className="flex items-center gap-1 rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            <FaFilePdf size={14} />
+            {pdfLoadingUserId === row.user?.id ? "Loading..." : "PDF"}
+          </button>
+        </div>
       ),
     },
   ];
@@ -453,11 +486,8 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
           <input
             type="text"
             placeholder="Cari user, action, atau deskripsi..."
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setPage(1);
-            }}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className="w-full rounded-lg px-3 py-2 text-sm outline-none md:max-w-xs"
             style={{
               border: `1px solid ${isDark ? "#374151" : "#d1d5db"}`,
@@ -469,7 +499,8 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
           <div className="flex items-center gap-2 md:ml-auto">
             <button
               onClick={handleExportExcel}
-              className="flex items-center justify-center rounded bg-green-600 px-3 py-2 text-sm text-white hover:bg-green-700"
+              disabled={exportLoading}
+              className="flex items-center justify-center rounded bg-green-600 px-3 py-2 text-sm text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
               title="Export Excel"
             >
               <FaFileExcel size={16} />
@@ -506,17 +537,25 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
           <div className="min-w-[1100px]">
             <DataTable
               columns={columns}
-              data={processedLogs}
+              data={logs}
               progressPending={loading}
               pagination
               paginationServer
-              paginationTotalRows={
-                search ? processedLogs.length : pagination?.totalItems || 0
-              }
+              sortServer
+              paginationTotalRows={pagination?.totalItems || 0}
               paginationPerPage={limit}
               paginationDefaultPage={page}
               paginationComponentOptions={paginationComponentOptions}
               onChangePage={(newPage) => setPage(newPage)}
+              onSort={(column, sortDirection) => {
+                const nextSortBy = column.sortField || column.id;
+
+                if (!nextSortBy) return;
+
+                setSortBy(nextSortBy);
+                setOrder(sortDirection === "asc" ? "asc" : "desc");
+                setPage(1);
+              }}
               highlightOnHover
               persistTableHead
               defaultSortFieldId="createdAt"
