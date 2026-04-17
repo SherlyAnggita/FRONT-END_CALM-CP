@@ -9,6 +9,7 @@ import {
   FiActivity,
   FiUsers,
 } from "react-icons/fi";
+import { TbMoodNerd } from "react-icons/tb";
 
 export default function SideBarAdmin({ isCollapsed }) {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function SideBarAdmin({ isCollapsed }) {
       <div className="mb-6 flex justify-center">
         <h1
           className="text-3xl font-extrabold italic tracking-[0.25em] whitespace-nowrap
-          bg-gradient-to-r from-primary via-secondary to-accent
+          bg-linear-to-r from-primary via-secondary to-accent
           bg-clip-text text-transparent
           drop-shadow-sm
           transition-all duration-1000 ease-in-out
@@ -45,7 +46,7 @@ export default function SideBarAdmin({ isCollapsed }) {
       {/* USER INFO */}
       <div
         className={`overflow-hidden rounded-xl
-        bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700
+        bg-linear-to-r from-blue-400 via-blue-500 to-blue-700
         drop-shadow-sm transition-all duration-1000 ease-out
         hover:scale-[1.02] hover:-translate-y-0.5
         ${
@@ -65,14 +66,18 @@ export default function SideBarAdmin({ isCollapsed }) {
           {!isCollapsed && <span>Dashboard</span>}
         </NavLink>
 
+        <NavLink to="/admin/activity" className={navClass}>
+          <FiActivity size={18} />
+          {!isCollapsed && <span>Activity</span>}
+        </NavLink>
+
         <NavLink to="/admin/users" className={navClass}>
           <FiUsers size={18} />
           {!isCollapsed && <span>Users</span>}
         </NavLink>
-
-        <NavLink to="/admin/activity" className={navClass}>
-          <FiActivity size={18} />
-          {!isCollapsed && <span>Activity</span>}
+        <NavLink to="/admin/mood-labels" className={navClass}>
+          <TbMoodNerd size={18} />
+          {!isCollapsed && <span>Mood Label</span>}
         </NavLink>
       </nav>
 

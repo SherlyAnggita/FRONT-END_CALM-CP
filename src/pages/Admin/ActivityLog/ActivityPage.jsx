@@ -534,7 +534,7 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
         </div>
 
         <div className="w-full overflow-x-auto">
-          <div className="min-w-[1100px]">
+          <div className="min-w-275">
             <DataTable
               columns={columns}
               data={logs}
