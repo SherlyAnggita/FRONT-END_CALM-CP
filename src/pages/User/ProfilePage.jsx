@@ -253,56 +253,25 @@ export default function ProfilePage() {
     }
   }
 
-  function handleLogout() {
-    logoutUser();
-    navigate("/login");
-  }
+  async function handleLogout() {
+  await logoutUser();
+  navigate("/login", { replace: true });
+}
 
   return (
     <div className="w-full overflow-y-auto bg-gradient-to-br from-[#4d739a] via-[#7fb0da] to-[#d8ecfb] py-8">
       <div className="container mx-auto px-4 lg:px-8 pb-10">
         <div className="mx-auto w-full max-w-3xl">
-          <img
-            src={cloudSmall1}
-            alt=""
-            className="absolute left-8 top-8 w-40 opacity-70 lg:left-10 lg:top-10 lg:w-52"
-          />
-          <img
-            src={cloudSmall2}
-            alt=""
-            className="absolute right-10 top-12 w-36 opacity-60 lg:right-20 lg:top-16 lg:w-44"
-          />
-          <img
-            src={cloudSmall3}
-            alt=""
-            className="absolute bottom-8 left-10 w-32 opacity-60 lg:bottom-10 lg:left-20 lg:w-40"
-          />
-          <img
-            src={cloudSmall4}
-            alt=""
-            className="absolute bottom-10 right-8 w-36 opacity-50 lg:bottom-12 lg:right-10 lg:w-48"
-          />
+          <img src={cloudSmall1} alt="" className="absolute left-8 top-8 w-40 opacity-70 lg:left-10 lg:top-10 lg:w-52"/>
+          <img src={cloudSmall2} alt="" className="absolute right-10 top-12 w-36 opacity-60 lg:right-20 lg:top-16 lg:w-44"/>
+          <img src={cloudSmall3} alt="" className="absolute bottom-8 left-10 w-32 opacity-60 lg:bottom-10 lg:left-20 lg:w-40"/>
+          <img src={cloudSmall4} alt=""
+            className="absolute bottom-10 right-8 w-36 opacity-50 lg:bottom-12 lg:right-10 lg:w-48"/>
 
-          <img
-            src={star1}
-            alt=""
-            className="absolute top-20 left-10 w-100 opacity-80 animate-pulse"
-          />
-          <img
-            src={star2}
-            alt=""
-            className="absolute top-32 right-10 w-100 opacity-80 animate-pulse"
-          />
-          <img
-            src={star3}
-            alt=""
-            className="absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"
-          />
-          <img
-            src={star4}
-            alt=""
-            className="absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"
-          />
+          <img src={star1} alt="" className="absolute top-20 left-10 w-100 opacity-80 animate-pulse"/>
+          <img src={star2}  alt="" className="absolute top-32 right-10 w-100 opacity-80 animate-pulse"/>
+          <img src={star3} alt="" className="absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"/>
+          <img src={star4} alt="" className="absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"  />
 
           <div className="card bg-white/60 backdrop-blur-lg shadow-[0_10px_40px_rgba(120,170,220,0.25)] border border-white/40">
             <div className="card-body p-6 lg:p-10">
@@ -478,18 +447,11 @@ export default function ProfilePage() {
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-between">
                   <button
-                    type="button"
-                    onClick={() => setShowLogoutModal(true)}
-                    className="btn btn-error rounded-full px-6"
-                  >
+                    type="button" onClick={() => setShowLogoutModal(true)} className="btn btn-error rounded-full px-6" >
                     Logout
                   </button>
 
-                  <button
-                    type="submit"
-                    className="btn btn-primary rounded-full px-8"
-                    disabled={isSaving}
-                  >
+                  <button type="submit" className="btn btn-primary rounded-full px-8"  disabled={isSaving} >
                     {isSaving ? "Menyimpan..." : "Simpan"}
                   </button>
                 </div>
@@ -508,20 +470,11 @@ export default function ProfilePage() {
             </p>
 
             <div className="modal-action">
-              <button
-                className="btn btn-ghost"
-                onClick={() => setShowLogoutModal(false)}
-              >
+              <button className="btn btn-ghost" onClick={() => setShowLogoutModal(false)} >
                 Batal
               </button>
 
-              <button
-                className="btn btn-error"
-                onClick={() => {
-                  setShowLogoutModal(false);
-                  handleLogout();
-                }}
-              >
+              <button className="btn btn-error" onClick={async () => {  setShowLogoutModal(false);  await handleLogout(); }}  >
                 Logout
               </button>
             </div>
