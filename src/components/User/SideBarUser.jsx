@@ -22,10 +22,10 @@ export default function SideBarUser({ isCollapsed }) {
       isCollapsed ? "justify-center" : "gap-3"
     } ${isActive ? "bg-primary text-primary-content" : "hover:bg-base-200"}`;
 
-  function handleLogout() {
-    logoutUser();
-    navigate("/login");
-  }
+ async function handleLogout() {
+  await logoutUser();
+  navigate("/login", { replace: true });
+}
 
   return (
     <div className="flex h-full flex-col p-3">
@@ -111,20 +111,11 @@ export default function SideBarUser({ isCollapsed }) {
             </p>
 
             <div className="modal-action">
-              <button
-                className="btn btn-ghost"
-                onClick={() => setShowLogoutModal(false)}
-              >
+              <button className="btn btn-ghost" onClick={() => setShowLogoutModal(false)} >
                 Batal
               </button>
 
-              <button
-                className="btn btn-error"
-                onClick={() => {
-                  setShowLogoutModal(false);
-                  handleLogout();
-                }}
-              >
+              <button className="btn btn-error" onClick={() => { setShowLogoutModal(false); handleLogout();}}>
                 Logout
               </button>
             </div>
