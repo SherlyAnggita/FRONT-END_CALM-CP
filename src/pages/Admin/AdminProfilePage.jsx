@@ -21,7 +21,7 @@ import {
 
 import awanbg from "../../assets/awanbg.png";
 
-export default function ProfilePage() {
+export default function AdminProfilePage() {
   const navigate = useNavigate();
   const cropperRef = useRef(null);
 
@@ -85,7 +85,7 @@ export default function ProfilePage() {
           phoneNumber: user.phoneNumber || "",
         }));
       } catch (error) {
-        console.error("Gagal ambil data profile:", error);
+        console.error("Gagal ambil data profile admin:", error);
 
         const currentUser = getCurrentUser();
         if (currentUser) {
@@ -107,7 +107,7 @@ export default function ProfilePage() {
   }, []);
 
   useEffect(() => {
-    const savedPhoto = localStorage.getItem("profilePhoto");
+    const savedPhoto = localStorage.getItem("adminProfilePhoto");
 
     if (savedPhoto) {
       setPreview(savedPhoto);
@@ -189,6 +189,11 @@ export default function ProfilePage() {
   function handleSubmit(e) {
     e.preventDefault();
 
+    if (form.password.trim() !== "" && form.password.length < 6) {
+      showToast("Password minimal 6 karakter.", "error");
+      return;
+    }
+
     if (form.password.trim() !== "" && form.password !== form.confirmPassword) {
       showToast("Konfirmasi password tidak sama.", "error");
       return;
@@ -227,18 +232,18 @@ export default function ProfilePage() {
       }));
 
       if (hasPendingPhotoChange && preview) {
-        localStorage.setItem("profilePhoto", preview);
+        localStorage.setItem("adminProfilePhoto", preview);
         window.dispatchEvent(new Event("profile-photo-updated"));
         setSavedPreview(preview);
         setHasPendingPhotoChange(false);
       }
 
       setShowSaveModal(false);
-      showToast("Profile berhasil diperbarui.", "success");
+      showToast("Profile admin berhasil diperbarui.", "success");
     } catch (error) {
-      console.error("Gagal update profile:", error);
+      console.error("Gagal update profile admin:", error);
       showToast(
-        error?.data?.message || error.message || "Gagal update profile",
+        error?.data?.message || error.message || "Gagal update profile admin",
         "error"
       );
     } finally {
@@ -274,10 +279,10 @@ export default function ProfilePage() {
                   src={
                     preview ||
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      form.fullName || form.username || "User"
+                      form.fullName || form.username || "Admin"
                     )}&background=random`
                   }
-                  alt="profile"
+                  alt="admin profile"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -293,9 +298,9 @@ export default function ProfilePage() {
               </label>
             </div>
 
-            <h1 className="mt-3 text-4xl font-extrabold lowercase tracking-tight text-[#19445e] dark:text-white">
-              {form.username || "username"}
-            </h1>
+            <p className="mt-3 text-center text-sm font-medium text-[#294b5f] dark:text-slate-200">
+              Klik icon untuk mengganti foto
+            </p>
 
             <p className="mt-1 text-center text-xs text-gray-500 dark:text-slate-300">
               Format: JPG, JPEG, PNG • Maksimal {MAX_FILE_SIZE_MB} MB
@@ -316,7 +321,7 @@ export default function ProfilePage() {
             <div className="space-y-5">
               <div className="rounded-2xl border border-[#d8e7ed] bg-white p-5 shadow-[0_8px_24px_rgba(70,110,130,0.14)] dark:border-white/10 dark:bg-[#1e293b] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
                 <h2 className="mb-4 text-base font-bold text-[#19445e] dark:text-white">
-                  Personal Information
+                  Admin Profile
                 </h2>
 
                 <div className="space-y-3">
@@ -421,7 +426,7 @@ export default function ProfilePage() {
           <div className="modal-box bg-white dark:bg-[#1e293b] dark:text-white">
             <h3 className="text-lg font-bold">Yakin ingin logout?</h3>
             <p className="py-3 text-sm text-gray-600 dark:text-slate-300">
-              Kamu akan keluar dari akun ini.
+              Kamu akan keluar dari akun admin ini.
             </p>
 
             <div className="modal-action">
@@ -522,7 +527,7 @@ export default function ProfilePage() {
             <h3 className="text-lg font-bold">Simpan perubahan?</h3>
 
             <p className="py-3 text-sm text-gray-600 dark:text-slate-300">
-              Data profile yang kamu ubah akan disimpan.
+              Data profile admin yang kamu ubah akan disimpan.
             </p>
 
             <div className="modal-action">
