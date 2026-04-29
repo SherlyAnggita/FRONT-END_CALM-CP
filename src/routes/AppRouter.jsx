@@ -15,6 +15,7 @@ import AdminRoute from "../routes/AdminRoute";
 import AdminHomePage from "../pages/Admin/AdminHomePage";
 import ActivityPage from "../pages/Admin/ActivityLog/ActivityPage";
 import MoodLabelPage from "../pages/Admin/MoodLabel/index";
+import AdminProfilePage from "../pages/Admin/AdminProfilePage";
 
 import AdminLayout from "../layouts/Admin/AdminLayout";
 
@@ -101,6 +102,7 @@ export default function AppRouter() {
           <Route index element={<AdminHomePage />} />
           <Route path="activity" element={<ActivityPage />} />
           <Route path="mood-labels" element={<MoodLabelPage />} />
+          <Route path="profile" element={<AdminProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
