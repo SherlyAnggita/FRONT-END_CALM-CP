@@ -1,0 +1,113 @@
+.users-table {
+  width: 100%;
+}
+
+/* React Data Table pagination */
+.users-table .rdt_Pagination {
+  background-color: #ffffff;
+  color: #111827;
+  border-top: 1px solid #e5e7eb;
+  min-height: 56px;
+}
+
+.users-table .rdt_Pagination select {
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 4px 8px;
+  outline: none;
+}
+
+.users-table .rdt_Pagination option {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.users-table .rdt_Pagination svg {
+  fill: #111827;
+}
+
+.users-table .rdt_Pagination span,
+.users-table .rdt_Pagination div,
+.users-table .rdt_Pagination button {
+  color: #111827;
+}
+
+/* Custom select limit di header */
+.users-limit-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  min-width: 64px;
+  text-align: center;
+  padding-right: 12px;
+}
+
+.users-limit-select::-ms-expand {
+  display: none;
+}
+
+/* Biar action dropdown tidak kepotong row */
+.users-table .rdt_Table,
+.users-table .rdt_TableBody,
+.users-table .rdt_TableRow,
+.users-table .rdt_TableCell {
+  overflow: visible !important;
+}
+
+/* Biar table tetap enak di-scroll horizontal */
+.users-table .rdt_Table {
+  min-width: 100%;
+}
+
+/* Button di dalam table */
+.users-table button {
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.users-table button:active {
+  transform: scale(0.98);
+}
+
+/* Input placeholder */
+.users-table input::placeholder {
+  color: #9ca3af;
+}
+
+@media (prefers-color-scheme: dark) {
+  .users-table .rdt_Pagination {
+    background-color: #111827;
+    color: #e5e7eb;
+    border-top: 1px solid #374151;
+  }
+
+  .users-table .rdt_Pagination select {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    border: 1px solid #374151;
+  }
+
+  .users-table .rdt_Pagination option {
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+
+  .users-table .rdt_Pagination svg {
+    fill: #e5e7eb;
+  }
+
+  .users-table .rdt_Pagination span,
+  .users-table .rdt_Pagination div,
+  .users-table .rdt_Pagination button {
+    color: #e5e7eb;
+  }
+
+  .users-table input::placeholder {
+    color: #6b7280;
+  }
+}
