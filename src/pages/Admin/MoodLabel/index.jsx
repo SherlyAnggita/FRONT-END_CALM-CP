@@ -5,7 +5,6 @@ import { getMoodLabelColumns } from "../../../constants/admin/moodLabelColumns";
 import { getMoodLabelTableStyles } from "../../../styles/admin/moodLabelTableStyles";
 import {
   toggleMoodLabelActive,
-  deleteMoodLabel,
 } from "../../../services/Admin/moodLabel";
 import toast from "react-hot-toast";
 import TambahMoodLabel from "./tambah";
