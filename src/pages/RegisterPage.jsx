@@ -8,6 +8,7 @@ import cloudSmall1 from "../assets/cloud-small1.png";
 import cloudSmall2 from "../assets/cloud-small2.png";
 import cloudSmall3 from "../assets/cloud-small3.png";
 import cloudSmall4 from "../assets/cloud-small4.png";
+import calmLogo from "../assets/calm.png";
 import star1 from "../assets/star1.png";
 import star2 from "../assets/star2.png";
 import star3 from "../assets/star3.png";
@@ -102,189 +103,187 @@ export default function RegisterPage() {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -120, opacity: 0 }}
       transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-      className="relative h-screen overflow-hidden bg-gradient-to-br from-[#4d739a] via-[#7fb0da] to-[#d8ecfb]"
+      className="relative min-h-[100dvh] overflow-hidden bg-gradient-to-br from-[#4d739a] via-[#7fb0da] to-[#d8ecfb]"
     >
       <img
-        src={cloudSmall1}
-        alt=""
-        className="absolute left-8 top-8 w-40 opacity-70 lg:left-10 lg:top-10 lg:w-52"
-      />
-      <img
-        src={cloudSmall2}
-        alt=""
-        className="absolute right-10 top-12 w-36 opacity-60 lg:right-20 lg:top-16 lg:w-44"
-      />
-      <img
-        src={cloudSmall3}
-        alt=""
-        className="absolute bottom-8 left-10 w-32 opacity-60 lg:bottom-10 lg:left-20 lg:w-40"
-      />
-      <img
-        src={cloudSmall4}
-        alt=""
-        className="absolute bottom-10 right-8 w-36 opacity-50 lg:bottom-12 lg:right-10 lg:w-48"
-      />
+              src={cloudSmall1}
+              alt=""
+              className="absolute left-2 top-6 w-40 opacity-60 sm:left-8 sm:top-8 sm:w-32 lg:left-10 lg:top-10 lg:w-52"
+            />
+            <img
+              src={cloudSmall2}
+              alt=""
+              className="absolute right-0 top-30 w-40 opacity-60 sm:right-8 sm:top-10 sm:w-28 lg:right-20 lg:top-16 lg:w-44"
+            />
+            <img
+              src={cloudSmall3}
+              alt=""
+              className="absolute bottom-6 left-4 w-40 opacity-50 sm:bottom-8 sm:left-8 sm:w-28 lg:bottom-10 lg:left-20 lg:w-40"
+            />
+            <img
+              src={cloudSmall4}
+              alt=""
+              className="absolute bottom-8 right-4 w-40 opacity-40 sm:bottom-8 sm:right-8 sm:w-32 lg:bottom-12 lg:right-10 lg:w-48"
+            />
 
-      <img
-        src={star1}
-        alt=""
-        className="absolute top-20 left-10 w-100 opacity-80 animate-pulse"
-      />
-      <img
-        src={star2}
-        alt=""
-        className="absolute top-32 right-10 w-100 opacity-80 animate-pulse"
-      />
-      <img
-        src={star3}
-        alt=""
-        className="absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"
-      />
-      <img
-        src={star4}
-        alt=""
-        className="absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"
-      />
+      <img src={star1} alt="" className="hidden lg:block absolute top-20 left-10 w-100 opacity-80 animate-pulse" />
+      <img src={star2} alt="" className="hidden lg:block absolute top-32 right-10 w-100 opacity-80 animate-pulse" />
+      <img src={star3} alt="" className="hidden lg:block absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"/>
+      <img src={star4} alt="" className="hidden lg:block absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"/>
+      
 
-      <div className="relative z-10 flex h-full items-center justify-center px-4 py-4 sm:px-6 lg:px-12">
-        <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-8 lg:gap-12">
+      <div className="relative z-10 flex min-h-[100dvh] items-center justify-center px-4 py-4 sm:px-6 lg:px-12">
+        <div className="mx-auto flex min-h-[100dvh] w-full max-w-7xl items-center justify-between gap-8 lg:gap-12">
           <div className="flex w-full items-center justify-center lg:w-1/2">
-            <div className="relative w-full max-w-[600px] rounded-[28px] border border-white/30 bg-[#d9ebf7]/95 p-6 shadow-[0_20px_60px_rgba(15,35,60,0.22)] backdrop-blur-sm lg:p-8">
-              <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/35 via-transparent to-transparent" />
+            <div className="w-full max-w-md sm:max-w-lg lg:max-w-[600px]">
+              
+              {/* MOBILE HERO */}
+               <div className="relative mb-6 h-[260px] flex flex-col items-center justify-start overflow-visible text-center lg:hidden">
+                  <img src={star1} alt="" className="absolute left-2 top-[-10px] z-20 w-35 opacity-90 animate-pulse" />
+                  <img src={star2} alt="" className="absolute right-1 top-[-20px] z-20 w-55 opacity-90 animate-pulse" />
+                  <img src={star3} alt="" className="absolute right-10 top-[-40px] z-20 w-35 opacity-90 animate-pulse" />
+                  <img src={star4} alt="" className="absolute left-14 top-[-50px] z-20 w-25 opacity-90 animate-pulse"/>
+              
+                  <img src={calmLogo} alt="Calm" className="absolute top-[-100px] left-1/2 h-[470px] w-[470px] -translate-x-[55%] object-contain" />
+                </div>
 
-              <div className="relative z-10">
-                <h2 className="text-center text-3xl font-extrabold text-black">
-                  Daftar untuk Ruang Nyamanmu
-                </h2>
+              <div className="relative w-full rounded-3xl border border-white/30 bg-[#d9ebf7]/95 p-6 shadow-xl backdrop-blur-sm sm:p-8 lg:rounded-[28px] lg:shadow-[0_20px_60px_rgba(15,35,60,0.22)]">
+                <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/35 via-transparent to-transparent" />
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-black">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Masukan Email"
-                      value={form.email}
-                      onChange={handleChange}
-                      className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
-                      required
-                    />
-                  </div>
+                <div className="relative z-10">
+                  <h2 className="text-center text-3xl font-bold text-black">
+                    Sign up to your Calm
+                  </h2>
 
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-black">
-                      Nama Lengkap
-                    </label>
-                    <input
-                      type="text"
-                      name="fullName"
-                      placeholder="Masukan Nama Lengkap"
-                      value={form.fullName}
-                      onChange={handleChange}
-                      className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-black">
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      name="username"
-                      placeholder="Masukan Username"
-                      value={form.username}
-                      onChange={handleChange}
-                      className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-black">
-                      No Handphone
-                    </label>
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      placeholder="Masukan No Handphone"
-                      value={form.phoneNumber}
-                      onChange={(e) => {
-                        const value = e.target.value;
-
-                        if (/^\d*$/.test(value) && value.length <= 13) {
-                          setForm((prev) => ({
-                            ...prev,
-                            phoneNumber: value,
-                          }));
-                        }
-                      }}
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-black">
-                      Password
-                    </label>
-
-                    <div className="relative">
+                  <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+                    <div>
+                      <label className="mb-2 block text-sm font-semibold text-black">
+                        Email
+                      </label>
                       <input
-                        type={form.showPassword ? "text" : "password"}
-                        name="password"
-                        placeholder="Masukan Password"
-                        value={form.password}
+                        type="email"
+                        name="email"
+                        placeholder="Masukan Email"
+                        value={form.email}
                         onChange={handleChange}
-                        className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 pr-14 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500 [&::-ms-clear]:hidden [&::-ms-reveal]:hidden"
+                        className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
                         required
                       />
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setForm((prev) => ({
-                            ...prev,
-                            showPassword: !prev.showPassword,
-                          }))
-                        }
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-[#04264d]"
-                      >
-                        {form.showPassword ? (
-                          <AiOutlineEyeInvisible size={22} />
-                        ) : (
-                          <AiOutlineEye size={22} />
-                        )}
-                      </button>
                     </div>
-                  </div>
 
-                  {error && (
-                    <div className="rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-600 shadow-sm">
-                      {error}
+                    <div>
+                      <label className="mb-2 block text-sm font-semibold text-black">
+                        Nama Lengkap
+                      </label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        placeholder="Masukan Nama Lengkap"
+                        value={form.fullName}
+                        onChange={handleChange}
+                        className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
+                        required
+                      />
                     </div>
-                  )}
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="h-14 w-full rounded-full bg-gradient-to-r from-[#04264d] to-[#0a3a6d] text-lg font-semibold text-white shadow-[0_10px_25px_rgba(4,38,77,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(4,38,77,0.4)] disabled:opacity-70"
-                  >
-                    {loading ? "Loading..." : "Sign up"}
-                  </button>
-                </form>
+                    <div>
+                      <label className="mb-2 block text-sm font-semibold text-black">
+                        Username
+                      </label>
+                      <input
+                        type="text"
+                        name="username"
+                        placeholder="Masukan Username"
+                        value={form.username}
+                        onChange={handleChange}
+                        className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
+                        required
+                      />
+                    </div>
 
-                <p className="mt-4 text-center text-sm text-black">
-                  Already have an account?{" "}
-                  <Link to="/login" className="text-red-500 hover:underline">
-                    Sign in
-                  </Link>
-                </p>
+                    <div>
+                      <label className="mb-2 block text-sm font-semibold text-black">
+                        No Handphone
+                      </label>
+                      <input
+                        type="text"
+                        name="phoneNumber"
+                        placeholder="Masukan No Handphone"
+                        value={form.phoneNumber}
+                        onChange={(e) => {
+                          const value = e.target.value;
+
+                          if (/^\d*$/.test(value) && value.length <= 13) {
+                            setForm((prev) => ({
+                              ...prev,
+                              phoneNumber: value,
+                            }));
+                          }
+                        }}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-sm font-semibold text-black">
+                        Password
+                      </label>
+
+                      <div className="relative">
+                        <input
+                          type={form.showPassword ? "text" : "password"}
+                          name="password"
+                          placeholder="Masukan Password"
+                          value={form.password}
+                          onChange={handleChange}
+                          className="h-14 w-full rounded-full border border-white/40 bg-white/75 px-6 pr-14 text-base text-black shadow-sm outline-none transition focus:border-[#7aa8d6] focus:bg-white placeholder:text-gray-500 [&::-ms-clear]:hidden [&::-ms-reveal]:hidden"
+                          required
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setForm((prev) => ({
+                              ...prev,
+                              showPassword: !prev.showPassword,
+                            }))
+                          }
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-[#04264d]"
+                        >
+                          {form.showPassword ? (
+                            <AiOutlineEyeInvisible size={22} />
+                          ) : (
+                            <AiOutlineEye size={22} />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {error && (
+                      <div className="rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-600 shadow-sm">
+                        {error}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="h-14 w-full rounded-full bg-gradient-to-r from-[#04264d] to-[#0a3a6d] text-lg font-semibold text-white shadow-[0_10px_25px_rgba(4,38,77,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(4,38,77,0.4)] disabled:opacity-70"
+                    >
+                      {loading ? "Loading..." : "Sign up"}
+                    </button>
+                  </form>
+
+                  <p className="mt-4 text-center text-sm text-black">
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-red-500 hover:underline">
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
