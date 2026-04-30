@@ -9,6 +9,7 @@ import cloudSmall1 from "../assets/cloud-small1.png";
 import cloudSmall2 from "../assets/cloud-small2.png";
 import cloudSmall3 from "../assets/cloud-small3.png";
 import cloudSmall4 from "../assets/cloud-small4.png";
+import calmLogo from "../assets/calm.png";
 import star1 from "../assets/star1.png";
 import star2 from "../assets/star2.png";
 import star3 from "../assets/star3.png";
@@ -71,45 +72,29 @@ export default function LoginPage() {
       <img
         src={cloudSmall1}
         alt=""
-        className="absolute left-4 top-6 w-24 opacity-60 sm:left-8 sm:top-8 sm:w-32 lg:left-10 lg:top-10 lg:w-52"
+        className="absolute left-2 top-6 w-40 opacity-60 sm:left-8 sm:top-8 sm:w-32 lg:left-10 lg:top-10 lg:w-52"
       />
       <img
         src={cloudSmall2}
         alt=""
-        className="absolute right-4 top-8 w-24 opacity-50 sm:right-8 sm:top-10 sm:w-28 lg:right-20 lg:top-16 lg:w-44"
+        className="absolute right-0 top-30 w-40 opacity-60 sm:right-8 sm:top-10 sm:w-28 lg:right-20 lg:top-16 lg:w-44"
       />
       <img
         src={cloudSmall3}
         alt=""
-        className="absolute bottom-6 left-4 w-24 opacity-50 sm:bottom-8 sm:left-8 sm:w-28 lg:bottom-10 lg:left-20 lg:w-40"
+        className="absolute bottom-6 left-4 w-40 opacity-50 sm:bottom-8 sm:left-8 sm:w-28 lg:bottom-10 lg:left-20 lg:w-40"
       />
       <img
         src={cloudSmall4}
         alt=""
-        className="absolute bottom-8 right-4 w-24 opacity-40 sm:bottom-8 sm:right-8 sm:w-32 lg:bottom-12 lg:right-10 lg:w-48"
+        className="absolute bottom-8 right-4 w-40 opacity-40 sm:bottom-8 sm:right-8 sm:w-32 lg:bottom-12 lg:right-10 lg:w-48"
       />
 
-      {/* stars */}
-      <img
-        src={star1}
-        alt=""
-        className="absolute left-10 top-16 w-8 opacity-80 animate-pulse sm:w-10 lg:left-[18%] lg:top-24"
-      />
-      <img
-        src={star2}
-        alt=""
-        className="absolute right-10 top-24 w-8 opacity-80 animate-pulse sm:w-10 lg:right-[18%] lg:top-28"
-      />
-      <img
-        src={star3}
-        alt=""
-        className="absolute bottom-40 right-[18%] w-8 opacity-80 animate-pulse sm:w-10 lg:bottom-48 lg:right-[25%]"
-      />
-      <img
-        src={star4}
-        alt=""
-        className="absolute bottom-28 left-[20%] w-8 opacity-80 animate-pulse sm:w-10 lg:bottom-32 lg:left-[30%]"
-      />
+     {/* stars desktop only */}
+      <img src={star1} alt="" className="hidden lg:block absolute top-20 left-10 w-100 opacity-80 animate-pulse" />
+      <img src={star2} alt="" className="hidden lg:block absolute top-32 right-10 w-100 opacity-80 animate-pulse" />
+      <img src={star3} alt="" className="hidden lg:block absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"/>
+      <img src={star4} alt="" className="hidden lg:block absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"/>
 
       <div className="relative z-10 flex min-h-[100dvh] items-center justify-center px-4 py-8 sm:px-6 lg:px-12">
         <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
@@ -140,26 +125,19 @@ export default function LoginPage() {
             <div className="w-full max-w-md sm:max-w-lg">
               
               {/* MOBILE HERO */}
-              <div className="mb-6 flex flex-col items-center text-center lg:hidden">
-                <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight text-white drop-shadow">
-                  Find your <span className="text-white/90">CALM</span> side
-                </h1>
+              <div className="relative mb-6 h-[260px] flex flex-col items-center justify-start overflow-visible text-center lg:hidden">
+                <img src={star1} alt="" className="absolute left-2 top-[-10px] z-20 w-35 opacity-90 animate-pulse" />
+                <img src={star2} alt="" className="absolute right-1 top-[-20px] z-20 w-55 opacity-90 animate-pulse" />
+                <img src={star3} alt="" className="absolute right-10 top-[-40px] z-20 w-35 opacity-90 animate-pulse" />
+                <img src={star4} alt="" className="absolute left-14 top-[-50px] z-20 w-25 opacity-90 animate-pulse"/>
 
-                <p className="mt-3 max-w-sm text-sm sm:text-base text-white/90">
-                  Karena setiap perasaanmu berharga. Mari rawat ketenanganmu hari ini
-                </p>
-
-                <img
-                  src={cloudMain}
-                  alt="Cloud"
-                  className="mt-4 h-[170px] w-[170px] object-contain animate-float sm:h-[220px] sm:w-[220px]"
-                />
+                <img src={calmLogo} alt="Calm" className="absolute top-[-130px] left-1/2 h-[490px] w-[490px] -translate-x-[55%] object-contain" />
               </div>
 
               {/* LOGIN CARD */}
               <div className="rounded-3xl border border-white/30 bg-[#d9ebf7]/95 p-6 shadow-xl backdrop-blur sm:p-8">
                 <h2 className="text-center text-2xl font-bold text-black sm:text-3xl">
-                  Selamat Datang Kembali
+                  Sign in to your Calm
                 </h2>
 
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
