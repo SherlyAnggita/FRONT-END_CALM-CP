@@ -27,13 +27,9 @@ const googleCalendarService = {
   },
 
   async disconnectGoogle() {
-    const response = await axios.post(
-      `${BASE_URL}/disconnect`,
-      {},
-      {
-        headers: getAuthHeaders(),
-      }
-    );
+    const response = await axios.delete(`${BASE_URL}/disconnect`, {
+      headers: getAuthHeaders(),
+    });
     return response.data;
   },
 
@@ -43,7 +39,7 @@ const googleCalendarService = {
       {},
       {
         headers: getAuthHeaders(),
-      }
+      },
     );
     return response.data;
   },
