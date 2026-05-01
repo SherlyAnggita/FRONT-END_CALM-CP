@@ -8,7 +8,7 @@ import {
 } from "../../../services/Admin/moodLabel";
 import toast from "react-hot-toast";
 import TambahMoodLabel from "./tambah";
-import UpdateMoodLabel from "./Update";
+import UpdateMoodLabel from "./update";
 import DeleteMoodLabel from "./delete";
 
 const DataTable = RDT.default?.default ?? RDT.default ?? RDT.DataTable;
