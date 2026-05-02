@@ -43,6 +43,13 @@ const googleCalendarService = {
     );
     return response.data;
   },
+
+  async getCalendarEvents() {
+    const response = await axios.get(`${BASE_URL}/calendar/events`, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  },
 };
 
 export default googleCalendarService;
