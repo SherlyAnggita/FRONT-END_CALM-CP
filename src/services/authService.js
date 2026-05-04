@@ -83,11 +83,10 @@ export async function refreshAccessToken() {
   return data;
 }
 
-// export function logoutUser() {
-//   tokenStorage.clearTokens();
-// }
 export async function logoutUser() {
   const refreshToken = tokenStorage.getRefreshToken();
+
+  tokenStorage.clearTokens();
   try {
     if (refreshToken) {
       await apiFetch("api/auth/logout", {
@@ -100,7 +99,7 @@ export async function logoutUser() {
     console.warn("Logout API gagal, tapi tetap clear token");
     // tetap lanjut hapus token walaupun gagal
   } finally {
-    tokenStorage.clearTokens();
+    window.location.href = "/login";
   }
 }
 
