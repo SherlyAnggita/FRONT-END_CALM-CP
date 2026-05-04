@@ -26,6 +26,23 @@ export async function registerUser(payload) {
   });
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+export async function getGoogleAccessToken() {
+  const response = await fetch(`${API_URL}/api/auth/google/access-token`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Gagal login dengan Google");
+  }
+
+  return data;
+}
+
 export async function getUserProfile() {
   const data = await apiFetch("api/users/profile", {
     method: "GET",

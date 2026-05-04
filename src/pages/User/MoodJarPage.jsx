@@ -262,7 +262,14 @@ export default function MoodJarPage() {
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <button
                     type="button"
-                    className="btn btn-primary btn-sm lg:hidden"
+                    className="
+                      lg:hidden
+                      w-full rounded-xl bg-[#49769F] py-3
+                      font-medium text-[#FFFFFF]
+                      shadow-md
+                      transition
+                      hover:bg-[#BDD8E9]
+                      active:scale-[0.98] "
                     onClick={() => setIsFormModalOpen(true)}
                   >
                     Tuliskan Perasaanmu

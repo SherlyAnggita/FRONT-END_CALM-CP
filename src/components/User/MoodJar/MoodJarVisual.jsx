@@ -52,7 +52,7 @@ export default function MoodJarVisual({
   onOpenHistory,
 }) {
   return (
-    <div className="overflow-hidden rounded-[32px] bg-[#5f87b3] px-5 pb-6 pt-5 shadow-lg sm:px-6">
+    <div className="overflow-hidden rounded-[32px] bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-5 pb-6 pt-5 shadow-lg sm:px-6">
       {/* header */}
       <motion.div
         className="relative mb-6 flex items-center justify-between gap-3 overflow-hidden rounded-xl"
@@ -103,7 +103,7 @@ export default function MoodJarVisual({
       </motion.div>
 
       {/* body visual */}
-      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-hidden rounded-[36px] bg-gradient-to-b from-[#5f87b3] via-[#6f99c2] to-[#dbe8f5] px-4 pb-8 pt-6">
+      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-hidden rounded-[24px] bg-transparent px-4 pb-7 pt-4">
         {/* bintang kedap-kedip */}
         {stars.map((s, i) => (
           <StarIcon
@@ -281,22 +281,62 @@ export default function MoodJarVisual({
           </div>
 
           {/* kertas dalam jar */}
-          <div className="absolute left-1/2 bottom-[18px] z-20 h-[200px] w-[130px] -translate-x-1/2 overflow-hidden">
-            {entries.slice(0, 12).map((entry, index) => (
-              <button
-                key={entry.id}
-                type="button"
-                onClick={() => onClickEntry(entry)}
-                style={getMoodPaperStyle(entry)}
-                className={`pointer-events-auto absolute ${
-                  paperPositions[index % paperPositions.length]
-                } w-12 rounded-md border border-white/40 bg-white/90 p-1 text-left shadow-md transition duration-300 hover:scale-105 hover:rotate-2`}
-              >
-                <p className="line-clamp-2 text-[8px] font-medium leading-tight text-slate-700">
-                  {entry.feelingText}
-                </p>
-              </button>
-            ))}
+          <div className="absolute left-1/2 bottom-[18px] z-20 h-[210px] w-[150px] -translate-x-1/2 overflow-hidden">
+            {entries.slice(0, 12).map((entry, index) => {
+              const positions = [
+                "left-[10px] top-[18px] rotate-[-14deg]",
+                "left-[62px] top-[8px] rotate-[18deg]",
+                "left-[34px] top-[50px] rotate-[-3deg]",
+                "left-[90px] top-[62px] rotate-[13deg]",
+                "left-[5px] top-[82px] rotate-[-18deg]",
+                "left-[52px] top-[94px] rotate-[8deg]",
+                "left-[20px] top-[130px] rotate-[14deg]",
+                "left-[82px] top-[124px] rotate-[-12deg]",
+                "left-[58px] top-[150px] rotate-[20deg]",
+                "left-[2px] top-[152px] rotate-[-8deg]",
+                "left-[98px] top-[30px] rotate-[-7deg]",
+                "left-[38px] top-[24px] rotate-[9deg]",
+              ];
+
+              return (
+                <motion.button
+                  key={entry.id}
+                  type="button"
+                  onClick={() => onClickEntry(entry)}
+                  style={getMoodPaperStyle(entry)}
+                  className={`
+                    pointer-events-auto absolute
+                    ${positions[index % positions.length]}
+                    h-[58px] w-[58px]
+                    rounded-[3px]
+                    border border-white/30
+                    p-2 text-left
+                    shadow-[0_6px_10px_rgba(40,80,120,0.18)]
+                    transition
+                    hover:z-30 hover:scale-110
+                  `}
+                  initial={{ opacity: 0, y: 18, scale: 0.85 }}
+                  animate={{
+                    opacity: 1,
+                    y: [0, -2, 0],
+                    scale: 1,
+                  }}
+                  transition={{
+                    opacity: { duration: 0.35, delay: index * 0.04 },
+                    scale: { duration: 0.35, delay: index * 0.04 },
+                    y: {
+                      duration: 3 + index * 0.15,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                >
+                  <p className="line-clamp-3 text-[7px] font-semibold leading-[1.15] text-slate-700">
+                    {entry.feelingText}
+                  </p>
+                </motion.button>
+              );
+            })}
           </div>
         </motion.div>
       </div>
