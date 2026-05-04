@@ -45,6 +45,12 @@ export default function LoginPage() {
     }));
   }
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  function handleGoogleLogin() {
+    window.location.href = `${API_URL}/api/auth/google/login`;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -174,6 +180,8 @@ export default function LoginPage() {
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-[#04264d]"
+
+                        
                       >
                         {showPassword ? (
                           <AiOutlineEyeInvisible size={22} />
@@ -181,6 +189,12 @@ export default function LoginPage() {
                           <AiOutlineEye size={22} />
                         )}
                       </button>
+                    </div>
+
+                     <div className="mt-2 text-right">
+                      <Link to="/forgot-password" className="text-sm text-[#04264d] hover:underline">
+                        Forgot Password?
+                      </Link>
                     </div>
                   </div>
 
@@ -207,6 +221,7 @@ export default function LoginPage() {
 
                 <button
                   type="button"
+                  onClick={handleGoogleLogin}
                   className="flex h-14 w-full items-center justify-center gap-3 rounded-full border border-white/50 bg-white/70 text-lg text-black shadow-sm transition hover:bg-white"
                 >
                   <FcGoogle size={24} />

@@ -362,35 +362,6 @@ export default function ProfilePage() {
                     placeholder="No Handphone"
                   />
 
-                  <h2 className="pt-2 text-base font-bold text-[#19445e] dark:text-white">
-                    Update Password
-                  </h2>
-
-                  <p className="mb-4 text-xs text-gray-500 dark:text-slate-300">
-                    Kosongkan jika tidak ingin mengganti password.
-                  </p>
-
-                  <div className="space-y-3">
-                    <PasswordInput
-                      label="New Password"
-                      name="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      show={showPassword}
-                      setShow={setShowPassword}
-                      placeholder="Password baru"
-                    />
-
-                    <PasswordInput
-                      label="Confirm Password"
-                      name="confirmPassword"
-                      value={form.confirmPassword}
-                      onChange={handleChange}
-                      show={showConfirmPassword}
-                      setShow={setShowConfirmPassword}
-                      placeholder="Konfirmasi password"
-                    />
-                  </div>
                 </div>
 
                 <div className="mt-6 flex justify-between gap-3">
