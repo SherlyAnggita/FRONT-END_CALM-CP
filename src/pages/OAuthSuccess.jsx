@@ -12,7 +12,7 @@ const OAuthSuccess = () => {
 
         localStorage.setItem("accessToken", result.accessToken);
 
-        navigate("/dashboard");
+        navigate("/user");
       } catch (error) {
         navigate("/login?error=google_failed");
       }

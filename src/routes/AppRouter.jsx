@@ -62,28 +62,51 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={ <GuestRoute> <LoginPage /> </GuestRoute> }/>
+        <Route
+          path="/login"
+          element={
+            <GuestRoute>
+              {" "}
+              <LoginPage />{" "}
+            </GuestRoute>
+          }
+        />
 
-        <Route path="/register" element={ <GuestRoute> <RegisterPage /> </GuestRoute> }/>
+        <Route
+          path="/register"
+          element={
+            <GuestRoute>
+              {" "}
+              <RegisterPage />{" "}
+            </GuestRoute>
+          }
+        />
 
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/oauth-success" element={<OAuthSuccess />} />
 
         <Route path="/" element={<Navigate to="/user" replace />} />
-        
 
         {/* halaman user */}
-        <Route path="/user" element={ <ProtectedRoute> <UserLayout /> </ProtectedRoute>  } >
-         
-         
-         
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <UserLayout />{" "}
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<HomePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="mood" element={<MoodJarPage />} />
           <Route path="calendar" element={<CalendarEventPage />} />
           <Route path="settings" element={<SettingPage />} />
-          <Route path="settings/change-password" element={<ChangePasswordPage />} />
+          <Route
+            path="settings/change-password"
+            element={<ChangePasswordPage />}
+          />
         </Route>
 
         {/* halaman admin */}
