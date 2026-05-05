@@ -10,8 +10,8 @@ import HomePage from "../pages/User/HomePage";
 import ProfilePage from "../pages/User/ProfilePage";
 import MoodJarPage from "../pages/User/MoodJarPage";
 import CalendarEventPage from "../pages/User/CalendarEventPage";
-import SettingPage from "../pages/User/Settings/SettingPage";
-import ChangePasswordPage from "../pages/User/Settings/ChangePasswordPage";
+import SettingPage from "../pages/User/settings/SettingPage";
+import ChangePasswordPage from "../pages/User/settings/ChangePasswordPage";
 
 import UserLayout from "../layouts/User/UserLayout";
 
