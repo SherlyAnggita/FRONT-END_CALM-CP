@@ -26,18 +26,19 @@ export async function registerUser(payload) {
   });
 }
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-
-export async function getGoogleAccessToken() {
-  const response = await fetch(`${API_URL}api/auth/google/access-token`, {
-    method: "GET",
-    credentials: "include",
+export async function exchangeGoogleCode(code) {
+  const data = await apiFetch("api/auth/google/exchange-code", {
+    method: "POST",
+    body: JSON.stringify({ code }),
   });
 
-  const data = await response.json();
+  tokenStorage.setTokens({
+    accessToken: data.accessToken,
+    refreshToken: data.refreshToken,
+  });
 
-  if (!response.ok) {
-    throw new Error(data.message || "Gagal login dengan Google");
+  if (data.data) {
+    tokenStorage.setUser(data.data);
   }
 
   return data;
