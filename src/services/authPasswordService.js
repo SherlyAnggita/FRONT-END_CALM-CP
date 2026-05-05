@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://api.calm-be.online/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL + "api";
 
 export async function forgotPassword(email) {
   const res = await fetch(`${API_BASE_URL}/auth/forgot-password`, {

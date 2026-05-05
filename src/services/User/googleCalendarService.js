@@ -2,7 +2,8 @@ import axios from "axios";
 import { tokenStorage } from "../../lib/token";
 import { logoutUser } from "../authService";
 
-const BASE_URL = "https://api.calm-be.online/api/google";
+// const BASE_URL = "https://api.calm-be.online/api/google";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL + "api/google";
 
 let isRedirectingToLogin = false;
 

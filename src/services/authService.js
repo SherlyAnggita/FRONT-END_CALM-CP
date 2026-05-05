@@ -26,10 +26,10 @@ export async function registerUser(payload) {
   });
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function getGoogleAccessToken() {
-  const response = await fetch(`${API_URL}/api/auth/google/access-token`, {
+  const response = await fetch(`${API_URL}api/auth/google/access-token`, {
     method: "GET",
     credentials: "include",
   });
