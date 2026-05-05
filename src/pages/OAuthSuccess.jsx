@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "../lib/api";
-import { tokenStorage } from "../lib/token";
+import { exchangeGoogleCode } from "../services/authService";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
@@ -16,19 +15,7 @@ const OAuthSuccess = () => {
           throw new Error("No OAuth code");
         }
 
-        const data = await apiFetch("api/auth/google/exchange-code", {
-          method: "POST",
-          body: JSON.stringify({ code }),
-        });
-
-        tokenStorage.setTokens({
-          accessToken: data.accessToken,
-          refreshToken: data.refreshToken,
-        });
-
-        if (data.data) {
-          tokenStorage.setUser(data.data);
-        }
+        await exchangeGoogleCode(code);
 
         navigate("/user", { replace: true });
       } catch (error) {
@@ -39,7 +26,21 @@ const OAuthSuccess = () => {
     handleGoogleSuccess();
   }, [navigate]);
 
-  return <p>Memproses login Google...</p>;
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#d8ecfb] px-4">
+      <div className="w-full max-w-sm rounded-3xl bg-white/80 p-8 text-center shadow-xl backdrop-blur">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+
+        <h1 className="mt-5 text-2xl font-bold text-slate-800">
+          Memproses Login Google
+        </h1>
+
+        <p className="mt-2 text-sm text-slate-600">
+          Tunggu sebentar, kami sedang menyiapkan akun kamu.
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default OAuthSuccess;
