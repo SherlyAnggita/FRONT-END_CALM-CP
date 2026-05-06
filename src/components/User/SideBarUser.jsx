@@ -64,7 +64,7 @@ export default function SideBarUser({ isCollapsed }) {
           {!isCollapsed && <span>Home</span>}
         </NavLink>
 
-        <NavLink to="/user/battery" className={navClass}>
+        <NavLink to="/user/social-battery" className={navClass}>
           <FiBattery size={18} />
           {!isCollapsed && <span>Social Battery</span>}
         </NavLink>
