@@ -9,7 +9,7 @@ import {
   FiActivity,
   FiUsers,
 } from "react-icons/fi";
-import { TbMoodNerd } from "react-icons/tb";
+import { TbBattery, TbMoodNerd } from "react-icons/tb";
 
 export default function SideBarAdmin({ isCollapsed }) {
   const navigate = useNavigate();
@@ -78,6 +78,10 @@ export default function SideBarAdmin({ isCollapsed }) {
         <NavLink to="/admin/mood-labels" className={navClass}>
           <TbMoodNerd size={18} />
           {!isCollapsed && <span>Mood Label</span>}
+        </NavLink>
+        <NavLink to="/admin/status-battery" className={navClass}>
+          <TbBattery size={18} />
+          {!isCollapsed && <span>Status Battery</span>}
         </NavLink>
       </nav>
 
