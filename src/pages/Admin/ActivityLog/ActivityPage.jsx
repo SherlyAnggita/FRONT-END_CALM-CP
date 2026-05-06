@@ -8,6 +8,7 @@ import {
 import { UAParser } from "ua-parser-js";
 import toast from "react-hot-toast";
 import { FaFileExcel, FaFilePdf } from "react-icons/fa";
+import ActivityActionMenu from "../../../components/Admin/ActivityLog/ActivityActionMenu";
 
 import "./activityTable.css";
 
@@ -28,6 +29,8 @@ export default function ActivityPage() {
 
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("desc");
+
+  const [openActionRowId, setOpenActionRowId] = useState(null);
 
   function formatDateTime(date) {
     if (!date) return "-";
@@ -130,6 +133,10 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
       .catch(() => {
         toast.error("Gagal menyalin data");
       });
+  }
+
+  function handleToggleActionMenu(rowId) {
+    setOpenActionRowId((prev) => (prev === rowId ? null : rowId));
   }
 
   function formatIP(ip) {
@@ -351,26 +358,24 @@ Waktu Kejadian: ${formatDateTime(row.createdAt)}
     {
       id: "aksi",
       name: "Aksi",
-      cell: (row) => (
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => handleCopy(row)}
-            className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
-          >
-            Copy
-          </button>
+      cell: (row) => {
+        const rowId = row.id || row._id || row.createdAt;
 
-          <button
-            onClick={() => handleExportPdf(row)}
-            disabled={pdfLoadingUserId === row.user?.id}
-            className="flex items-center gap-1 rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70"
-          >
-            <FaFilePdf size={14} />
-            {pdfLoadingUserId === row.user?.id ? "Loading..." : "PDF"}
-          </button>
-        </div>
-      ),
-    },
+        return (
+          <ActivityActionMenu
+            row={row}
+            rowId={rowId}
+            isOpen={openActionRowId === rowId}
+            isDark={isDark}
+            pdfLoadingUserId={pdfLoadingUserId}
+            onToggle={handleToggleActionMenu}
+            onCopy={handleCopy}
+            onExportPdf={handleExportPdf}
+            onClose={() => setOpenActionRowId(null)}
+          />
+        );
+      },
+    }
   ];
 
   const customStyles = {
