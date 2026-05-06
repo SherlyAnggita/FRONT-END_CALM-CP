@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getTodaySocialBattery,
   generateAiInsight,
-} from "../../services/user/socialBatteryService";
+} from "../../services/User/socialBatteryService";
 
 function SocialBatteryPage() {
   const [battery, setBattery] = useState(null);
