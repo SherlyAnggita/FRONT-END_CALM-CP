@@ -13,6 +13,7 @@ import CalendarEventPage from "../pages/User/CalendarEventPage";
 import SocialBatteryPage from "../pages/User/SocialBatteryPage";
 import SettingPage from "../pages/User/settings/SettingPage";
 import ChangePasswordPage from "../pages/User/settings/ChangePasswordPage";
+import SocialBatteryHistoryPage from "../pages/User/SocialBatteryHistoryPage";
 
 import UserLayout from "../layouts/User/UserLayout";
 
@@ -107,6 +108,7 @@ export default function AppRouter() {
           <Route path="mood" element={<MoodJarPage />} />
           <Route path="calendar" element={<CalendarEventPage />} />
           <Route path="social-battery" element={<SocialBatteryPage />} />
+          <Route  path="social-battery/history" element={<SocialBatteryHistoryPage />} />
           <Route path="settings" element={<SettingPage />} />
           <Route
             path="settings/change-password"
