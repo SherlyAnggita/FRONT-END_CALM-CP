@@ -6,7 +6,8 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 import OAuthSuccess from "../pages/OAuthSuccess";
 
 // halaman user
-import HomePage from "../pages/User/HomePage";
+// import HomePage from "../pages/User/HomePage";
+import DashboardUserPage from "../pages/User/DashboardUserPage";
 import ProfilePage from "../pages/User/ProfilePage";
 import MoodJarPage from "../pages/User/MoodJarPage";
 import CalendarEventPage from "../pages/User/CalendarEventPage";
@@ -102,7 +103,8 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<HomePage />} />
+          {/* <Route index element={<HomePage />} /> */}
+          <Route index element={<DashboardUserPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="mood" element={<MoodJarPage />} />
           <Route path="calendar" element={<CalendarEventPage />} />
