@@ -105,6 +105,7 @@ export function getStatusBatteryColumns({
     {
       name: "Aksi",
       width: "170px",
+      center: true,
       cell: (row) => (
         <StatusBatteryActionMenu
           row={row}

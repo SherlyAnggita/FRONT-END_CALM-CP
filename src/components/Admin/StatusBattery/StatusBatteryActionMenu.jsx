@@ -10,6 +10,18 @@ export default function StatusBatteryActionMenu({
   onDelete,
   onToggleActive,
 }) {
+  const buttonBaseStyle = {
+    padding: "8px 12px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontSize: "13px",
+    fontWeight: 700,
+    textAlign: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
   return (
     <div
       style={{
@@ -19,21 +31,18 @@ export default function StatusBatteryActionMenu({
         minWidth: "140px",
         paddingTop: "6px",
         paddingBottom: "6px",
+        alignItems: "center",
       }}
     >
       <button
         type="button"
         onClick={() => onToggle(row.id)}
         style={{
-          padding: "8px 12px",
-          borderRadius: "10px",
+          ...buttonBaseStyle,
+          width: "100%",
           border: `1px solid ${isDark ? "#334155" : "#d1d5db"}`,
-          cursor: "pointer",
           backgroundColor: isDark ? "#1e293b" : "#f8fafc",
           color: isDark ? "#f8fafc" : "#0f172a",
-          fontSize: "13px",
-          fontWeight: 700,
-          textAlign: "left",
         }}
       >
         {isOpen ? "Tutup Aksi" : "Aksi"}
@@ -58,15 +67,10 @@ export default function StatusBatteryActionMenu({
               type="button"
               onClick={() => onDetail(row)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "10px",
+                ...buttonBaseStyle,
                 border: "none",
-                cursor: "pointer",
-                backgroundColor: "#7c3aed",
+                backgroundColor: "#2563eb",
                 color: "#fff",
-                fontSize: "13px",
-                fontWeight: 700,
-                textAlign: "left",
               }}
             >
               Detail
@@ -76,15 +80,10 @@ export default function StatusBatteryActionMenu({
               type="button"
               onClick={() => onEdit(row)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "10px",
+                ...buttonBaseStyle,
                 border: "none",
-                cursor: "pointer",
                 backgroundColor: "#2563eb",
                 color: "#fff",
-                fontSize: "13px",
-                fontWeight: 700,
-                textAlign: "left",
               }}
             >
               Edit
@@ -94,15 +93,10 @@ export default function StatusBatteryActionMenu({
               type="button"
               onClick={() => onToggleActive(row)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "10px",
+                ...buttonBaseStyle,
                 border: "none",
-                cursor: "pointer",
                 backgroundColor: row.isActive ? "#64748b" : "#16a34a",
                 color: "#fff",
-                fontSize: "13px",
-                fontWeight: 700,
-                textAlign: "left",
               }}
             >
               {row.isActive ? "Nonaktifkan" : "Aktifkan"}
@@ -112,15 +106,10 @@ export default function StatusBatteryActionMenu({
               type="button"
               onClick={() => onDelete(row)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "10px",
+                ...buttonBaseStyle,
                 border: "none",
-                cursor: "pointer",
                 backgroundColor: "#ef4444",
                 color: "#fff",
-                fontSize: "13px",
-                fontWeight: 700,
-                textAlign: "left",
               }}
             >
               Hapus

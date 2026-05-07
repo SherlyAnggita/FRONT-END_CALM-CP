@@ -341,6 +341,7 @@ export default function StatusBatteryPage() {
         onClose={handleCloseDeleteModal}
         selectedStatusBattery={selectedStatusBattery}
         refetch={refetch}
+        colors={colors}
       />
     </div>
   );

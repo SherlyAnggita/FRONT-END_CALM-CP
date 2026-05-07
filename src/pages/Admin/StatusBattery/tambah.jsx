@@ -30,56 +30,56 @@ export default function TambahStatusBattery({
     }));
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const minScore = parseFloat(formData.minScore);
-  const maxScore = parseFloat(formData.maxScore);
+    const minScore = parseFloat(formData.minScore);
+    const maxScore = parseFloat(formData.maxScore);
 
-  if (minScore < 0 || minScore > 100) {
-    toast.error("Min Score harus di antara 0 sampai 100");
-    return;
-  }
+    if (minScore < 0 || minScore > 100) {
+      toast.error("Min Score harus di antara 0 sampai 100");
+      return;
+    }
 
-  if (maxScore < 0 || maxScore > 100) {
-    toast.error("Max Score harus di antara 0 sampai 100");
-    return;
-  }
+    if (maxScore < 0 || maxScore > 100) {
+      toast.error("Max Score harus di antara 0 sampai 100");
+      return;
+    }
 
-  if (minScore > maxScore) {
-    toast.error("Min Score tidak boleh lebih besar dari Max Score");
-    return;
-  }
+    if (minScore > maxScore) {
+      toast.error("Min Score tidak boleh lebih besar dari Max Score");
+      return;
+    }
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const payload = {
-      ...formData,
-      minScore,
-      maxScore,
-    };
+      const payload = {
+        ...formData,
+        minScore,
+        maxScore,
+      };
 
-    await createStatusBattery(payload);
+      await createStatusBattery(payload);
 
-    toast.success("Status battery berhasil ditambahkan");
+      toast.success("Status battery berhasil ditambahkan");
 
-    await refetch();
-    onClose();
+      await refetch();
+      onClose();
 
-    setFormData({
-      name: "",
-      description: "",
-      minScore: "",
-      maxScore: "",
-      color: "#2563eb",
-    });
-  } catch (err) {
-    toast.error(err?.message || "Gagal menambahkan status battery");
-  } finally {
-    setLoading(false);
-  }
-};
+      setFormData({
+        name: "",
+        description: "",
+        minScore: "",
+        maxScore: "",
+        color: "#2563eb",
+      });
+    } catch (err) {
+      toast.error(err?.message || "Gagal menambahkan status battery");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -121,28 +121,34 @@ export default function TambahStatusBattery({
             gap: "16px",
           }}
         >
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            style={inputStyle(colors)}
-          />
+          <div>
+            <label style={labelStyle(colors)}>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Masukkan name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              style={inputStyle(colors)}
+            />
+          </div>
 
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            rows={4}
-            style={{
-              ...inputStyle(colors),
-              resize: "none",
-            }}
-          />
+          <div>
+            <label style={labelStyle(colors)}>Description</label>
+            <textarea
+              name="description"
+              placeholder="Masukkan description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              rows={4}
+              style={{
+                ...inputStyle(colors),
+                resize: "none",
+              }}
+            />
+          </div>
 
           <div
             style={{
@@ -151,46 +157,55 @@ export default function TambahStatusBattery({
               gap: "12px",
             }}
           >
-            <input
-              type="number"
-              step="0.01"
-              name="minScore"
-              min="0"
-              max="100"
-              placeholder="Min Score"
-              value={formData.minScore}
-              onChange={handleChange}
-              required
-              style={inputStyle(colors)}
-            />
+            <div>
+              <label style={labelStyle(colors)}>Min Score</label>
+              <input
+                type="number"
+                step="0.01"
+                name="minScore"
+                min="0"
+                max="100"
+                placeholder="0"
+                value={formData.minScore}
+                onChange={handleChange}
+                required
+                style={inputStyle(colors)}
+              />
+            </div>
 
-            <input
-              type="number"
-              step="0.01"
-              name="maxScore"
-              min="0"
-              max="100"
-              placeholder="Max Score"
-              value={formData.maxScore}
-              onChange={handleChange}
-              required
-              style={inputStyle(colors)}
-            />
+            <div>
+              <label style={labelStyle(colors)}>Max Score</label>
+              <input
+                type="number"
+                step="0.01"
+                name="maxScore"
+                min="0"
+                max="100"
+                placeholder="100"
+                value={formData.maxScore}
+                onChange={handleChange}
+                required
+                style={inputStyle(colors)}
+              />
+            </div>
           </div>
 
-          <input
-            type="color"
-            name="color"
-            value={formData.color}
-            onChange={handleChange}
-            style={{
-              width: "80px",
-              height: "44px",
-              border: "none",
-              background: "transparent",
-              cursor: "pointer",
-            }}
-          />
+          <div>
+            <label style={labelStyle(colors)}>Color</label>
+            <input
+              type="color"
+              name="color"
+              value={formData.color}
+              onChange={handleChange}
+              style={{
+                width: "80px",
+                height: "44px",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+              }}
+            />
+          </div>
 
           <div
             style={{
@@ -222,9 +237,9 @@ export default function TambahStatusBattery({
                 padding: "10px 16px",
                 borderRadius: "10px",
                 border: "none",
-                backgroundColor: "#2563eb",
+                backgroundColor: loading ? "#9CA3AF" : "#2563eb",
                 color: "#fff",
-                cursor: "pointer",
+                cursor: loading ? "not-allowed" : "pointer",
                 fontWeight: 700,
               }}
             >
@@ -247,5 +262,16 @@ function inputStyle(colors) {
     color: colors.textPrimary,
     fontSize: "14px",
     outline: "none",
+    boxSizing: "border-box",
+  };
+}
+
+function labelStyle(colors) {
+  return {
+    display: "block",
+    marginBottom: "8px",
+    color: colors.textPrimary,
+    fontSize: "14px",
+    fontWeight: 600,
   };
 }

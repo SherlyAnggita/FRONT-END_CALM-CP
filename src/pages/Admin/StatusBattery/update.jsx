@@ -112,26 +112,110 @@ export default function UpdateStatusBattery({
           Update Status Battery
         </h2>
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          <input name="name" value={formData.name} onChange={handleChange} required style={inputStyle(colors)} />
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+        >
+          <div>
+            <label style={labelStyle(colors)}>
+              Name
+            </label>
 
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            rows={4}
-            style={{ ...inputStyle(colors), resize: "none" }}
-          />
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            <input type="number" step="0.01" name="minScore" min="0" max="100" value={formData.minScore} onChange={handleChange} required style={inputStyle(colors)} />
-            <input type="number" step="0.01" name="maxScore" min="0" max="100" value={formData.maxScore} onChange={handleChange} required style={inputStyle(colors)} />
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              style={inputStyle(colors)}
+            />
           </div>
 
-          <input type="color" name="color" value={formData.color} onChange={handleChange} />
+          <div>
+            <label style={labelStyle(colors)}>
+              Description
+            </label>
 
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              rows={4}
+              style={{
+                ...inputStyle(colors),
+                resize: "none",
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "12px",
+            }}
+          >
+            <div>
+              <label style={labelStyle(colors)}>
+                Min Score
+              </label>
+
+              <input
+                type="number"
+                step="0.01"
+                name="minScore"
+                min="0"
+                max="100"
+                value={formData.minScore}
+                onChange={handleChange}
+                required
+                style={inputStyle(colors)}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle(colors)}>
+                Max Score
+              </label>
+
+              <input
+                type="number"
+                step="0.01"
+                name="maxScore"
+                min="0"
+                max="100"
+                value={formData.maxScore}
+                onChange={handleChange}
+                required
+                style={inputStyle(colors)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label style={labelStyle(colors)}>
+              Color
+            </label>
+
+            <input
+              type="color"
+              name="color"
+              value={formData.color}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: "10px",
+            }}
+          >
             <button
               type="button"
               onClick={onClose}
@@ -146,16 +230,21 @@ export default function UpdateStatusBattery({
             >
               Batal
             </button>
-            <button type="submit" disabled={loading} style={{
-              padding: "10px 16px",
-              borderRadius: "10px",
-              border: "none",
-              cursor: "pointer",
-              backgroundColor: "#2563eb",
-              color: "#fff",
-              fontWeight: 700,
-              fontSize: "14px",
-            }}>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                padding: "10px 16px",
+                borderRadius: "10px",
+                border: "none",
+                cursor: "pointer",
+                backgroundColor: "#2563eb",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: "14px",
+              }}
+            >
               {loading ? "Loading..." : "Update"}
             </button>
           </div>
@@ -164,6 +253,7 @@ export default function UpdateStatusBattery({
     </div>
   );
 }
+
 
 function inputStyle(colors) {
   return {
@@ -177,3 +267,13 @@ function inputStyle(colors) {
     outline: "none",
   };
 }
+
+    function labelStyle(colors) {
+    return {
+      display: "block",
+      marginBottom: "8px",
+      color: colors.textPrimary,
+      fontSize: "14px",
+      fontWeight: 600,
+    };
+  }
