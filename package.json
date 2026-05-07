@@ -26,6 +26,8 @@
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.6.0",
     "react-router-dom": "^7.14.0",
+    "recharts": "^3.8.1",
+    "socket.io-client": "^4.8.3",
     "styled-components": "^6.4.0",
     "ua-parser-js": "^2.0.9",
     "xlsx": "^0.18.5"
