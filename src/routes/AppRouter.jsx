@@ -18,7 +18,8 @@ import UserLayout from "../layouts/User/UserLayout";
 
 // halaman admin
 import AdminRoute from "../routes/AdminRoute";
-import AdminHomePage from "../pages/Admin/AdminHomePage";
+// import AdminHomePage from "../pages/Admin/AdminHomePage";
+import DashboardPage from "../pages/Admin/DashboardAdmin/index";
 import ActivityPage from "../pages/Admin/ActivityLog/ActivityPage";
 import MoodLabelPage from "../pages/Admin/MoodLabel/index";
 import UsersPage from "../pages/Admin/Users/index";
@@ -122,14 +123,17 @@ export default function AppRouter() {
             </AdminRoute>
           }
         >
-          <Route index element={<AdminHomePage />} />
+          <Route index element={<DashboardPage />} />
           <Route path="activity" element={<ActivityPage />} />
           <Route path="mood-labels" element={<MoodLabelPage />} />
           <Route path="profile" element={<AdminProfilePage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="users/:id" element={<UserDetailPage />} />
-          <Route path="status-battery" element={<StatusBatteryPage />}/>
-          <Route path="status-battery/:id" element={<StatusBatteryDetailPage />} />
+          <Route path="status-battery" element={<StatusBatteryPage />} />
+          <Route
+            path="status-battery/:id"
+            element={<StatusBatteryDetailPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
