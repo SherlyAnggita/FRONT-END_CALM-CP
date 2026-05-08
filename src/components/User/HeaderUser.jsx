@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getCurrentUser } from "../../services/authService";
 import { FiMenu, FiBell } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 export default function HeaderUser({ toggleSidebar }) {
   const user = getCurrentUser();
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const profileDropdownRef = useRef(null);
+
+   const closeProfileDropdown = () => {
+    profileDropdownRef.current?.removeAttribute("open");
+  };
 
   const notifications = [
     {
@@ -123,21 +128,39 @@ export default function HeaderUser({ toggleSidebar }) {
             </div>
           </div>
 
-          <Link to="/user/profile" className="avatar">
-            <div className="w-10 rounded-full overflow-hidden bg-primary text-primary-content transition hover:scale-105">
-              {profilePhoto ? (
-                <img
-                  src={profilePhoto}
-                  alt="Profile"
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="flex h-full w-full items-center justify-center text-sm font-medium">
-                  {(user?.username || user?.email || "U").charAt(0).toUpperCase()}
-                </span>
-              )}
-            </div>
-          </Link>
+          <details ref={profileDropdownRef} className="dropdown dropdown-end">
+            <summary className="list-none cursor-pointer avatar transition hover:scale-105">
+              <div className="w-10 rounded-full overflow-hidden bg-primary text-primary-content">
+                {profilePhoto ? (
+                  <img
+                    src={profilePhoto}
+                    alt="Profile"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="flex h-full w-full items-center justify-center text-sm font-medium">
+                    {(user?.username || user?.email || "U")
+                      .charAt(0)
+                      .toUpperCase()}
+                  </span>
+                )}
+              </div>
+            </summary>
+
+            <ul className="menu dropdown-content z-[1] mt-3 w-48 rounded-xl bg-base-100 p-2 shadow-lg">
+              <li>
+                <Link to="/user/profile" onClick={closeProfileDropdown}>
+                  Edit Profile
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/user/settings" onClick={closeProfileDropdown}>
+                  Settings
+                </Link>
+              </li>
+            </ul>
+          </details>
         </div>
       </div>
     </header>

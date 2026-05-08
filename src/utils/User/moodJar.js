@@ -42,8 +42,22 @@ export function getPaperPositions() {
   ];
 }
 export function getMoodPaperStyle(entry) {
+  const pastelColors = [
+    "#d3acae", 
+    "#5bb499", 
+    "#9fa5d1", 
+    "#FFF1C1", 
+    "#FAD2E1", 
+    "#CDEAC0", 
+    "#BDE0FE", 
+  ];
+
+  const id = Number(entry?.id) || 0;
+  const fallbackColor = pastelColors[id % pastelColors.length];
+
   return {
-    backgroundColor: entry?.moodLabel?.paperColor || "#ffffff",
+    backgroundColor: entry?.moodLabel?.paperColor || fallbackColor,
+    borderColor: "rgba(255, 255, 255, 0.6)",
   };
 }
 
