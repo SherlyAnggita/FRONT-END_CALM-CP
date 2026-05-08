@@ -20,39 +20,36 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-base-200">
-      <div className="flex min-h-screen overflow-x-hidden">
-        {/* Sidebar desktop */}
+    <div className="h-screen overflow-hidden bg-base-200">
+      <div className="flex h-full overflow-hidden">
         <aside
-          className={`fixed top-0 left-0 z-40 hidden h-screen border-r border-base-300 bg-base-100 shadow-sm transition-all duration-300 md:block ${
+          className={`fixed left-0 top-0 z-40 hidden h-screen border-r border-base-300 bg-base-100 shadow-sm transition-all duration-300 md:block ${
             isCollapsed ? "w-20" : "w-64"
           }`}
         >
           <SideBarAdmin isCollapsed={isCollapsed} />
         </aside>
 
-        {/* Sidebar mobile overlay */}
         {isMobileSidebarOpen && (
           <>
             <div
               className="fixed inset-0 z-40 bg-black/40 md:hidden"
               onClick={handleCloseMobileSidebar}
             />
-            <aside className="fixed top-0 left-0 z-50 h-screen w-64 border-r border-base-300 bg-base-100 shadow-sm md:hidden">
+            <aside className="fixed left-0 top-0 z-50 h-screen w-64 border-r border-base-300 bg-base-100 shadow-sm md:hidden">
               <SideBarAdmin isCollapsed={false} />
             </aside>
           </>
         )}
 
-        {/* Main content */}
         <div
-          className={`flex min-h-screen min-w-0 flex-1 flex-col overflow-x-hidden transition-all duration-300 ${
+          className={`flex h-full min-w-0 flex-1 flex-col overflow-hidden transition-all duration-300 ${
             isCollapsed ? "md:ml-20" : "md:ml-64"
           }`}
         >
           <HeaderAdmin toggleSidebar={handleToggleSidebar} />
 
-          <main className="min-w-0 flex-1 overflow-x-hidden p-4 pb-24 md:p-6 md:pb-6">
+          <main className="min-w-0 flex-1 overflow-y-auto overflow-x-hidden p-4 pb-24 md:p-6 md:pb-6">
             <Outlet />
           </main>
         </div>

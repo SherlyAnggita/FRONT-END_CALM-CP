@@ -28,6 +28,8 @@ import UserDetailPage from "../pages/Admin/Users/detail";
 import AdminProfilePage from "../pages/Admin/AdminProfilePage";
 import StatusBatteryPage from "../pages/Admin/StatusBattery/index";
 import StatusBatteryDetailPage from "../pages/Admin/StatusBattery/detail";
+import MoodEntryPage from "../pages/Admin/MoodEntry/index";
+import MoodEntryDetailPage from "../pages/Admin/MoodEntry/detail";
 
 import AdminLayout from "../layouts/Admin/AdminLayout";
 
@@ -136,6 +138,8 @@ export default function AppRouter() {
             path="status-battery/:id"
             element={<StatusBatteryDetailPage />}
           />
+          <Route path="mood-entries" element={<MoodEntryPage />} />
+          <Route path="mood-entries/:id" element={<MoodEntryDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -8,6 +8,7 @@ import {
   FiSettings,
   FiActivity,
   FiUsers,
+  FiHeart,
 } from "react-icons/fi";
 import { TbBattery, TbMoodNerd } from "react-icons/tb";
 
@@ -22,9 +23,9 @@ export default function SideBarAdmin({ isCollapsed }) {
     } ${isActive ? "bg-primary text-primary-content" : "hover:bg-base-200"}`;
 
   async function handleLogout() {
-  await logoutUser();
-  navigate("/login", { replace: true });
-}
+    await logoutUser();
+    navigate("/login", { replace: true });
+  }
 
   return (
     <div className="flex h-full flex-col p-3">
@@ -71,6 +72,11 @@ export default function SideBarAdmin({ isCollapsed }) {
           {!isCollapsed && <span>Activity</span>}
         </NavLink>
 
+        <NavLink to="/admin/mood-entries" className={navClass}>
+          <FiHeart size={18} />
+          {!isCollapsed && <span>Mood Entries</span>}
+        </NavLink>
+
         <NavLink to="/admin/users" className={navClass}>
           <FiUsers size={18} />
           {!isCollapsed && <span>Users</span>}
@@ -97,9 +103,19 @@ export default function SideBarAdmin({ isCollapsed }) {
           {!isCollapsed && <span>Settings</span>}
         </NavLink>
 
-        <button
+        {/* <button
           onClick={() => setShowLogoutModal(true)}
           className={`flex w-full items-center px-3 py-2 text-red-500 hover:bg-base-200 rounded-lg ${
+            isCollapsed ? "justify-center" : "gap-3"
+          }`}
+        >
+          <FiLogOut size={18} />
+          {!isCollapsed && <span>Logout</span>}
+        </button> */}
+        <button
+          type="button"
+          onClick={() => setShowLogoutModal(true)}
+          className={`flex w-full items-center rounded-lg px-3 py-2 text-error transition-all duration-200 hover:bg-error/10 active:scale-[0.98] ${
             isCollapsed ? "justify-center" : "gap-3"
           }`}
         >
@@ -109,7 +125,7 @@ export default function SideBarAdmin({ isCollapsed }) {
       </div>
 
       {/* MODAL */}
-      {showLogoutModal && (
+      {/* {showLogoutModal && (
         <div className="modal modal-open">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Yakin ingin logout?</h3>
@@ -136,6 +152,41 @@ export default function SideBarAdmin({ isCollapsed }) {
               </button>
             </div>
           </div>
+        </div>
+      )} */}
+      {showLogoutModal && (
+        <div className="modal modal-open">
+          <div className="modal-box animate-[fadeIn_0.15s_ease-out]">
+            <h3 className="text-lg font-bold">Yakin ingin logout?</h3>
+            <p className="py-3 text-sm opacity-70">
+              Kamu akan keluar dari akun ini.
+            </p>
+
+            <div className="modal-action">
+              <button
+                className="btn btn-ghost"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Batal
+              </button>
+
+              <button
+                className="btn btn-error"
+                onClick={() => {
+                  setShowLogoutModal(false);
+                  handleLogout();
+                }}
+              >
+                <FiLogOut size={16} />
+                Logout
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="modal-backdrop"
+            onClick={() => setShowLogoutModal(false)}
+          />
         </div>
       )}
     </div>
