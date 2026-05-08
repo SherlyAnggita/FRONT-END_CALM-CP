@@ -305,15 +305,15 @@ export default function MoodJarVisual({
                   onClick={() => onClickEntry(entry)}
                   style={getMoodPaperStyle(entry)}
                   className={`
-                    pointer-events-auto absolute
-                    ${positions[index % positions.length]}
-                    h-[58px] w-[58px]
-                    rounded-[3px]
-                    border border-white/30
-                    p-2 text-left
-                    shadow-[0_6px_10px_rgba(40,80,120,0.18)]
-                    transition
-                    hover:z-30 hover:scale-110
+                      pointer-events-auto absolute
+                      ${positions[index % positions.length]}
+                      h-[58px] w-[58px]
+                      rounded-[3px]
+                      border border-white/60
+                      p-2 text-left
+                      shadow-[0_6px_10px_rgba(40,80,120,0.18)]
+                      transition
+                      hover:z-30 hover:scale-110
                   `}
                   initial={{ opacity: 0, y: 18, scale: 0.85 }}
                   animate={{
@@ -331,7 +331,7 @@ export default function MoodJarVisual({
                     },
                   }}
                 >
-                  <p className="line-clamp-3 text-[7px] font-semibold leading-[1.15] text-slate-700">
+                  <p className="line-clamp-3 text-[7px] font-semibold leading-[1.15] text-black">
                     {entry.feelingText}
                   </p>
                 </motion.button>

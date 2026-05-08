@@ -12,13 +12,13 @@ export default function MoodJarModal({ open, title, onClose, children }) {
       >
         <div className="flex items-center justify-between border-b border-base-200 px-5 py-4">
           <h3 className="text-lg font-bold text-base-content">{title}</h3>
-          {/* <button
+          <button
             type="button"
             className="btn btn-sm btn-ghost"
             onClick={onClose}
           >
             ✕
-          </button> */}
+          </button>
         </div>
 
         <div className="max-h-[calc(100vh-11rem)] overflow-y-auto p-5 text-base-content sm:max-h-[calc(85vh-72px)]">

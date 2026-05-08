@@ -8,10 +8,11 @@ export default function MoodJarHistory({
   onPrevPage,
   onNextPage,
   loading,
+  onClose,
 }) {
   if (loading) {
     return (
-      <div className="rounded-xl bg-base-200 p-6 text-center text-base-content/70">
+      <div className="rounded-2xl bg-[#f8f6f2] p-6 text-center text-[#7b7280] shadow-sm">
         Loading history mood...
       </div>
     );
@@ -19,43 +20,45 @@ export default function MoodJarHistory({
 
   if (!entries.length) {
     return (
-      <div className="rounded-xl bg-base-200 p-6 text-center text-base-content/70">
+      <div className="rounded-2xl bg-[#f8f6f2] p-6 text-center text-[#7b7280] shadow-sm">
         Belum ada history mood.
       </div>
     );
   }
 
   return (
-    <div className="space-y-4 pb-2">
+    <div className="relative space-y-4 pb-2">
       {entries.map((entry) => (
         <button
           key={entry.id}
           type="button"
           onClick={() => onClickEntry(entry)}
-          style={getMoodPaperStyle(entry)}
-          className="w-full rounded-xl border border-base-300 p-4 text-left text-slate-800 transition hover:brightness-95"
+          className="w-full rounded-[24px] border border-[#0a4174] bg-[#ffffff] p-5 text-left shadow-sm transition-all duration-300 hover:shadow-md"
         >
-          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <div className="badge badge-primary badge-outline">
-              {entry.moodLabel?.emoji ? `${entry.moodLabel.emoji} ` : ""}
-              {entry.moodLabel?.name || "Mood"}
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-m font-medium text-[#6d5ba3] backdrop-blur-sm">
+              <span>{entry.moodLabel?.emoji || "🙂"}</span>
+              <span>{entry.moodLabel?.name || "Mood"}</span>
             </div>
 
-            <p className="text-sm text-slate-500">
+            <p className="w-fit rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-[#7c7285]">
               {formatMoodDate(entry.entryDate)}
             </p>
           </div>
 
-          <p className="mb-3 text-sm leading-relaxed text-slate-700">
-            {entry.feelingText}
-          </p>
+          <div className="rounded-2xl border border-[#0a4174] bg-[#ffffff]  p-4 backdrop-blur-sm">
+            <p className="text-sm leading-relaxed text-[#51465a]">
+              {entry.feelingText}
+            </p>
+          </div>
 
           {entry.encouragementResult?.supportMessage && (
-            <div className="rounded-lg bg-slate-900 p-3 text-white">
-              <p className="text-xs font-semibold uppercase tracking-wide text-white/60">
+            <div className="mt-4 rounded-2xl bg-[#3f4d67]/95 p-4 text-white shadow-sm">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60">
                 Support Message
               </p>
-              <p className="mt-1 text-sm text-white">
+
+              <p className="mt-2 text-sm leading-relaxed text-white/95">
                 {entry.encouragementResult.supportMessage}
               </p>
             </div>
@@ -63,23 +66,24 @@ export default function MoodJarHistory({
         </button>
       ))}
 
-      <div className="flex items-center justify-between border-t border-base-200 pt-4">
+      <div className="sticky bottom-0 flex items-center justify-between rounded-t-2xl border-t border-white/40 bg-[#faf8f5]/95 pt-4 backdrop-blur">
         <button
           type="button"
-          className="btn btn-outline btn-sm"
+          className="btn btn-sm border-none bg-white/70 text-[#6d5ba3] shadow-sm hover:bg-white"
           onClick={onPrevPage}
           disabled={!pagination?.hasPreviousPage}
         >
           Prev
         </button>
 
-        <p className="text-sm text-base-content/70">
-          Halaman {pagination?.page || 1} dari {pagination?.totalPages || 1}
+        <p className="text-sm font-medium text-[#7c7285]">
+          Halaman {pagination?.page || 1} dari{" "}
+          {pagination?.totalPages || 1}
         </p>
 
         <button
           type="button"
-          className="btn btn-outline btn-sm"
+          className="btn btn-sm border-none bg-white/70 text-[#6d5ba3] shadow-sm hover:bg-white"
           onClick={onNextPage}
           disabled={!pagination?.hasNextPage}
         >

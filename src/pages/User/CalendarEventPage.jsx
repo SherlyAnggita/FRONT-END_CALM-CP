@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FiCloud, FiCalendar } from "react-icons/fi";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import googleCalendarService from "../../services/User/googleCalendarService";
+import CalendarEventVisual from "../../components/User/Calendar/CalendarEventVisual";
+import UpcomingEventsCard from "../../components/User/Calendar/UpcomingEventsCard";
 
 export default function CalendarEventPage() {
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [eventsLoading, setEventsLoading] = useState(false);
   const [calendarEvents, setCalendarEvents] = useState([]);
+  const [showGoogleInfo, setShowGoogleInfo] = useState(false);
 
   const [googleStatus, setGoogleStatus] = useState({
     connected: false,
@@ -66,6 +65,11 @@ export default function CalendarEventPage() {
 
       if (response.success && response.data) {
         setGoogleStatus(response.data);
+        setShowGoogleInfo(true);
+
+        setTimeout(() => {
+          setShowGoogleInfo(false);
+        }, 5000);
 
         if (response.data.connected) {
           await fetchCalendarEvents();
@@ -246,19 +250,54 @@ export default function CalendarEventPage() {
           Social Battery.
         </p>
 
-        {googleStatus.connected && (
-          <div className="mt-4 rounded-2xl bg-white/60 px-4 py-3 text-sm text-slate-700 dark:bg-slate-700/70 dark:text-slate-200">
-            Connected at{" "}
-            <span className="font-semibold">
-              {googleStatus.connectedAt
-                ? new Date(googleStatus.connectedAt).toLocaleString("id-ID", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                  })
-                : "-"}
-            </span>
+        {googleStatus.connected && showGoogleInfo && (
+          <div className="mt-4 rounded-2xl bg-white/70 p-4 text-sm text-slate-700 shadow-sm">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <p className="text-xs text-slate-500">Google Email</p>
+                <p className="font-semibold">
+                  {googleStatus.googleEmail || "-"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-slate-500">Connected At</p>
+                <p className="font-semibold">
+                  {googleStatus.connectedAt
+                    ? new Date(googleStatus.connectedAt).toLocaleString("id-ID", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })
+                    : "-"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-slate-500">Last Updated</p>
+                <p className="font-semibold">
+                  {googleStatus.updatedAt
+                    ? new Date(googleStatus.updatedAt).toLocaleString("id-ID", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })
+                    : "-"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-slate-500">Token Expiry</p>
+                <p className="font-semibold">
+                  {googleStatus.tokenExpiry
+                    ? new Date(googleStatus.tokenExpiry).toLocaleString("id-ID", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })
+                    : "-"}
+                </p>
+              </div>
+            </div>
           </div>
-        )}
+)}
 
         {syncMessage && (
           <div className="mt-4 rounded-2xl bg-white/70 px-4 py-3 text-sm text-slate-700 shadow-sm dark:bg-slate-700/80 dark:text-slate-200">
@@ -268,68 +307,16 @@ export default function CalendarEventPage() {
       </div>
 
       {googleStatus.connected && (
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_260px]">
-          <div className="rounded-2xl bg-white p-4 shadow-md dark:bg-slate-800">
-            <div className="mb-4 flex items-center gap-2">
-              <FiCalendar className="text-slate-500 dark:text-slate-300" />
-              <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-                Calendar Events
-              </h2>
-            </div>
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
 
-            {eventsLoading ? (
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Loading calendar events...
-              </p>
-            ) : (
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="timeGridWeek"
-                events={fullCalendarEvents}
-                height="650px"
-                nowIndicator={true}
-                allDaySlot={true}
-                slotMinTime="06:00:00"
-                slotMaxTime="24:00:00"
-                headerToolbar={{
-                  left: "prev,next today",
-                  center: "title",
-                  right: "dayGridMonth,timeGridWeek,timeGridDay",
-                }}
-              />
-            )}
-          </div>
+          <CalendarEventVisual
+            fullCalendarEvents={fullCalendarEvents}
+            eventsLoading={eventsLoading}
+          />
 
-          <div className="rounded-2xl bg-sky-700/70 p-4 text-white shadow-md">
-            <h3 className="mb-3 text-lg font-semibold">May 2026</h3>
-
-            <p className="text-sm">Total Events: {calendarEvents.length}</p>
-
-            <div className="mt-4 space-y-2">
-              {calendarEvents.length === 0 ? (
-                <p className="text-sm text-white/80">
-                  Belum ada event calendar yang ditemukan.
-                </p>
-              ) : (
-                calendarEvents.slice(0, 5).map((event) => (
-                  <div
-                    key={event.id}
-                    className="rounded-xl bg-white/90 p-3 text-sm text-slate-700"
-                  >
-                    <p className="font-semibold">
-                      {event.summary || event.title || "Untitled Event"}
-                    </p>
-                    <p className="text-xs">
-                      {event.startTime ||
-                        event.start?.dateTime ||
-                        event.start?.date ||
-                        "-"}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
+          <UpcomingEventsCard 
+            calendarEvents={calendarEvents}
+          />
         </div>
       )}
     </div>
