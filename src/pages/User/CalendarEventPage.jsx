@@ -161,7 +161,7 @@ export default function CalendarEventPage() {
   }, []);
 
   return (
-    <div className="w-full p-6">
+  <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
       <div className="rounded-[28px] border border-sky-200 bg-sky-100/80 p-6 shadow-md transition-colors dark:border-slate-700 dark:bg-slate-800/90 dark:shadow-slate-900/30">
         <div className="mb-4 flex items-center gap-2">
           <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">
@@ -307,8 +307,7 @@ export default function CalendarEventPage() {
       </div>
 
       {googleStatus.connected && (
-        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
-
+     <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
           <CalendarEventVisual
             fullCalendarEvents={fullCalendarEvents}
             eventsLoading={eventsLoading}

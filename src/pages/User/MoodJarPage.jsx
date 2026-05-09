@@ -81,6 +81,21 @@ export default function MoodJarPage() {
     }
   }
 
+  function getReadableTextColor(style) {
+  const color = style?.backgroundColor || style?.background || "#ffffff";
+  const hex = color.replace("#", "");
+
+  if (hex.length !== 6) return "#111827";
+
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  return brightness < 140 ? "#ffffff" : "#111827";
+}
+
   async function fetchHistory(page = 1) {
     try {
       setHistoryLoading(true);
@@ -249,16 +264,7 @@ export default function MoodJarPage() {
             />
 
             <div className="rounded-2xl bg-base-100 p-4 shadow">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-base-content/60">
-                    Total history
-                  </span>
-                  <span className="badge badge-primary badge-lg">
-                    {historyPagination.totalItems}
-                  </span>
-                </div>
-
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">              
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <button
                     type="button"
@@ -350,31 +356,35 @@ export default function MoodJarPage() {
               {formatMoodDate(selectedEntry.entryDate)}
             </p>
 
-            <div
-              className="mt-4 rounded-lg border border-base-300 p-4 text-slate-800"
-              style={getMoodPaperStyle(selectedEntry)}
-            >
-              <p className="text-sm leading-relaxed text-slate-700">
-                {selectedEntry.feelingText}
-              </p>
-            </div>
+            {(() => {
+            const paperStyle = getMoodPaperStyle(selectedEntry);
+            const textColor = getReadableTextColor(paperStyle);
+
+            return (
+              <div
+                className="mt-4 rounded-lg border border-base-300 p-4"
+                style={{
+                  ...paperStyle,
+                  color: textColor,
+                }}
+              >
+                <p className="text-sm leading-relaxed font-medium">
+                  {selectedEntry.feelingText}
+                </p>
+              </div>
+            );
+          })()}
 
             {selectedEntry.encouragementResult?.supportMessage && (
-              <div className="mt-4 rounded-lg bg-slate-900 p-4 text-white">
-                <p className="text-xs font-semibold uppercase tracking-wide text-white/60">
+               <div className="mt-4 rounded-2xl bg-[#d8dfe8]/95 p-4 text-black shadow-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-black/60">
                   Support Message
                 </p>
-                <p className="mt-1 text-sm text-white">
+                <p className="mt-2 text-sm leading-relaxed text-black/95">
                   {selectedEntry.encouragementResult.supportMessage}
                 </p>
               </div>
-            )}
-
-            <div className="mt-6 flex justify-end">
-              <button type="button" className="btn" onClick={handleCloseDetail}>
-                Tutup
-              </button>
-            </div>
+              )}
           </div>
         )}
       </MoodJarModal>

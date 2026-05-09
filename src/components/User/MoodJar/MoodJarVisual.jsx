@@ -16,6 +16,21 @@ const stars = [
   { left: "30%", top: "18%", size: 8, delay: 0.3 },
 ];
 
+function getReadableTextColor(style) {
+  const color = style?.backgroundColor || style?.background || "#ffffff";
+  const hex = color.replace("#", "");
+
+  if (hex.length !== 6) return "#111827";
+
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  return brightness < 140 ? "#ffffff" : "#111827";
+}
+
 function StarIcon({ size, style, delay }) {
   return (
     <motion.svg
@@ -60,7 +75,6 @@ export default function MoodJarVisual({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        {/* 🌟 bintang */}
         {stars.map((s, i) => (
           <StarIcon
             key={`header-${i}`}
@@ -70,7 +84,6 @@ export default function MoodJarVisual({
           />
         ))}
 
-        {/* ☁️ cloud kiri */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -79,7 +92,6 @@ export default function MoodJarVisual({
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ☁️ cloud kanan */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -88,7 +100,6 @@ export default function MoodJarVisual({
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* CONTENT (harus di atas dekorasi) */}
         <div className="relative z-10 flex w-full items-center justify-between">
           <h2 className="text-2xl font-bold text-white">Jar of Feelings</h2>
 
@@ -104,7 +115,6 @@ export default function MoodJarVisual({
 
       {/* body visual */}
       <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-hidden rounded-[24px] bg-transparent px-4 pb-7 pt-4">
-        {/* bintang kedap-kedip */}
         {stars.map((s, i) => (
           <StarIcon
             key={i}
@@ -114,7 +124,6 @@ export default function MoodJarVisual({
           />
         ))}
 
-        {/* cloud kiri bawah */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -134,7 +143,6 @@ export default function MoodJarVisual({
           }}
         />
 
-        {/* cloud tengah bawah */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -151,7 +159,6 @@ export default function MoodJarVisual({
           }}
         />
 
-        {/* cloud kanan bawah */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -171,7 +178,6 @@ export default function MoodJarVisual({
           }}
         />
 
-        {/* cloud diagonal kiri tengah */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -188,7 +194,6 @@ export default function MoodJarVisual({
           }}
         />
 
-        {/* cloud diagonal kanan tengah */}
         <motion.img
           src={cloudSmall1}
           alt=""
@@ -212,15 +217,11 @@ export default function MoodJarVisual({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
         >
-          {/* tutup */}
           <div className="absolute left-1/2 top-[18px] z-30 h-[44px] w-[118px] -translate-x-1/2 rounded-[18px] border border-[#8b5e34] bg-gradient-to-b from-[#cfa06c] via-[#b7824e] to-[#8f5e35] shadow-[inset_0_2px_4px_rgba(255,255,255,0.25),0_6px_10px_rgba(0,0,0,0.18)]" />
 
-          {/* ring leher jar */}
           <div className="absolute left-1/2 top-[54px] z-20 h-[18px] w-[126px] -translate-x-1/2 rounded-full border border-[#b9ecff]/60 bg-white/10 shadow-[inset_0_1px_6px_rgba(255,255,255,0.35)] backdrop-blur-sm" />
 
-          {/* body jar */}
           <div className="absolute left-1/2 bottom-0 z-10 h-[290px] w-[190px] -translate-x-1/2 overflow-hidden rounded-b-[42px] rounded-t-[34px] border-[4px] border-[#bdefff]/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0.06)_28%,rgba(120,190,235,0.10)_100%)] shadow-[inset_0_0_30px_rgba(255,255,255,0.20),0_10px_24px_rgba(35,72,120,0.18)] backdrop-blur-[3px]">
-            {/* fill airnya */}
             <motion.div
               className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-[36px] border-t border-[#dff6ff]/35 bg-gradient-to-b from-[#8fd8ff]/95 via-[#5fb8ee]/92 to-[#256fa8]/95 shadow-[inset_0_10px_18px_rgba(255,255,255,0.14),inset_0_-8px_14px_rgba(7,40,78,0.22)]"
               style={{ height: getJarFillHeight(entries.length) }}
@@ -233,7 +234,6 @@ export default function MoodJarVisual({
                 ease: "easeInOut",
               }}
             >
-              {/* highlight permukaan air */}
               <motion.div
                 className="absolute left-[-10%] top-[-3px] h-[10px] w-[120%] rounded-full bg-[#ecfbff]/70 blur-[0.5px]"
                 animate={{
@@ -248,7 +248,6 @@ export default function MoodJarVisual({
                 }}
               />
 
-              {/* gelombang kedua */}
               <motion.div
                 className="absolute left-[-14%] top-[3px] h-[8px] w-[128%] rounded-full bg-[#bfefff]/28 blur-[1px]"
                 animate={{
@@ -262,21 +261,14 @@ export default function MoodJarVisual({
                 }}
               />
 
-              {/* glow di tengah air */}
               <div className="pointer-events-none absolute left-1/2 top-[18%] h-[42%] w-[70%] -translate-x-1/2 rounded-full bg-white/8 blur-xl" />
-
-              {/* bayangan bawah air */}
               <div className="pointer-events-none absolute bottom-0 left-0 h-[28%] w-full bg-gradient-to-t from-[#154b79]/35 to-transparent" />
             </motion.div>
-            {/* glow atas air */}
+
             <div className="pointer-events-none absolute bottom-[38%] left-1/2 h-8 w-[82%] -translate-x-1/2 rounded-full bg-white/10 blur-md" />
-            {/* highlight kiri */}
             <div className="pointer-events-none absolute left-4 top-8 h-[72%] w-5 rounded-full bg-white/28 blur-[1px]" />
-            {/* highlight tengah */}
             <div className="pointer-events-none absolute left-9 top-12 h-[58%] w-2 rounded-full bg-white/18 blur-[1px]" />
-            {/* highlight kanan */}
             <div className="pointer-events-none absolute right-5 top-10 h-[60%] w-3 rounded-full bg-white/16 blur-[1px]" />
-            {/* shine top */}
             <div className="pointer-events-none absolute left-1/2 top-3 h-6 w-[75%] -translate-x-1/2 rounded-full bg-white/12 blur-sm" />
           </div>
 
@@ -298,12 +290,17 @@ export default function MoodJarVisual({
                 "left-[38px] top-[24px] rotate-[9deg]",
               ];
 
+              const paperStyle = getMoodPaperStyle(entry);
+
               return (
                 <motion.button
                   key={entry.id}
                   type="button"
                   onClick={() => onClickEntry(entry)}
-                  style={getMoodPaperStyle(entry)}
+                  style={{
+                    ...paperStyle,
+                    color: getReadableTextColor(paperStyle),
+                  }}
                   className={`
                       pointer-events-auto absolute
                       ${positions[index % positions.length]}
@@ -331,7 +328,7 @@ export default function MoodJarVisual({
                     },
                   }}
                 >
-                  <p className="line-clamp-3 text-[7px] font-semibold leading-[1.15] text-black">
+                  <p className="line-clamp-3 text-[7px] font-semibold leading-[1.15]">
                     {entry.feelingText}
                   </p>
                 </motion.button>

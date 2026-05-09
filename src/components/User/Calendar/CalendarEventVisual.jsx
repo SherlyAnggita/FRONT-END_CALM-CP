@@ -8,221 +8,246 @@ export default function CalendarEventVisual({
   eventsLoading,
 }) {
   return (
-    <div className="rounded-[28px] bg-base-100 p-5 shadow-md">
+    <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
       <style>
         {`
-          :global(.calendar-clean .fc) {
+          .calendar-clean,
+          .calendar-clean .fc,
+          .calendar-clean .fc-view-harness,
+          .calendar-clean .fc-view,
+          .calendar-clean .fc-scrollgrid {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+          }
+
+          .calendar-clean .fc {
             font-family: inherit;
           }
 
-          .calendar-clean .fc-toolbar {
-            margin-bottom: 1.5rem !important;
+          .calendar-clean .fc-header-toolbar {
+            margin-bottom: 0.75rem !important;
             display: flex !important;
             align-items: center !important;
             justify-content: space-between !important;
-            gap: 1rem !important;
-            }
+            gap: 0.5rem !important;
+          }
 
-            .calendar-clean .fc-toolbar-chunk:first-child {
+          .calendar-clean .fc-toolbar-chunk {
+            min-width: 0 !important;
             display: flex !important;
             align-items: center !important;
-            gap: 0.75rem !important;
-            }
+            gap: 0.35rem !important;
+          }
 
-            .calendar-clean .fc-toolbar-chunk:first-child .fc-button-group {
-            margin-left: 0.25rem !important;
-            }
+          .calendar-clean .fc-toolbar-chunk:first-child {
+            flex: 1 !important;
+            flex-wrap: wrap !important;
+          }
 
-            .calendar-clean .fc-toolbar-title {
-            margin: 0 !important;
-            line-height: 1 !important;
-            }
+          .calendar-clean .fc-toolbar-chunk:last-child {
+            display: none !important;
+          }
 
-            .calendar-clean .fc-prev-button,
-            .calendar-clean .fc-next-button {
-            height: 42px !important;
-            width: 42px !important;
-            padding: 0 !important;
-            }
-
-          :global(.calendar-clean .fc-toolbar-title) {
-            font-size: 1.1rem !important;
-            font-weight: 700 !important;
+          .calendar-clean .fc-toolbar-title {
+            width: 100% !important;
+            min-width: 0 !important;
+            font-size: 1.35rem !important;
+            line-height: 1.05 !important;
+            font-weight: 800 !important;
             color: #111827 !important;
+            white-space: normal !important;
           }
 
-          :global(.calendar-clean .fc-button-group) {
-            background: #f3f4f6 !important;
-            border-radius: 14px !important;
-            padding: 4px !important;
-            gap: 4px !important;
+          .calendar-clean .fc-button-group {
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            background: #1f2937 !important;
+            flex-shrink: 0 !important;
           }
 
-          :global(.calendar-clean .fc-button) {
+          .calendar-clean .fc-button {
             border: none !important;
             background: transparent !important;
-            color: #64748b !important;
+            color: white !important;
             box-shadow: none !important;
-            border-radius: 10px !important;
-            padding: 0.55rem 1rem !important;
-            font-size: 0.8rem !important;
+            border-radius: 0 !important;
+            padding: 0.38rem 0.52rem !important;
+            font-size: 0.68rem !important;
             font-weight: 700 !important;
             text-transform: capitalize !important;
           }
 
-          :global(.calendar-clean .fc-button:hover) {
-            background: #e5e7eb !important;
-            color: #0a4174 !important;
+          .calendar-clean .fc-prev-button,
+          .calendar-clean .fc-next-button {
+            height: 34px !important;
+            width: 36px !important;
+            padding: 0 !important;
           }
 
-          :global(.calendar-clean .fc-button-active) {
-            background: #0a4174 !important;
-            color: #ffffff !important;
+          .calendar-clean .fc table {
+            width: 100% !important;
+            table-layout: fixed !important;
           }
 
-          :global(.calendar-clean .fc-theme-standard td),
-          :global(.calendar-clean .fc-theme-standard th) {
+          .calendar-clean .fc-theme-standard td,
+          .calendar-clean .fc-theme-standard th {
             border-color: #e5e7eb !important;
           }
 
-          :global(.calendar-clean .fc-scrollgrid),
-          :global(.calendar-clean .fc-daygrid),
-          :global(.calendar-clean .fc-daygrid-body),
-          :global(.calendar-clean .fc-daygrid-day),
-          :global(.calendar-clean .fc-timegrid-slots),
-          :global(.calendar-clean .fc-timegrid-cols) {
+          .calendar-clean .fc-col-header-cell {
             background: #ffffff !important;
+            padding: 0.35rem 0 !important;
           }
 
-          :global(.calendar-clean .fc-col-header-cell) {
-            background: #f8fafc !important;
-            padding: 0.7rem 0 !important;
-          }
-
-          :global(.calendar-clean .fc-col-header-cell-cushion),
-          :global(.calendar-clean .fc-daygrid-day-number),
-          :global(.calendar-clean .fc-timegrid-axis-cushion),
-          :global(.calendar-clean .fc-timegrid-slot-label-cushion) {
-            color: #64748b !important;
+          .calendar-clean .fc-col-header-cell-cushion,
+          .calendar-clean .fc-daygrid-day-number {
+            color: #111827 !important;
             text-decoration: none !important;
-            font-weight: 600 !important;
+            font-size: 0.68rem !important;
+            font-weight: 700 !important;
           }
 
-          :global(.calendar-clean .fc-day-today) {
-            background: #f8f7ff !important;
+          .calendar-clean .fc-daygrid-day-frame {
+            min-height: 62px !important;
+            padding: 1px !important;
           }
 
-          :global(.calendar-clean .fc-event) {
+          .calendar-clean .fc-daygrid-day-events {
+            margin-top: 1px !important;
+          }
+
+          .calendar-clean .fc-event {
+            max-width: 100% !important;
+            overflow: hidden !important;
             border: none !important;
-            border-radius: 999px !important;
-            background: #ede9fe !important;
-            padding: 4px 8px !important;
-            font-size: 0.72rem !important;
-            font-weight: 600 !important;
+            background: transparent !important;
+            padding: 0 !important;
+            font-size: 0.55rem !important;
+            line-height: 1.05 !important;
+            font-weight: 700 !important;
           }
 
-          :global(.calendar-clean .fc-event-title),
-          :global(.calendar-clean .fc-event-time),
-          :global(.calendar-clean .fc-event-main) {
-            color: #0a4174 !important;
+          .calendar-clean .fc-event-main {
+            max-width: 100% !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            color: #2563eb !important;
           }
 
-          :global([data-theme="dark"] .calendar-event-card) {
+          .calendar-clean .fc-day-today {
+            background: #fff8dc !important;
+          }
+
+          @media (min-width: 640px) {
+            .calendar-clean .fc-toolbar-chunk:last-child {
+              display: flex !important;
+            }
+
+            .calendar-clean .fc-header-toolbar {
+              align-items: center !important;
+            }
+
+            .calendar-clean .fc-toolbar-title {
+              width: auto !important;
+              font-size: 1.5rem !important;
+            }
+
+            .calendar-clean .fc-button {
+              padding: 0.5rem 0.85rem !important;
+              font-size: 0.78rem !important;
+            }
+
+            .calendar-clean .fc-daygrid-day-frame {
+              min-height: 95px !important;
+            }
+
+            .calendar-clean .fc-event {
+              font-size: 0.7rem !important;
+            }
+          }
+
+          [data-theme="dark"] .calendar-clean .fc-toolbar-title {
+            color: #ffffff !important;
+          }
+
+          [data-theme="dark"] .calendar-clean .fc-scrollgrid,
+          [data-theme="dark"] .calendar-clean .fc-daygrid,
+          [data-theme="dark"] .calendar-clean .fc-daygrid-body,
+          [data-theme="dark"] .calendar-clean .fc-daygrid-day {
             background: #1f2937 !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-toolbar-title) {
-            color: #ffffff !important;
+          [data-theme="dark"] .calendar-clean .fc-col-header-cell {
+            background: #111827 !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-button-group) {
-            background: #374151 !important;
+          [data-theme="dark"] .calendar-clean .fc-theme-standard td,
+          [data-theme="dark"] .calendar-clean .fc-theme-standard th {
+            border-color: #374151 !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-button) {
-            color: #e5e7eb !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-button:hover) {
-            background: #4b5563 !important;
-            color: #ffffff !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-button-active) {
-            background: #3b82f6 !important;
-            color: #ffffff !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-theme-standard td),
-          :global([data-theme="dark"] .calendar-clean .fc-theme-standard th) {
-            border-color: #4b5563 !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-scrollgrid),
-          :global([data-theme="dark"] .calendar-clean .fc-daygrid),
-          :global([data-theme="dark"] .calendar-clean .fc-daygrid-body),
-          :global([data-theme="dark"] .calendar-clean .fc-daygrid-day),
-          :global([data-theme="dark"] .calendar-clean .fc-timegrid-slots),
-          :global([data-theme="dark"] .calendar-clean .fc-timegrid-cols) {
-            background: #374151 !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-col-header-cell) {
-            background: #4b5563 !important;
-          }
-
-          :global([data-theme="dark"] .calendar-clean .fc-col-header-cell-cushion),
-          :global([data-theme="dark"] .calendar-clean .fc-daygrid-day-number),
-          :global([data-theme="dark"] .calendar-clean .fc-timegrid-axis-cushion),
-          :global([data-theme="dark"] .calendar-clean .fc-timegrid-slot-label-cushion) {
+          [data-theme="dark"] .calendar-clean .fc-col-header-cell-cushion,
+          [data-theme="dark"] .calendar-clean .fc-daygrid-day-number {
             color: #f9fafb !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-day-today) {
-            background: #475569 !important;
+          [data-theme="dark"] .calendar-clean .fc-day-today {
+            background: #334155 !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-event) {
-            background: #dbeafe !important;
+          .calendar-clean .fc-view-harness,
+          .calendar-clean .fc-view,
+          .calendar-clean .fc-scrollgrid,
+          .calendar-clean .fc-scrollgrid-section,
+          .calendar-clean .fc-scrollgrid-section table,
+          .calendar-clean .fc-col-header,
+          .calendar-clean .fc-daygrid-body,
+          .calendar-clean .fc-daygrid-body table {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
           }
 
-          :global([data-theme="dark"] .calendar-clean .fc-event-title),
-          :global([data-theme="dark"] .calendar-clean .fc-event-time),
-          :global([data-theme="dark"] .calendar-clean .fc-event-main) {
-            color: #0f172a !important;
+          .calendar-clean .fc-scroller {
+            overflow: hidden !important;
           }
         `}
       </style>
 
-      <div className="calendar-event-card rounded-[28px] bg-white p-0 dark:bg-slate-700">
-        <div className="calendar-clean">
-          {eventsLoading ? (
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              Loading calendar events...
-            </p>
-          ) : (
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              events={fullCalendarEvents}
-              height="780px"
-              nowIndicator={true}
-              allDaySlot={true}
-              slotMinTime="06:00:00"
-              slotMaxTime="24:00:00"
-              headerToolbar={{
-                left: "title prev,next",
-                center: "",
-                right: "timeGridDay,timeGridWeek,dayGridMonth",
-                }}
-              buttonText={{
-                day: "Day",
-                week: "Week",
-                month: "Month",
-              }}
-            />
-          )}
-        </div>
+      <div className="calendar-clean w-full min-w-0 max-w-full overflow-hidden">
+        {eventsLoading ? (
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Loading calendar events...
+          </p>
+        ) : (
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            events={fullCalendarEvents}
+            height="auto"
+            contentHeight="auto"
+            aspectRatio={0.68}
+            nowIndicator={true}
+            allDaySlot={true}
+            dayMaxEvents={2}
+            slotMinTime="06:00:00"
+            slotMaxTime="24:00:00"
+            headerToolbar={{
+              left: "title prev,next",
+              center: "",
+              right: "timeGridDay,timeGridWeek,dayGridMonth",
+            }}
+            buttonText={{
+              day: "Day",
+              week: "Week",
+              month: "Month",
+            }}
+          />
+        )}
       </div>
     </div>
   );
