@@ -79,7 +79,7 @@ export default function DashboardUserPage() {
                     background:
                       socialBattery.score < 50
                         ? "repeating-linear-gradient(135deg,#fecaca 0px,#fecaca 8px,#ffffff 8px,#ffffff 16px)"
-                        : socialBattery.score <= 65
+                        : socialBattery.score <= 70
                         ? "repeating-linear-gradient(135deg,#fde68a 0px,#fde68a 8px,#ffffff 8px,#ffffff 16px)"
                         : "repeating-linear-gradient(135deg,#bbf7d0 0px,#bbf7d0 8px,#ffffff 8px,#ffffff 16px)",
                   }}

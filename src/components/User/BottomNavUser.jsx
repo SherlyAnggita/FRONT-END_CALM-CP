@@ -15,7 +15,7 @@ export default function BottomNavUser() {
           <span>Home</span>
         </NavLink>
 
-        <NavLink to="/user/battery" className={mobileNavClass}>
+        <NavLink to="/user/social-battery" className={mobileNavClass}>
           <FiBattery size={20} />
           <span>Battery</span>
         </NavLink>
