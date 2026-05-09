@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import OAuthSuccess from "../pages/OAuthSuccess";
+import ProtectedRoute from "./ProtectedRoute";
 
 // halaman user
 // import HomePage from "../pages/User/HomePage";
@@ -37,20 +38,20 @@ import AdminLayout from "../layouts/Admin/AdminLayout";
 import { tokenStorage } from "../lib/token";
 
 // Route milik User
-function ProtectedRoute({ children }) {
-  const accessToken = tokenStorage.getAccessToken();
-  const user = tokenStorage.getUser();
+// function ProtectedRoute({ children }) {
+//   const accessToken = tokenStorage.getAccessToken();
+//   const user = tokenStorage.getUser();
 
-  if (!accessToken) {
-    return <Navigate to="/login" replace />;
-  }
+//   if (!accessToken) {
+//     return <Navigate to="/login" replace />;
+//   }
 
-  if (user?.role === "admin") {
-    return <Navigate to="/admin" replace />;
-  }
+//   if (user?.role === "admin") {
+//     return <Navigate to="/admin" replace />;
+//   }
 
-  return children;
-}
+//   return children;
+// }
 
 function GuestRoute({ children }) {
   const accessToken = tokenStorage.getAccessToken();
@@ -112,7 +113,10 @@ export default function AppRouter() {
           <Route path="mood" element={<MoodJarPage />} />
           <Route path="calendar" element={<CalendarEventPage />} />
           <Route path="social-battery" element={<SocialBatteryPage />} />
-          <Route  path="social-battery/history" element={<SocialBatteryHistoryPage />} />
+          <Route
+            path="social-battery/history"
+            element={<SocialBatteryHistoryPage />}
+          />
           <Route path="settings" element={<SettingPage />} />
           <Route
             path="settings/change-password"

@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import AppRouter from "./routes/AppRouter";
-import { refreshAccessToken } from "./services/authService";
+// import { refreshAccessToken } from "./services/authService";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  // const [checkingAuth, setCheckingAuth] = useState(true);
 
-  useEffect(() => {
-    async function initAuth() {
-      try {
-        await refreshAccessToken();
-      } catch (error) {
-        // tidak apa-apa, artinya user belum login
-        // atau refresh token sudah expired
-      } finally {
-        setCheckingAuth(false);
-      }
-    }
+  // useEffect(() => {
+  //   async function initAuth() {
+  //     try {
+  //       await refreshAccessToken();
+  //     } catch (error) {
+  //       // tidak apa-apa, artinya user belum login
+  //       // atau refresh token sudah expired
+  //     } finally {
+  //       setCheckingAuth(false);
+  //     }
+  //   }
 
-    initAuth();
-  }, []);
+  //   initAuth();
+  // }, []);
 
-  if (checkingAuth) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
+  // if (checkingAuth) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <span className="loading loading-spinner loading-lg"></span>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
