@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getSocialBatteryLogDetail } from "../../../services/admin/socialBatteryLogsService";
+import { getSocialBatteryLogDetail } from "../../../services/Admin/socialBatteryLogsService";
 
 export default function SocialBatteryLogDetailPage() {
   const { id } = useParams();

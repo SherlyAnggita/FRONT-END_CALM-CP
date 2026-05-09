@@ -7,7 +7,7 @@ import {
   FiCpu,
   FiMessageCircle,
 } from "react-icons/fi";
-import { getEncouragementResultDetail } from "../../../services/admin/encouragementService";
+import { getEncouragementResultDetail } from "../../../services/Admin/encouragementService";
 
 export default function EncouragementResultDetailPage() {
   const { id } = useParams();
