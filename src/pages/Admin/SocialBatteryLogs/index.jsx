@@ -4,7 +4,7 @@ import {
   getSocialBatteryLogs,
   getSocialBatteryLogSummary,
   exportSocialBatteryLogsExcel,
-} from "../../../services/admin/socialBatteryLogsService";
+} from "../../../services/Admin/socialBatteryLogsService";
 
 export default function SocialBatteryLogsPage() {
   const [logs, setLogs] = useState([]);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   getEncouragementResults,
   exportEncouragementResultsExcel,
-} from "../../../services/admin/encouragementService";
+} from "../../../services/Admin/encouragementService";
 
 export default function EncouragementResultsPage() {
   const navigate = useNavigate();
