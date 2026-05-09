@@ -32,6 +32,10 @@ import StatusBatteryPage from "../pages/Admin/StatusBattery/index";
 import StatusBatteryDetailPage from "../pages/Admin/StatusBattery/detail";
 import MoodEntryPage from "../pages/Admin/MoodEntry/index";
 import MoodEntryDetailPage from "../pages/Admin/MoodEntry/detail";
+import EncouragementResultPage from "../pages/Admin/EncouragementResult/index";
+import EncouragementResultDetailPage from "../pages/Admin/EncouragementResult/detail";
+import SocialBatteryLogsPage from "../pages/Admin/SocialBatteryLogs/index";
+import SocialBatteryLogsDetailPage from "../pages/Admin/SocialBatteryLogs/detail";
 
 import AdminLayout from "../layouts/Admin/AdminLayout";
 
@@ -146,6 +150,22 @@ export default function AppRouter() {
           />
           <Route path="mood-entries" element={<MoodEntryPage />} />
           <Route path="mood-entries/:id" element={<MoodEntryDetailPage />} />
+          <Route
+            path="encouragement-results"
+            element={<EncouragementResultPage />}
+          />
+          <Route
+            path="encouragement-results/:id"
+            element={<EncouragementResultDetailPage />}
+          />
+          <Route
+            path="social-battery-logs"
+            element={<SocialBatteryLogsPage />}
+          />
+          <Route
+            path="social-battery-logs/:id"
+            element={<SocialBatteryLogsDetailPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
