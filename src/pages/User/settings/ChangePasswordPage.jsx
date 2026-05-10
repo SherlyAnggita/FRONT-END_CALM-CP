@@ -152,15 +152,6 @@ export default function ChangePasswordPage() {
 
           <div className="flex gap-3 pt-2">
             <button
-              type="button"
-              onClick={() => navigate("/user/settings")}
-              disabled={loading}
-              className="btn flex-1"
-            >
-              Kembali
-            </button>
-
-            <button
               type="submit"
               disabled={loading}
               className="btn btn-primary flex-1"

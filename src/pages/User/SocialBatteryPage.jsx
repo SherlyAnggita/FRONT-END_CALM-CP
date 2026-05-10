@@ -91,17 +91,25 @@ function SocialBatteryPage() {
           </h1>
 
           <p className="text-sm text-gray-500 dark:text-slate-300 sm:text-base">
-            Ringkasan energi sosial kamu berdasarkan aktivitas kalender hari
-            ini.
+            Ringkasan energi sosial kamu berdasarkan aktivitas kalender hari ini.
           </p>
         </div>
 
-        <Link
-          to="/user/social-battery/history"
-          className="w-full rounded-full bg-[#0a4174] px-4 py-2 text-center text-xs font-semibold text-white hover:bg-[#0E5A92] dark:bg-blue-600 dark:hover:bg-blue-500 sm:w-auto"
-        >
-          View History
-        </Link>
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <Link
+            to="/user/calendar"
+            className="w-full rounded-full bg-[#49769F] px-4 py-2 text-center text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487] sm:w-auto"
+          >
+            Synchronize Calendar
+          </Link>
+
+          <Link
+            to="/user/social-battery/history"
+            className="w-full rounded-full bg-[#0a4174] px-4 py-2 text-center text-xs font-semibold text-white transition hover:bg-[#0E5A92] sm:w-auto"
+          >
+            View History
+          </Link>
+        </div>
       </div>
 
       {error && (
@@ -125,7 +133,10 @@ function SocialBatteryPage() {
           </p>
 
           {(() => {
-            const score = battery.batteryScore || 0;
+            const score =
+            battery.totalEvents === 0
+              ? 100
+              : battery.batteryScore || 0;
 
             const statusName =
               score < 50 ? "Low" : score <= 70 ? "Medium" : "High";

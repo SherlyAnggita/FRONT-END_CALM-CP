@@ -21,9 +21,7 @@ export default function MoodJarForm({
   ];
 
   return (
-    <div className="rounded-2xl bg-base-100 p-6 shadow">
-      <h2 className="mb-4 text-lg font-semibold">Input Mood Hari Ini</h2>
-
+    <div className="h-full rounded-2xl bg-base-100 p-6 shadow">
       {hasTodayEntry && (
         <div className="alert alert-warning mb-4">
           <span>

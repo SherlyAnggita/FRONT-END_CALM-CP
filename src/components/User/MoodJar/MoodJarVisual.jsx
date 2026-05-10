@@ -67,7 +67,7 @@ export default function MoodJarVisual({
   onOpenHistory,
 }) {
   return (
-    <div className="overflow-hidden rounded-[32px] bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-5 pb-6 pt-5 shadow-lg sm:px-6">
+    <div className="h-auto overflow-hidden rounded-[32px] bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 pb-4 pt-4 shadow-lg sm:px-6 lg:h-full lg:px-5 lg:pb-6 lg:pt-5">
       {/* header */}
       <motion.div
         className="relative mb-6 flex items-center justify-between gap-3 overflow-hidden rounded-xl"
@@ -212,7 +212,7 @@ export default function MoodJarVisual({
 
         {/* area jar */}
         <motion.div
-          className="relative z-20 h-[360px] w-[240px]"
+          className="relative z-20 h-[340px] w-[220px] sm:h-[360px] sm:w-[240px]"
           initial={{ opacity: 0, y: 60, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}

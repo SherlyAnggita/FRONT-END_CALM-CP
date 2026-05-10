@@ -175,19 +175,37 @@ export default function DashboardUserPage() {
         <img
           src={star1}
           alt="star"
-          className="absolute left-[-50px] top-15 h-80 w-80 object-contain opacity-90"
+          className="absolute left-[-50px] top-15 z-[1] h-80 w-80 object-contain opacity-90"
         />
 
         <img
           src={star2}
           alt="star"
-          className="absolute right-0 top-0 h-100 w-100 object-contain opacity-80"
+          className="absolute right-0 top-0 z-[1] h-100 w-100 object-contain opacity-80"
         />
 
         <img
           src={star3}
           alt="star"
-          className="absolute bottom-[-190px] left-1/4 h-100 w-100 object-contain opacity-90"
+          className="absolute bottom-[-190px] left-1/4 z-[1] h-100 w-100 object-contain opacity-90"
+        />
+
+        {/* cloud background */}
+        <img
+          src={cloudMain}
+          alt="cloud"
+          className="
+            pointer-events-none
+            absolute
+            right-[10px]
+            top-1/2
+            z-0
+            h-52
+            w-52
+            -translate-y-1/2
+            object-contain
+            opacity-40
+          "
         />
 
         <div className="flex h-full items-center justify-between gap-4">
@@ -207,12 +225,6 @@ export default function DashboardUserPage() {
               </p>
             )}
           </div>
-
-          <img
-            src={cloudMain}
-            alt="cloud"
-            className="relative z-10 h-35 w-35 object-contain"
-          />
         </div>
       </div>
     </div>

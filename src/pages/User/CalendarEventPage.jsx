@@ -177,25 +177,28 @@ export default function CalendarEventPage() {
             </div>
 
             <div>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Google Account:
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-slate-600 dark:text-slate-300">
+                  Google Account:
+                </p>
+
+                <span
+                  className={`text-sm font-semibold ${
+                    googleStatus.connected
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : "text-slate-500 dark:text-slate-400"
+                  }`}
+                >
+                  {googleStatus.connected ? "Connected" : "Disconnected"}
+                </span>
+              </div>
+
               <p className="font-medium text-slate-800 dark:text-slate-100">
                 {googleStatus.connected
                   ? googleStatus.googleEmail || "Connected"
                   : "Not connected"}
               </p>
             </div>
-          </div>
-
-          <div
-            className={`rounded-full px-4 py-2 text-sm font-medium shadow-sm ${
-              googleStatus.connected
-                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-                : "bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-300"
-            }`}
-          >
-            {googleStatus.connected ? "Connected" : "Disconnected"}
           </div>
         </div>
 
@@ -207,43 +210,43 @@ export default function CalendarEventPage() {
           </div>
         )}
 
-        <div className="mb-4 flex flex-wrap gap-3">
-          <button
-            onClick={fetchGoogleStatus}
-            disabled={loading}
-            className="btn h-auto min-h-0 rounded-full border-none bg-white px-5 py-3 text-slate-700 shadow hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
-          >
-            {loading ? "Checking..." : "Check Status"}
-          </button>
-
-          {!googleStatus.connected ? (
+        <div className="mb-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
             <button
-              onClick={handleConnectGoogle}
+              onClick={fetchGoogleStatus}
               disabled={loading}
-              className="btn h-auto min-h-0 rounded-full border-none bg-indigo-400 px-5 py-3 text-white shadow hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+              className="btn h-auto min-h-0 rounded-full border-none bg-white px-2 py-2 text-[11px] text-slate-700 shadow transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
             >
-              {loading ? "Connecting..." : "Connect Google"}
+              {loading ? "Checking..." : "Check Status"}
             </button>
-          ) : (
-            <>
-              <button
-                onClick={handleSyncCalendar}
-                disabled={syncing}
-                className="btn h-auto min-h-0 rounded-full border-none bg-indigo-400 px-5 py-3 text-white shadow hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-500 dark:hover:bg-indigo-600"
-              >
-                {syncing ? "Synchronizing..." : "Synchronize Calendar"}
-              </button>
 
+            {!googleStatus.connected ? (
               <button
-                onClick={handleDisconnectGoogle}
+                onClick={handleConnectGoogle}
                 disabled={loading}
-                className="btn h-auto min-h-0 rounded-full border-none bg-rose-100 px-5 py-3 text-rose-700 shadow hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50"
+                className="btn h-auto min-h-0 rounded-full border-none bg-indigo-400 px-2 py-2 text-[11px] text-white shadow transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-indigo-500 dark:hover:bg-indigo-600"
               >
-                {loading ? "Disconnecting..." : "Disconnect Account"}
+                {loading ? "Connecting..." : "Connect Google"}
               </button>
-            </>
-          )}
-        </div>
+            ) : (
+              <>
+                <button
+                  onClick={handleSyncCalendar}
+                  disabled={syncing}
+                  className="btn h-auto min-h-0 rounded-full border-none bg-[#49769F] px-2 py-2 text-[11px] text-white shadow-md transition hover:bg-[#3d6487] disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm"
+                >
+                  {syncing ? "Syncing..." : "Synchronize"}
+                </button>
+
+                <button
+                  onClick={handleDisconnectGoogle}
+                  disabled={loading}
+                  className="btn h-auto min-h-0 rounded-full border-none bg-rose-100 px-2 py-2 text-[11px] text-rose-700 shadow transition hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50"
+                >
+                  {loading ? "Disconnecting..." : "Disconnect"}
+                </button>
+              </>
+            )}
+          </div>
 
         <p className="text-sm text-slate-600 dark:text-slate-300">
           Data from your synchronized calendar will automatically update your
