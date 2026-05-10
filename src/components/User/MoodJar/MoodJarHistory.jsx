@@ -66,7 +66,7 @@ export default function MoodJarHistory({
         </button>
       ))}
 
-      <div className="sticky bottom-0 flex items-center justify-between rounded-t-2xl border-t border-white/40 bg-[#faf8f5]/95 pt-4 backdrop-blur dark:border-slate-700 dark:bg-slate-900/95">
+      <div className="mt-2 flex items-center justify-between rounded-2xl border border-[#0a4174]/20 bg-[#faf8f5] p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
         <button
           type="button"
           className="btn btn-sm border-none bg-white/70 text-[#6d5ba3] shadow-sm hover:bg-white dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"

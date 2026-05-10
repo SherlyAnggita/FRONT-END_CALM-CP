@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { getCurrentUser } from "../../services/authService";
-import { FiMenu, FiBell } from "react-icons/fi";
+import { FiMenu, FiBell, FiUser, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 export default function HeaderUser({ toggleSidebar }) {
@@ -38,6 +38,23 @@ export default function HeaderUser({ toggleSidebar }) {
 
     return () => {
       window.removeEventListener("profile-photo-updated", loadProfilePhoto);
+    };
+  }, []);
+
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target)
+      ) {
+        closeProfileDropdown();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -149,13 +166,15 @@ export default function HeaderUser({ toggleSidebar }) {
 
             <ul className="menu dropdown-content z-[1] mt-3 w-48 rounded-xl bg-base-100 p-2 shadow-lg">
               <li>
-                <Link to="/user/profile" onClick={closeProfileDropdown}>
-                  Edit Profile
+                <Link to="/user/profile" onClick={closeProfileDropdown} className="flex items-center gap-2">
+                  <FiUser size={16} />
+                  Profile
                 </Link>
               </li>
 
               <li>
-                <Link to="/user/settings" onClick={closeProfileDropdown}>
+                <Link to="/user/settings" onClick={closeProfileDropdown} className="flex items-center gap-2" >
+                  <FiSettings size={16} />
                   Settings
                 </Link>
               </li>

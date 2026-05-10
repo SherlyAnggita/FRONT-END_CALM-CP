@@ -44,21 +44,21 @@ export default function CalendarEventVisual({
 
           .calendar-clean .fc-toolbar-chunk:first-child {
             flex: 1 !important;
-            flex-wrap: wrap !important;
-          }
+            flex-wrap: nowrap !important;
+}
 
           .calendar-clean .fc-toolbar-chunk:last-child {
             display: none !important;
           }
 
           .calendar-clean .fc-toolbar-title {
-            width: 100% !important;
+            width: auto !important;
             min-width: 0 !important;
             font-size: 1.35rem !important;
             line-height: 1.05 !important;
             font-weight: 800 !important;
             color: #111827 !important;
-            white-space: normal !important;
+            white-space: nowrap !important;
           }
 
           .calendar-clean .fc-button-group {
