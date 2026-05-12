@@ -16,6 +16,7 @@ import SocialBatteryPage from "../pages/User/SocialBatteryPage";
 import SettingPage from "../pages/User/settings/SettingPage";
 import ChangePasswordPage from "../pages/User/settings/ChangePasswordPage";
 import SocialBatteryHistoryPage from "../pages/User/SocialBatteryHistoryPage";
+import NotificationsPage from "../pages/User/notifications/index";
 
 import UserLayout from "../layouts/User/UserLayout";
 
@@ -128,6 +129,7 @@ export default function AppRouter() {
             path="settings/change-password"
             element={<ChangePasswordPage />}
           />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* halaman admin */}
