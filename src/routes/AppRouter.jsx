@@ -36,6 +36,8 @@ import EncouragementResultPage from "../pages/Admin/EncouragementResult/index";
 import EncouragementResultDetailPage from "../pages/Admin/EncouragementResult/detail";
 import SocialBatteryLogsPage from "../pages/Admin/SocialBatteryLogs/index";
 import SocialBatteryLogsDetailPage from "../pages/Admin/SocialBatteryLogs/detail";
+import ChangePasswordAdmin from "../pages/Admin/Setting/ChangePasswordAdmin";
+import AdminSettingPage from "../pages/Admin/Setting/AdminSettingPage";
 
 import AdminLayout from "../layouts/Admin/AdminLayout";
 
@@ -165,6 +167,14 @@ export default function AppRouter() {
           <Route
             path="social-battery-logs/:id"
             element={<SocialBatteryLogsDetailPage />}
+          />
+          <Route
+            path="settings"
+            element={<AdminSettingPage />}
+          />
+          <Route
+            path="settings/change-password"
+            element={<ChangePasswordAdmin />}
           />
         </Route>
       </Routes>

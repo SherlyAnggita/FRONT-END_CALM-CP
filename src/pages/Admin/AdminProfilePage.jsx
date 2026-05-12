@@ -115,6 +115,16 @@ export default function AdminProfilePage() {
     }
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -257,7 +267,7 @@ export default function AdminProfilePage() {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-y-auto bg-white dark:bg-[#0f172a]">
+    <div className="relative h-[calc(100vh-80px)] w-full overflow-hidden bg-white dark:bg-[#0f172a]">
       <div className="absolute inset-x-0 top-0 h-[460px] overflow-hidden">
         <img
           src={awanbg}
@@ -268,8 +278,8 @@ export default function AdminProfilePage() {
 
       <div className="absolute inset-x-0 top-[460px] bottom-0 bg-white dark:bg-[#111827]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[760px] px-4 pb-12 pt-[120px]">
-        <div className="relative mx-auto w-full max-w-[650px]">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-[760px] items-center justify-center px-4 py-6">
+        <div className="relative mx-auto w-full max-w-[650px] overflow-hidden">
           <div className="absolute left-0 right-0 top-[90px] bottom-0 rounded-[28px] border border-white/70 bg-white/70 shadow-[0_16px_45px_rgba(60,90,110,0.18)] backdrop-blur-md dark:border-white/10 dark:bg-[#1f2937]/90 dark:shadow-[0_16px_45px_rgba(0,0,0,0.45)]" />
 
           <div className="relative z-10 flex flex-col items-center">
@@ -317,7 +327,7 @@ export default function AdminProfilePage() {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="relative z-10 mt-8 px-4 md:px-8">
+          <form onSubmit={handleSubmit} className="relative z-10 mt-10 px-4 md:px-8">
             <div className="space-y-5">
               <div className="rounded-2xl border border-[#d8e7ed] bg-white p-5 shadow-[0_8px_24px_rgba(70,110,130,0.14)] dark:border-white/10 dark:bg-[#1e293b] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
                 <h2 className="mb-4 text-base font-bold text-[#19445e] dark:text-white">
@@ -366,56 +376,26 @@ export default function AdminProfilePage() {
                     }}
                     placeholder="No Handphone"
                   />
-
-                  <h2 className="pt-2 text-base font-bold text-[#19445e] dark:text-white">
-                    Update Password
-                  </h2>
-
-                  <p className="mb-4 text-xs text-gray-500 dark:text-slate-300">
-                    Kosongkan jika tidak ingin mengganti password.
-                  </p>
-
-                  <div className="space-y-3">
-                    <PasswordInput
-                      label="New Password"
-                      name="password"
-                      value={form.password}
-                      onChange={handleChange}
-                      show={showPassword}
-                      setShow={setShowPassword}
-                      placeholder="Password baru"
-                    />
-
-                    <PasswordInput
-                      label="Confirm Password"
-                      name="confirmPassword"
-                      value={form.confirmPassword}
-                      onChange={handleChange}
-                      show={showConfirmPassword}
-                      setShow={setShowConfirmPassword}
-                      placeholder="Konfirmasi password"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex justify-between gap-3">
-                  <button
-                    type="submit"
-                    className="rounded-full bg-[#2f6f95] px-5 py-2 text-xs font-bold text-white shadow-md transition hover:bg-[#245a78] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-700 dark:hover:bg-sky-600"
-                    disabled={isSaving || isLoadingProfile}
-                  >
-                    {isSaving ? "Menyimpan..." : "Simpan Perubahan"}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowLogoutModal(true)}
-                    className="rounded-full bg-[#e56b5f] px-5 py-2 text-xs font-bold text-white shadow-md transition hover:bg-[#d35247] dark:bg-red-600 dark:hover:bg-red-500"
-                  >
-                    Keluar
-                  </button>
                 </div>
               </div>
+            </div>
+
+            <div className="mt-10 flex justify-between gap-3 px-1 pb-4">
+              <button
+                type="submit"
+                className="rounded-full bg-[#2f6f95] px-5 py-2 text-xs font-bold text-white shadow-md transition hover:bg-[#245a78] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-700 dark:hover:bg-sky-600"
+                disabled={isSaving || isLoadingProfile}
+              >
+                {isSaving ? "Menyimpan..." : "Simpan Perubahan"}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowLogoutModal(true)}
+                className="rounded-full bg-[#e56b5f] px-5 py-2 text-xs font-bold text-white shadow-md transition hover:bg-[#d35247] dark:bg-red-600 dark:hover:bg-red-500"
+              >
+                Keluar
+              </button>
             </div>
           </form>
         </div>

@@ -21,7 +21,7 @@ export default function MoodEntryDetailPage() {
   const navigate = useNavigate();
 
   const [moodEntry, setMoodEntry] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchDetail = useCallback(async () => {
     try {

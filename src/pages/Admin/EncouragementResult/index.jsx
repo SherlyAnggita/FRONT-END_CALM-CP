@@ -4,6 +4,15 @@ import {
   getEncouragementResults,
   exportEncouragementResultsExcel,
 } from "../../../services/Admin/encouragementService";
+import {
+  FiSearch,
+  FiTag,
+  FiCpu,
+  FiCalendar,
+  FiChevronDown,
+  FiDownload,
+  FiEye,
+} from "react-icons/fi";
 
 export default function EncouragementResultsPage() {
   const navigate = useNavigate();
@@ -80,7 +89,8 @@ export default function EncouragementResultsPage() {
           </p>
         </div>
 
-        <button onClick={handleExport} className="btn btn-primary">
+        <button onClick={handleExport} className="btn btn-success">
+          <FiDownload size={16} />
           Export Excel
         </button>
       </div>
@@ -88,32 +98,41 @@ export default function EncouragementResultsPage() {
       <div className="card bg-base-100 shadow">
         <div className="card-body space-y-4">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
-            <input
-              type="text"
-              name="search"
-              value={filters.search}
-              onChange={handleChange}
-              placeholder="Search user, label, message..."
-              className="input input-bordered w-full"
-            />
+            <label className="input input-bordered flex items-center gap-2 w-full">
+              <FiSearch className="text-base-content/60" />
+              <input
+                type="text"
+                name="search"
+                value={filters.search}
+                onChange={handleChange}
+                placeholder="Search user, label, message..."
+                className="grow"
+              />
+            </label>
 
-            <input
-              type="text"
-              name="predictedLabel"
-              value={filters.predictedLabel}
-              onChange={handleChange}
-              placeholder="Predicted label"
-              className="input input-bordered w-full"
-            />
+            <label className="input input-bordered flex items-center gap-2 w-full">
+              <FiTag className="text-base-content/60" />
+              <input
+                type="text"
+                name="predictedLabel"
+                value={filters.predictedLabel}
+                onChange={handleChange}
+                placeholder="Predicted label"
+                className="grow"
+              />
+            </label>
 
-            <input
-              type="text"
-              name="modelName"
-              value={filters.modelName}
-              onChange={handleChange}
-              placeholder="Model name"
-              className="input input-bordered w-full"
-            />
+            <label className="input input-bordered flex items-center gap-2 w-full">
+              <FiCpu className="text-base-content/60" />
+              <input
+                type="text"
+                name="modelName"
+                value={filters.modelName}
+                onChange={handleChange}
+                placeholder="Model name"
+                className="grow"
+              />
+            </label>
 
             <select
               name="sort"
@@ -211,11 +230,10 @@ export default function EncouragementResultsPage() {
                       </td>
                       <td>
                         <button
-                          className="btn btn-sm btn-outline"
-                          onClick={() =>
-                            navigate(`/admin/encouragement-results/${item.id}`)
-                          }
+                         className="btn btn-primary btn-sm"
+                          onClick={() => navigate(`/admin/encouragement-results/${item.id}`)}
                         >
+                          <FiEye size={16} />
                           Detail
                         </button>
                       </td>

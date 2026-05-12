@@ -5,6 +5,7 @@ import {
   getSocialBatteryLogSummary,
   exportSocialBatteryLogsExcel,
 } from "../../../services/Admin/socialBatteryLogsService";
+import {FiEye}  from "react-icons/fi";
 
 export default function SocialBatteryLogsPage() {
   const [logs, setLogs] = useState([]);
@@ -323,8 +324,9 @@ export default function SocialBatteryLogsPage() {
                   <td>
                     <Link
                       to={`/admin/social-battery-logs/${log.id}`}
-                      className="btn btn-ghost btn-xs text-primary"
+                      className="btn btn-primary btn-sm"
                     >
+                      <FiEye size={16} />
                       Detail
                     </Link>
                   </td>

@@ -119,7 +119,7 @@ export default function MoodEntriesPage() {
 
       <div className="card bg-base-100 shadow">
         <div className="card-body">
-          <div className="grid gap-3 md:grid-cols-8">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <label className="input input-bordered flex items-center gap-2 md:col-span-2">
               <FiSearch className="text-base-content/60" />
               <input
@@ -232,13 +232,13 @@ export default function MoodEntriesPage() {
 
                       <td>{entry.user?.email || "-"}</td>
 
-                      <td>
-                        <span className="badge badge-outline gap-1">
-                          {entry.mood?.emoji} {entry.mood?.name}
-                        </span>
+                      <td className="text-center">
+                        {entry.mood?.emoji} {entry.mood?.name}
                       </td>
 
-                      <td>{entry.moodScore ?? "-"}</td>
+                      <td className="text-center">
+                        {entry.moodScore ?? "-"}
+                      </td>
 
                       <td className="max-w-[260px] truncate">
                         {entry.feelingText}
