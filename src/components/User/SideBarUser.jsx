@@ -22,10 +22,10 @@ export default function SideBarUser({ isCollapsed }) {
       isCollapsed ? "justify-center" : "gap-3"
     } ${isActive ? "bg-primary text-primary-content" : "hover:bg-base-200"}`;
 
- async function handleLogout() {
-  await logoutUser();
-  navigate("/login", { replace: true });
-}
+  async function handleLogout() {
+    await logoutUser();
+    navigate("/login", { replace: true });
+  }
 
   return (
     <div className="flex h-full flex-col p-3">
@@ -69,14 +69,14 @@ export default function SideBarUser({ isCollapsed }) {
           {!isCollapsed && <span>Social Battery</span>}
         </NavLink>
 
-        <NavLink to="/user/calendar" className={navClass}>
-          <FiCalendar size={18} />
-          {!isCollapsed && <span>Calendar Event</span>}
-        </NavLink>
-
         <NavLink to="/user/mood" className={navClass}>
           <FiHeart size={18} />
           {!isCollapsed && <span>Mood Jar</span>}
+        </NavLink>
+
+        <NavLink to="/user/calendar" className={navClass}>
+          <FiCalendar size={18} />
+          {!isCollapsed && <span>Calendar Event</span>}
         </NavLink>
       </nav>
 
@@ -111,11 +111,20 @@ export default function SideBarUser({ isCollapsed }) {
             </p>
 
             <div className="modal-action">
-              <button className="btn btn-ghost" onClick={() => setShowLogoutModal(false)} >
+              <button
+                className="btn btn-ghost"
+                onClick={() => setShowLogoutModal(false)}
+              >
                 Batal
               </button>
 
-              <button className="btn btn-error" onClick={() => { setShowLogoutModal(false); handleLogout();}}>
+              <button
+                className="btn btn-error"
+                onClick={() => {
+                  setShowLogoutModal(false);
+                  handleLogout();
+                }}
+              >
                 Logout
               </button>
             </div>

@@ -1,31 +1,68 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { getCurrentUser } from "../../services/authService";
 import { FiMenu, FiBell, FiUser, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import {
+  getNotifications,
+  getUnreadNotificationCount,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+} from "../../services/User/notificationService";
 
 export default function HeaderUser({ toggleSidebar }) {
   const user = getCurrentUser();
   const [profilePhoto, setProfilePhoto] = useState(null);
   const profileDropdownRef = useRef(null);
 
-   const closeProfileDropdown = () => {
+  const [notifOpen, setNotifOpen] = useState(false);
+  const notifDropdownRef = useRef(null);
+
+  const closeProfileDropdown = () => {
     profileDropdownRef.current?.removeAttribute("open");
   };
 
-  const notifications = [
-    {
-      id: 1,
-      title: "Mood Reminder",
-      desc: "Jangan lupa isi mood hari ini ya 😊",
-    },
-    {
-      id: 2,
-      title: "Calendar Event",
-      desc: "Ada event 30 menit lagi",
-    },
-  ];
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
 
-  const unreadCount = notifications.length;
+  const loadNotifications = useCallback(async () => {
+    try {
+      const notifRes = await getNotifications();
+      const countRes = await getUnreadNotificationCount();
+
+      setNotifications(notifRes.data || []);
+      setUnreadCount(countRes.data?.count || 0);
+    } catch (error) {
+      console.error("Gagal mengambil notifikasi:", error);
+    }
+  }, []);
+
+  const handleReadNotification = async (id) => {
+    setNotifications((prev) =>
+      prev.map((n) =>
+        n.id === id ? { ...n, readAt: new Date().toISOString() } : n,
+      ),
+    );
+    setUnreadCount((prev) => Math.max(0, prev - 1));
+    try {
+      await markNotificationAsRead(id);
+      await loadNotifications();
+    } catch (error) {
+      console.error("Gagal membaca notifikasi:", error);
+    }
+  };
+
+  const handleReadAll = async () => {
+    setNotifications((prev) =>
+      prev.map((n) => ({ ...n, readAt: new Date().toISOString() })),
+    );
+    setUnreadCount(0);
+    try {
+      await markAllNotificationsAsRead();
+      await loadNotifications();
+    } catch (error) {
+      console.error("Gagal membaca semua notifikasi:", error);
+    }
+  };
 
   useEffect(() => {
     const loadProfilePhoto = () => {
@@ -41,13 +78,33 @@ export default function HeaderUser({ toggleSidebar }) {
     };
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const notifRes = await getNotifications();
+        const countRes = await getUnreadNotificationCount();
+        setNotifications(notifRes.data || []);
+        setUnreadCount(countRes.data?.count || 0);
+      } catch (error) {
+        console.error("Gagal mengambil notifikasi:", error);
+      }
+    };
+    init();
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (
         profileDropdownRef.current &&
         !profileDropdownRef.current.contains(event.target)
       ) {
         closeProfileDropdown();
+      }
+      if (
+        notifDropdownRef.current &&
+        !notifDropdownRef.current.contains(event.target)
+      ) {
+        setNotifOpen(false);
       }
     };
 
@@ -71,9 +128,9 @@ export default function HeaderUser({ toggleSidebar }) {
 
           <div className="hidden md:block">
             <h2 className="text-lg font-semibold md:text-xl">Dashboard User</h2>
-            <p className="text-sm text-base-content/60">
+            {/* <p className="text-sm text-base-content/60">
               Selamat datang, {user?.username || "User"}
-            </p>
+            </p> */}
           </div>
 
           <div className="block md:hidden">
@@ -92,18 +149,20 @@ export default function HeaderUser({ toggleSidebar }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden text-right sm:block">
+          {/* <div className="hidden text-right sm:block">
             <p className="font-medium">{user?.username || "User"}</p>
             <p className="text-sm text-base-content/60">{user?.email || "-"}</p>
-          </div>
+          </div> */}
 
-          <div className="dropdown dropdown-end">
+          <div ref={notifDropdownRef} className="relative">
             <button
-              tabIndex={0}
+              onClick={() => {
+                if (!notifOpen) loadNotifications();
+                setNotifOpen((prev) => !prev);
+              }}
               className="btn btn-ghost btn-sm btn-circle relative"
             >
               <FiBell size={20} />
-
               {unreadCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
                   {unreadCount}
@@ -111,38 +170,50 @@ export default function HeaderUser({ toggleSidebar }) {
               )}
             </button>
 
-            <div
-              tabIndex={0}
-              className="dropdown-content z-[1] mt-3 w-80 rounded-xl bg-base-100 shadow-lg"
-            >
-              <div className="p-4">
-                <h3 className="mb-3 font-semibold">Notifications</h3>
-
-                <div className="max-h-60 space-y-2 overflow-y-auto">
-                  {notifications.length === 0 ? (
-                    <p className="text-center text-sm text-base-content/60">
-                      Tidak ada notifikasi
-                    </p>
-                  ) : (
-                    notifications.map((notif) => (
-                      <div
-                        key={notif.id}
-                        className="rounded-lg bg-base-200 p-3 transition hover:bg-base-300"
-                      >
-                        <p className="font-medium">{notif.title}</p>
-                        <p className="text-sm text-base-content/70">
-                          {notif.desc}
-                        </p>
-                      </div>
-                    ))
-                  )}
+            {notifOpen && (
+              <div className="absolute right-0 z-50 mt-3 w-80 rounded-xl bg-base-100 shadow-lg">
+                <div className="p-4">
+                  <h3 className="mb-3 font-semibold">Notifications</h3>
+                  <div className="max-h-60 space-y-2 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <p className="text-center text-sm text-base-content/60">
+                        Tidak ada notifikasi
+                      </p>
+                    ) : (
+                      notifications.slice(0, 5).map((notif) => (
+                        <div
+                          key={notif.id}
+                          onClick={() => handleReadNotification(notif.id)}
+                          className={`rounded-lg p-3 transition hover:bg-base-300 ${
+                            !notif.readAt ? "bg-primary/10" : "bg-base-200"
+                          }`}
+                        >
+                          <p className="font-medium">{notif.title}</p>
+                          <p className="text-sm text-base-content/70 whitespace-pre-line line-clamp-3">
+                            {notif.message}
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div className="mt-3 flex items-center gap-2">
+                    <button
+                      onClick={handleReadAll}
+                      className="btn btn-ghost btn-sm flex-1 text-base-content/60 hover:text-primary"
+                    >
+                      Tandai dibaca
+                    </button>
+                    <Link
+                      to="/user/notifications"
+                      onClick={() => setNotifOpen(false)}
+                      className="btn btn-primary btn-sm flex-1"
+                    >
+                      Lihat semua
+                    </Link>
+                  </div>
                 </div>
-
-                <button className="btn btn-primary btn-sm mt-3 w-full">
-                  Lihat semua
-                </button>
               </div>
-            </div>
+            )}
           </div>
 
           <details ref={profileDropdownRef} className="dropdown dropdown-end">
@@ -166,14 +237,22 @@ export default function HeaderUser({ toggleSidebar }) {
 
             <ul className="menu dropdown-content z-[1] mt-3 w-48 rounded-xl bg-base-100 p-2 shadow-lg">
               <li>
-                <Link to="/user/profile" onClick={closeProfileDropdown} className="flex items-center gap-2">
+                <Link
+                  to="/user/profile"
+                  onClick={closeProfileDropdown}
+                  className="flex items-center gap-2"
+                >
                   <FiUser size={16} />
                   Profile
                 </Link>
               </li>
 
               <li>
-                <Link to="/user/settings" onClick={closeProfileDropdown} className="flex items-center gap-2" >
+                <Link
+                  to="/user/settings"
+                  onClick={closeProfileDropdown}
+                  className="flex items-center gap-2"
+                >
                   <FiSettings size={16} />
                   Settings
                 </Link>
