@@ -73,7 +73,7 @@ function SocialBatteryHistoryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen space-y-6 bg-gradient-to-br from-[#FFFDF8] via-[#FAF3E8] to-[#F6EFE4] p-4 text-[#1E3557] dark:bg-slate-950 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 dark:text-slate-100 md:p-6">
+    <div className="min-h-screen space-y-6  p-4 text-[#1E3557] dark:bg-slate-950 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 dark:text-slate-100 md:p-6">
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>

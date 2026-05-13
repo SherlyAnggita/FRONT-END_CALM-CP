@@ -253,6 +253,26 @@ export default function MoodJarPage() {
           </div>
         )}
 
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">              
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <button
+                type="button"
+                className="
+                lg:hidden
+                mt-2
+                w-full rounded-xl bg-[#49769F] py-3
+                font-medium text-[#FFFFFF]
+                shadow-md
+                transition
+                hover:bg-[#BDD8E9]
+                active:scale-[0.98] "
+                 onClick={() => setIsFormModalOpen(true)}
+               >
+                    Tuliskan Perasaanmu
+              </button>
+             </div>
+         </div>
+
         <div className="grid gap-4 lg:h-[calc(100vh-280px)] lg:min-h-[500px] lg:items-stretch lg:gap-6 lg:grid-cols-[1fr_420px]">
           <div className="flex h-full flex-col">
             <MoodJarVisual
@@ -264,25 +284,7 @@ export default function MoodJarPage() {
             />
 
             
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">              
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <button
-                    type="button"
-                    className="
-                      lg:hidden
-                      mt-2
-                      w-full rounded-xl bg-[#49769F] py-3
-                      font-medium text-[#FFFFFF]
-                      shadow-md
-                      transition
-                      hover:bg-[#BDD8E9]
-                      active:scale-[0.98] "
-                    onClick={() => setIsFormModalOpen(true)}
-                  >
-                    Tuliskan Perasaanmu
-                  </button>
-                </div>
-              </div>
+              
           </div>
 
           <div className="hidden h-full lg:block">

@@ -42,21 +42,36 @@ export function getPaperPositions() {
   ];
 }
 export function getMoodPaperStyle(entry) {
-  const pastelColors = [
-    "#d3acae", 
-    "#5bb499", 
-    "#9fa5d1", 
-    "#FFF1C1", 
-    "#FAD2E1", 
-    "#CDEAC0", 
-    "#BDE0FE", 
-  ];
+  const moodName = (
+    entry?.moodLabel?.name ||
+    entry?.moodLabel?.label ||
+    entry?.mood ||
+    ""
+  )
+    .toString()
+    .toLowerCase();
 
-  const id = Number(entry?.id) || 0;
-  const fallbackColor = pastelColors[id % pastelColors.length];
+  const moodColorMap = {
+    buruk: "#FCA5A5", 
+    sedih: "#FDE68A", 
+    biasa_saja: "#BFDBFE",
+    baik: "#86EFAC",
+  };
+
+  let paperColor = "#BFDBFE";
+
+  if (moodName.includes("buruk")) {
+    paperColor = moodColorMap.buruk;
+  } else if (moodName.includes("sedih")) {
+    paperColor = moodColorMap.sedih;
+  } else if (moodName.includes("biasa_saja")) {
+    paperColor = moodColorMap.biasa_saja;
+  } else if (moodName.includes("baik")) {
+    paperColor = moodColorMap.baik;
+  }
 
   return {
-    backgroundColor: entry?.moodLabel?.paperColor || fallbackColor,
+    backgroundColor: paperColor,
     borderColor: "rgba(255, 255, 255, 0.6)",
   };
 }

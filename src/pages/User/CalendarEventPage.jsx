@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { FiCloud, FiCalendar } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { FiCloud, FiCalendar, FiArrowLeft } from "react-icons/fi";
 import googleCalendarService from "../../services/User/googleCalendarService";
 import CalendarEventVisual from "../../components/User/Calendar/CalendarEventVisual";
 import UpcomingEventsCard from "../../components/User/Calendar/UpcomingEventsCard";
@@ -69,7 +70,7 @@ export default function CalendarEventPage() {
 
         setTimeout(() => {
           setShowGoogleInfo(false);
-        }, 5000);
+        }, 10000);
 
         if (response.data.connected) {
           await fetchCalendarEvents();
@@ -162,6 +163,15 @@ export default function CalendarEventPage() {
 
   return (
   <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
+      <div className="mb-4 md:hidden">
+        <Link
+          to="/user/social-battery"
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+        >
+          <FiArrowLeft size={16} />
+          <span>Kembali</span>
+        </Link>
+      </div>
       <div className="rounded-[28px] border border-sky-200 bg-sky-100/80 p-6 shadow-md transition-colors dark:border-slate-700 dark:bg-slate-800/90 dark:shadow-slate-900/30">
         <div className="mb-4 flex items-center gap-2">
           <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">
