@@ -6,6 +6,10 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 import OAuthSuccess from "../pages/OAuthSuccess";
 import ProtectedRoute from "./ProtectedRoute";
 
+// Policy Privasi & Terms of Service
+import PrivacyPolicy from "../pages/PolicyPage";
+import Terms from "../pages/TermsPage";
+
 // halaman user
 // import HomePage from "../pages/User/HomePage";
 import DashboardUserPage from "../pages/User/DashboardUserPage";
@@ -102,6 +106,9 @@ export default function AppRouter() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/oauth-success" element={<OAuthSuccess />} />
 
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
+
         <Route path="/" element={<Navigate to="/user" replace />} />
 
         {/* halaman user */}
@@ -170,10 +177,7 @@ export default function AppRouter() {
             path="social-battery-logs/:id"
             element={<SocialBatteryLogsDetailPage />}
           />
-          <Route
-            path="settings"
-            element={<AdminSettingPage />}
-          />
+          <Route path="settings" element={<AdminSettingPage />} />
           <Route
             path="settings/change-password"
             element={<ChangePasswordAdmin />}

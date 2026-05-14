@@ -311,6 +311,24 @@ export default function RegisterPage() {
                     </button>
                   </form>
 
+                  <div className="mt-4 text-center text-xs leading-relaxed text-gray-700">
+                    By creating an account, you agree to our{" "}
+                    <Link
+                      to="/terms"
+                      className="font-medium text-[#04264d] hover:underline"
+                    >
+                      Terms of Service
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      to="/privacy-policy"
+                      className="font-medium text-[#04264d] hover:underline"
+                    >
+                      Privacy Policy
+                    </Link>
+                    .
+                  </div>
+
                   <p className="mt-3 text-center text-xs text-black">
                     Already have an account?{" "}
                     <Link to="/login" className="text-red-500 hover:underline">
