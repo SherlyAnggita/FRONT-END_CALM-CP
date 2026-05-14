@@ -96,15 +96,30 @@ export default function LoginPage() {
         className="absolute bottom-8 right-4 w-40 opacity-40 sm:bottom-8 sm:right-8 sm:w-32 lg:bottom-12 lg:right-10 lg:w-48"
       />
 
-     {/* stars desktop only */}
-      <img src={star1} alt="" className="hidden lg:block absolute top-20 left-10 w-100 opacity-80 animate-pulse" />
-      <img src={star2} alt="" className="hidden lg:block absolute top-32 right-10 w-100 opacity-80 animate-pulse" />
-      <img src={star3} alt="" className="hidden lg:block absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"/>
-      <img src={star4} alt="" className="hidden lg:block absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"/>
+      {/* stars desktop only */}
+      <img
+        src={star1}
+        alt=""
+        className="hidden lg:block absolute top-20 left-10 w-100 opacity-80 animate-pulse"
+      />
+      <img
+        src={star2}
+        alt=""
+        className="hidden lg:block absolute top-32 right-10 w-100 opacity-80 animate-pulse"
+      />
+      <img
+        src={star3}
+        alt=""
+        className="hidden lg:block absolute bottom-48 right-[25%] w-100 opacity-80 animate-pulse"
+      />
+      <img
+        src={star4}
+        alt=""
+        className="hidden lg:block absolute bottom-32 left-[30%] w-100 opacity-80 animate-pulse"
+      />
 
       <div className="relative z-10 flex min-h-[100dvh] items-center justify-center px-4 py-8 sm:px-6 lg:px-12">
         <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
-          
           {/* LEFT SIDE DESKTOP */}
           <div className="hidden lg:flex flex-col justify-center">
             <div className="max-w-xl">
@@ -113,7 +128,8 @@ export default function LoginPage() {
               </h1>
 
               <p className="mt-4 text-base text-white/90 sm:text-lg">
-                Karena setiap perasaanmu berharga. Mari rawat ketenanganmu hari ini
+                Karena setiap perasaanmu berharga. Mari rawat ketenanganmu hari
+                ini
               </p>
 
               <div className="mt-6 flex justify-center lg:justify-start">
@@ -129,15 +145,34 @@ export default function LoginPage() {
           {/* RIGHT SIDE */}
           <div className="flex items-center justify-center">
             <div className="w-full max-w-md sm:max-w-lg">
-              
               {/* MOBILE HERO */}
               <div className="relative mb-6 h-[260px] flex flex-col items-center justify-start overflow-visible text-center lg:hidden">
-                <img src={star1} alt="" className="absolute left-2 top-[-10px] z-20 w-35 opacity-90 animate-pulse" />
-                <img src={star2} alt="" className="absolute right-1 top-[-20px] z-20 w-55 opacity-90 animate-pulse" />
-                <img src={star3} alt="" className="absolute right-10 top-[-40px] z-20 w-35 opacity-90 animate-pulse" />
-                <img src={star4} alt="" className="absolute left-14 top-[-50px] z-20 w-25 opacity-90 animate-pulse"/>
+                <img
+                  src={star1}
+                  alt=""
+                  className="absolute left-2 top-[-10px] z-20 w-35 opacity-90 animate-pulse"
+                />
+                <img
+                  src={star2}
+                  alt=""
+                  className="absolute right-1 top-[-20px] z-20 w-55 opacity-90 animate-pulse"
+                />
+                <img
+                  src={star3}
+                  alt=""
+                  className="absolute right-10 top-[-40px] z-20 w-35 opacity-90 animate-pulse"
+                />
+                <img
+                  src={star4}
+                  alt=""
+                  className="absolute left-14 top-[-50px] z-20 w-25 opacity-90 animate-pulse"
+                />
 
-                <img src={calmLogo} alt="Calm" className="absolute top-[-130px] left-1/2 h-[490px] w-[490px] -translate-x-[55%] object-contain" />
+                <img
+                  src={calmLogo}
+                  alt="Calm"
+                  className="absolute top-[-130px] left-1/2 h-[490px] w-[490px] -translate-x-[55%] object-contain"
+                />
               </div>
 
               {/* LOGIN CARD */}
@@ -180,8 +215,6 @@ export default function LoginPage() {
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 transition hover:text-[#04264d]"
-
-                        
                       >
                         {showPassword ? (
                           <AiOutlineEyeInvisible size={22} />
@@ -191,8 +224,11 @@ export default function LoginPage() {
                       </button>
                     </div>
 
-                     <div className="mt-2 text-right">
-                      <Link to="/forgot-password" className="text-sm text-[#04264d] hover:underline">
+                    <div className="mt-2 text-right">
+                      <Link
+                        to="/forgot-password"
+                        className="text-sm text-[#04264d] hover:underline"
+                      >
                         Forgot Password?
                       </Link>
                     </div>
@@ -228,6 +264,23 @@ export default function LoginPage() {
                   Sign in with google
                 </button>
 
+                <div className="mt-4 text-center text-xs leading-relaxed text-gray-700">
+                  By continuing, you agree to our{" "}
+                  <Link
+                    to="/terms"
+                    className="font-medium text-[#04264d] hover:underline"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    to="/privacy-policy"
+                    className="font-medium text-[#04264d] hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
+                </div>
                 <p className="mt-4 text-center text-sm text-black">
                   Need an account?{" "}
                   <Link
