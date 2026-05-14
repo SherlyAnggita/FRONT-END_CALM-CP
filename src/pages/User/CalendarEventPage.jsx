@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FiCloud, FiCalendar, FiArrowLeft } from "react-icons/fi";
 import googleCalendarService from "../../services/User/googleCalendarService";
 import CalendarEventVisual from "../../components/User/Calendar/CalendarEventVisual";
@@ -12,6 +12,21 @@ export default function CalendarEventPage() {
   const [eventsLoading, setEventsLoading] = useState(false);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [showGoogleInfo, setShowGoogleInfo] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const [googleModal, setGoogleModal] = useState({
+    open: false,
+    title: "",
+    message: "",
+    type: "info",
+  });
+
+  const closeGoogleModal = () => {
+    setGoogleModal((prev) => ({ ...prev, open: false }));
+    navigate("/user/calendar", { replace: true });
+  };
 
   const [googleStatus, setGoogleStatus] = useState({
     connected: false,
@@ -42,7 +57,7 @@ export default function CalendarEventPage() {
         const sortedEvents = events.sort(
           (a, b) =>
             new Date(a.startTime || a.start?.dateTime || a.start?.date) -
-            new Date(b.startTime || b.start?.dateTime || b.start?.date)
+            new Date(b.startTime || b.start?.dateTime || b.start?.date),
         );
 
         setCalendarEvents(sortedEvents);
@@ -50,7 +65,7 @@ export default function CalendarEventPage() {
     } catch (error) {
       console.error("Failed to fetch calendar events:", error);
       setSyncMessage(
-        error?.response?.data?.message || "Failed to get calendar events."
+        error?.response?.data?.message || "Failed to get calendar events.",
       );
     } finally {
       setEventsLoading(false);
@@ -79,7 +94,8 @@ export default function CalendarEventPage() {
     } catch (error) {
       console.error("Failed to fetch Google status:", error);
       setSyncMessage(
-        error?.response?.data?.message || "Failed to get Google account status."
+        error?.response?.data?.message ||
+          "Failed to get Google account status.",
       );
     } finally {
       setLoading(false);
@@ -99,7 +115,7 @@ export default function CalendarEventPage() {
     } catch (error) {
       console.error("Failed to connect Google account:", error);
       setSyncMessage(
-        error?.response?.data?.message || "Failed to start Google connection."
+        error?.response?.data?.message || "Failed to start Google connection.",
       );
       setLoading(false);
     }
@@ -120,7 +136,8 @@ export default function CalendarEventPage() {
     } catch (error) {
       console.error("Failed to disconnect Google account:", error);
       setSyncMessage(
-        error?.response?.data?.message || "Failed to disconnect Google account."
+        error?.response?.data?.message ||
+          "Failed to disconnect Google account.",
       );
     } finally {
       setLoading(false);
@@ -135,7 +152,9 @@ export default function CalendarEventPage() {
       const response = await googleCalendarService.syncCalendar();
 
       if (response.success) {
-        setSyncMessage(response.message || "Calendar synchronized successfully.");
+        setSyncMessage(
+          response.message || "Calendar synchronized successfully.",
+        );
         await fetchCalendarEvents();
       } else {
         setSyncMessage(response.message || "Failed to sync Google Calendar.");
@@ -143,7 +162,7 @@ export default function CalendarEventPage() {
     } catch (error) {
       console.error("Failed to sync Google Calendar:", error);
       setSyncMessage(
-        error?.response?.data?.message || "Failed to sync Google Calendar."
+        error?.response?.data?.message || "Failed to sync Google Calendar.",
       );
     } finally {
       setSyncing(false);
@@ -158,11 +177,41 @@ export default function CalendarEventPage() {
   }));
 
   useEffect(() => {
+    const connected = searchParams.get("connected");
+    const reason = searchParams.get("reason");
+
+    if (connected === "false" && reason === "google_already_connected") {
+      setGoogleModal({
+        open: true,
+        type: "warning",
+        title: "Google Calendar sudah tertaut",
+        message:
+          "Akun Google Calendar ini sudah terhubung dengan akun CALM lain. Silakan disconnect terlebih dahulu dari akun sebelumnya, atau gunakan akun Google Calendar lain.",
+      });
+    } else if (connected === "false") {
+      setGoogleModal({
+        open: true,
+        type: "error",
+        title: "Gagal menghubungkan Google Calendar",
+        message:
+          "Terjadi kesalahan saat menghubungkan Google Calendar. Silakan coba lagi beberapa saat lagi.",
+      });
+    } else if (connected === "true") {
+      setGoogleModal({
+        open: true,
+        type: "success",
+        title: "Google Calendar berhasil terhubung",
+        message: "Akun Google Calendar kamu berhasil terhubung ke CALM.",
+      });
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     fetchGoogleStatus();
   }, []);
 
   return (
-  <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
+    <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
       <div className="mb-4 md:hidden">
         <Link
           to="/user/social-battery"
@@ -221,42 +270,42 @@ export default function CalendarEventPage() {
         )}
 
         <div className="mb-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
+          <button
+            onClick={fetchGoogleStatus}
+            disabled={loading}
+            className="btn h-auto min-h-0 rounded-full border-none bg-white px-2 py-2 text-[11px] text-slate-700 shadow transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
+          >
+            {loading ? "Checking..." : "Check Status"}
+          </button>
+
+          {!googleStatus.connected ? (
             <button
-              onClick={fetchGoogleStatus}
+              onClick={handleConnectGoogle}
               disabled={loading}
-              className="btn h-auto min-h-0 rounded-full border-none bg-white px-2 py-2 text-[11px] text-slate-700 shadow transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
+              className="btn h-auto min-h-0 rounded-full border-none bg-indigo-400 px-2 py-2 text-[11px] text-white shadow transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-indigo-500 dark:hover:bg-indigo-600"
             >
-              {loading ? "Checking..." : "Check Status"}
+              {loading ? "Connecting..." : "Connect Google"}
             </button>
-
-            {!googleStatus.connected ? (
+          ) : (
+            <>
               <button
-                onClick={handleConnectGoogle}
-                disabled={loading}
-                className="btn h-auto min-h-0 rounded-full border-none bg-indigo-400 px-2 py-2 text-[11px] text-white shadow transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                onClick={handleSyncCalendar}
+                disabled={syncing}
+                className="btn h-auto min-h-0 rounded-full border-none bg-[#49769F] px-2 py-2 text-[11px] text-white shadow-md transition hover:bg-[#3d6487] disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm"
               >
-                {loading ? "Connecting..." : "Connect Google"}
+                {syncing ? "Syncing..." : "Synchronize"}
               </button>
-            ) : (
-              <>
-                <button
-                  onClick={handleSyncCalendar}
-                  disabled={syncing}
-                  className="btn h-auto min-h-0 rounded-full border-none bg-[#49769F] px-2 py-2 text-[11px] text-white shadow-md transition hover:bg-[#3d6487] disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm"
-                >
-                  {syncing ? "Syncing..." : "Synchronize"}
-                </button>
 
-                <button
-                  onClick={handleDisconnectGoogle}
-                  disabled={loading}
-                  className="btn h-auto min-h-0 rounded-full border-none bg-rose-100 px-2 py-2 text-[11px] text-rose-700 shadow transition hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50"
-                >
-                  {loading ? "Disconnecting..." : "Disconnect"}
-                </button>
-              </>
-            )}
-          </div>
+              <button
+                onClick={handleDisconnectGoogle}
+                disabled={loading}
+                className="btn h-auto min-h-0 rounded-full border-none bg-rose-100 px-2 py-2 text-[11px] text-rose-700 shadow transition hover:bg-rose-200 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm dark:bg-rose-900/30 dark:text-rose-300 dark:hover:bg-rose-900/50"
+              >
+                {loading ? "Disconnecting..." : "Disconnect"}
+              </button>
+            </>
+          )}
+        </div>
 
         <p className="text-sm text-slate-600 dark:text-slate-300">
           Data from your synchronized calendar will automatically update your
@@ -277,10 +326,13 @@ export default function CalendarEventPage() {
                 <p className="text-xs text-slate-500">Connected At</p>
                 <p className="font-semibold">
                   {googleStatus.connectedAt
-                    ? new Date(googleStatus.connectedAt).toLocaleString("id-ID", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })
+                    ? new Date(googleStatus.connectedAt).toLocaleString(
+                        "id-ID",
+                        {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        },
+                      )
                     : "-"}
                 </p>
               </div>
@@ -301,16 +353,19 @@ export default function CalendarEventPage() {
                 <p className="text-xs text-slate-500">Token Expiry</p>
                 <p className="font-semibold">
                   {googleStatus.tokenExpiry
-                    ? new Date(googleStatus.tokenExpiry).toLocaleString("id-ID", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })
+                    ? new Date(googleStatus.tokenExpiry).toLocaleString(
+                        "id-ID",
+                        {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        },
+                      )
                     : "-"}
                 </p>
               </div>
             </div>
           </div>
-)}
+        )}
 
         {syncMessage && (
           <div className="mt-4 rounded-2xl bg-white/70 px-4 py-3 text-sm text-slate-700 shadow-sm dark:bg-slate-700/80 dark:text-slate-200">
@@ -320,16 +375,52 @@ export default function CalendarEventPage() {
       </div>
 
       {googleStatus.connected && (
-     <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
           <CalendarEventVisual
             fullCalendarEvents={fullCalendarEvents}
             eventsLoading={eventsLoading}
           />
 
-          <UpcomingEventsCard 
-            calendarEvents={calendarEvents}
-          />
+          <UpcomingEventsCard calendarEvents={calendarEvents} />
         </div>
+      )}
+
+      {googleModal.open && (
+        <dialog open className="modal modal-open">
+          <div className="modal-box bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100">
+            <div
+              className={`mb-4 rounded-2xl px-4 py-3 text-sm font-semibold ${
+                googleModal.type === "success"
+                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+                  : googleModal.type === "warning"
+                    ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
+                    : "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300"
+              }`}
+            >
+              {googleModal.title}
+            </div>
+
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              {googleModal.message}
+            </p>
+
+            <div className="modal-action">
+              <button
+                type="button"
+                onClick={closeGoogleModal}
+                className="btn rounded-full border-none bg-[#49769F] px-6 text-white hover:bg-[#3d6487]"
+              >
+                Mengerti
+              </button>
+            </div>
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button type="button" onClick={closeGoogleModal}>
+              close
+            </button>
+          </form>
+        </dialog>
       )}
     </div>
   );
