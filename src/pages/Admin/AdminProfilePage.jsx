@@ -107,7 +107,7 @@ export default function AdminProfilePage() {
   }, []);
 
   useEffect(() => {
-    const savedPhoto = localStorage.getItem("adminProfilePhoto");
+    const savedPhoto = localStorage.getItem("profilePhoto");
 
     if (savedPhoto) {
       setPreview(savedPhoto);
@@ -242,7 +242,7 @@ export default function AdminProfilePage() {
       }));
 
       if (hasPendingPhotoChange && preview) {
-        localStorage.setItem("adminProfilePhoto", preview);
+        localStorage.setItem("profilePhoto", preview);
         window.dispatchEvent(new Event("profile-photo-updated"));
         setSavedPreview(preview);
         setHasPendingPhotoChange(false);

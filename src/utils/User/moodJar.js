@@ -42,33 +42,10 @@ export function getPaperPositions() {
   ];
 }
 export function getMoodPaperStyle(entry) {
-  const moodName = (
-    entry?.moodLabel?.name ||
-    entry?.moodLabel?.label ||
-    entry?.mood ||
-    ""
-  )
-    .toString()
-    .toLowerCase();
-
-  const moodColorMap = {
-    buruk: "#FCA5A5", 
-    sedih: "#FDE68A", 
-    biasa_saja: "#BFDBFE",
-    baik: "#86EFAC",
-  };
-
-  let paperColor = "#BFDBFE";
-
-  if (moodName.includes("buruk")) {
-    paperColor = moodColorMap.buruk;
-  } else if (moodName.includes("sedih")) {
-    paperColor = moodColorMap.sedih;
-  } else if (moodName.includes("biasa_saja")) {
-    paperColor = moodColorMap.biasa_saja;
-  } else if (moodName.includes("baik")) {
-    paperColor = moodColorMap.baik;
-  }
+  const paperColor =
+    entry?.moodLabel?.paperColor ||
+    entry?.paperColor ||
+    "#BFDBFE";
 
   return {
     backgroundColor: paperColor,

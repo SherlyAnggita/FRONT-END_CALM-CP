@@ -16,6 +16,17 @@ const stars = [
   { left: "30%", top: "18%", size: 8, delay: 0.3 },
 ];
 
+const cardClouds = [
+  { left: "-50%", top: "4px", width: "w-50", opacity: "opacity-35", delay: 0 },
+  { right: "-50%", top: "50px", width: "w-50", opacity: "opacity-30", delay: 0.4 },
+
+  { left: "-8%", top: "120px", width: "w-35", opacity: "opacity-25", delay: 0.8 },
+  { right: "-60%", top: "56%", width: "w-40", opacity: "opacity-25", delay: 1.2 },
+
+  { left: "40%", bottom: "-5px", width: "w-55", opacity: "opacity-80", delay: 0.6 },
+  { right: "100%", bottom: "-30px", width: "w-70", opacity: "opacity-25", delay: 1 },
+];
+
 function getReadableTextColor(style) {
   const color = style?.backgroundColor || style?.background || "#ffffff";
   const hex = color.replace("#", "");
@@ -114,13 +125,43 @@ export default function MoodJarVisual({
       </motion.div>
 
       {/* body visual */}
-      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-hidden rounded-[24px] bg-transparent px-4 pb-7 pt-4">
+      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-visible rounded-[24px] bg-transparent px-4 pb-7 pt-4">
         {stars.map((s, i) => (
           <StarIcon
             key={i}
             size={s.size}
             delay={s.delay}
             style={{ left: s.left, top: s.top }}
+          />
+        ))}
+
+        {cardClouds.map((cloud, index) => (
+          <motion.img
+            key={`card-cloud-${index}`}
+            src={cloudSmall1}
+            alt=""
+            className={`
+              pointer-events-none absolute z-[4]
+              ${cloud.width}
+              ${cloud.opacity}
+              ${cloud.right ? "scale-x-[-1]" : ""}
+            `}
+            style={{
+              left: cloud.left,
+              right: cloud.right,
+              top: cloud.top,
+              bottom: cloud.bottom,
+            }}
+            animate={{
+              x: [0, index % 2 === 0 ? 8 : -8, 0],
+              y: [0, -4, 0],
+            }}
+            transition={{
+              duration: 8 + index,
+              delay: cloud.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
         ))}
 
@@ -181,7 +222,7 @@ export default function MoodJarVisual({
         <motion.img
           src={cloudSmall1}
           alt=""
-          className="pointer-events-none absolute bottom-[56px] left-[34px] z-[9] w-24 opacity-45"
+          className="pointer-events-none absolute bottom-[2px] left-[10px] z-[9] w-55 opacity-90"
           initial={{ opacity: 0, x: -20, y: 10 }}
           animate={{ opacity: 0.45, x: 0, y: 0 }}
           transition={{
