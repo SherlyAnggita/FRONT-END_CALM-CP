@@ -211,7 +211,7 @@ export default function CalendarEventPage() {
   }, []);
 
   return (
-    <div className="w-full max-w-full min-w-0 overflow-hidden rounded-[24px] bg-white p-3 shadow-md dark:bg-slate-800 sm:p-5">
+   <div className="p-3 sm:p-5">
       <div className="mb-4 md:hidden">
         <Link
           to="/user/social-battery"

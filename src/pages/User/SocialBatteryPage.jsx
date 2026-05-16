@@ -198,7 +198,7 @@ if (!battery && calendarConnected === true) {
       </div>
 
       <div className="grid grid-cols-[1.25fr_1fr] gap-4 md:hidden">
-      <div className="rounded-[24px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-3 shadow-[0_8px_18px_rgba(70,130,180,0.28),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <p className="mb-2 text-sm font-bold text-[#1F2A44] dark:text-white">
           Battery Score
         </p>
@@ -214,9 +214,9 @@ if (!battery && calendarConnected === true) {
             score < 50 ? "#ef4444" : score <= 70 ? "#facc15" : "#22c55e";
 
           return (
-            <div className="flex items-center justify-between gap-3 px-1">
+            <div className="flex items-center justify-between gap-3 px-[-22px]">
               <div
-                className="relative flex h-[70px] w-[80px] items-center justify-center overflow-hidden rounded-[20px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.20),0_4px_10px_rgba(58,111,153,0.18)]"
+                className="relative flex h-[40px] w-[160px] items-center justify-center overflow-hidden rounded-[20px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.20),0_4px_10px_rgba(58,111,153,0.18)]"
                 style={{
                   border: `4px solid ${mobileStatusColor}`,
                 }}
@@ -233,7 +233,7 @@ if (!battery && calendarConnected === true) {
                   }}
                 />
 
-                <div className="relative z-8 text-[18px] font-extrabold text-[#7D9BFF] drop-shadow-sm">
+                <div className="relative z-8 text-[13px] font-extrabold text-[#7D9BFF] drop-shadow-sm">
                   {score.toFixed(0)}%
                 </div>
               </div>
@@ -244,13 +244,10 @@ if (!battery && calendarConnected === true) {
                 </p>
 
                 <div
-                  className="mt-2 rounded-full border px-4 py-[3px] text-[9px] font-extrabold uppercase tracking-wide"
-                  style={{
-                    borderColor: mobileStatusColor,
-                    color: mobileStatusColor,
-                  }}
+                  className="inline-block rounded-full px-4 py-[3px] text-[9px] font-semibold text-white shadow-[0_4px_8px_rgba(58,111,153,0.25),inset_0_1px_2px_rgba(255,255,255,0.35)]"
+                  style={{ backgroundColor: mobileStatusColor }}
                 >
-                  {mobileStatusName}
+                  {mobileStatusName.toUpperCase()}
                 </div>
               </div>
             </div>
@@ -380,7 +377,7 @@ if (!battery && calendarConnected === true) {
                 </p>
 
                 <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "insight" ? "v" : ">"}
+                  {openCard === "insight" ? "^" : ">"}
                 </span>
               </div>
 
@@ -405,7 +402,7 @@ if (!battery && calendarConnected === true) {
                 </p>
 
                 <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "explanation" ? "v" : ">"}
+                  {openCard === "explanation" ? "^" : ">"}
                 </span>
               </div>
 
@@ -428,7 +425,7 @@ if (!battery && calendarConnected === true) {
                 </p>
 
                 <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "suggestion" ? "v" : ">"}
+                  {openCard === "suggestion" ? "^" : ">"}
                 </span>
               </div>
 
