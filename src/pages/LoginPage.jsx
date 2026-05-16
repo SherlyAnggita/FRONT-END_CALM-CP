@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { loginUser } from "../services/authService";
+import { loginUser, getCurrentUser } from "../services/authService";
 import { motion } from "framer-motion";
 import cloudMain from "../assets/cloud.png";
 import cloudSmall1 from "../assets/cloud-small1.png";
@@ -57,8 +57,18 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // await loginUser(form);
+      // navigate("/");
+
       await loginUser(form);
-      navigate("/");
+
+      const user = getCurrentUser();
+
+      if (user?.role === "user" && !user?.onboardingCompleted) {
+        navigate("/user/mood", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       setError(err.message || "Login gagal");
     } finally {

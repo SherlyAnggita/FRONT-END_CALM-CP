@@ -48,7 +48,7 @@ export default function MoodJarForm({
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="form-control">
           <label className="mb-2 label">
-            <span className="label-text">Pilih Mood</span>
+            <span className="label-text">Bagaimana Mood mu?</span>
           </label>
 
           <div className="grid grid-cols-2 gap-3">

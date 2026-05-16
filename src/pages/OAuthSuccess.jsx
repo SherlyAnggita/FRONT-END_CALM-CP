@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { exchangeGoogleCode } from "../services/authService";
+import { exchangeGoogleCode, getCurrentUser } from "../services/authService";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
@@ -17,8 +17,16 @@ const OAuthSuccess = () => {
 
         await exchangeGoogleCode(code);
 
-        navigate("/user", { replace: true });
+        // navigate("/user", { replace: true });
+        const user = getCurrentUser();
+
+        if (user?.role === "user" && !user?.onboardingCompleted) {
+          navigate("/user/mood", { replace: true });
+        } else {
+          navigate("/user", { replace: true });
+        }
       } catch (error) {
+        console.error(error);
         navigate("/login?error=google_failed", { replace: true });
       }
     };
