@@ -18,13 +18,43 @@ const stars = [
 
 const cardClouds = [
   { left: "-50%", top: "4px", width: "w-50", opacity: "opacity-35", delay: 0 },
-  { right: "-50%", top: "50px", width: "w-50", opacity: "opacity-30", delay: 0.4 },
+  {
+    right: "-50%",
+    top: "50px",
+    width: "w-50",
+    opacity: "opacity-30",
+    delay: 0.4,
+  },
 
-  { left: "-8%", top: "120px", width: "w-35", opacity: "opacity-25", delay: 0.8 },
-  { right: "-60%", top: "56%", width: "w-40", opacity: "opacity-25", delay: 1.2 },
+  {
+    left: "-8%",
+    top: "120px",
+    width: "w-35",
+    opacity: "opacity-25",
+    delay: 0.8,
+  },
+  {
+    right: "-60%",
+    top: "56%",
+    width: "w-40",
+    opacity: "opacity-25",
+    delay: 1.2,
+  },
 
-  { left: "40%", bottom: "-5px", width: "w-55", opacity: "opacity-80", delay: 0.6 },
-  { right: "100%", bottom: "-30px", width: "w-70", opacity: "opacity-25", delay: 1 },
+  {
+    left: "40%",
+    bottom: "-5px",
+    width: "w-55",
+    opacity: "opacity-80",
+    delay: 0.6,
+  },
+  {
+    right: "100%",
+    bottom: "-30px",
+    width: "w-70",
+    opacity: "opacity-25",
+    delay: 1,
+  },
 ];
 
 function getReadableTextColor(style) {
@@ -78,7 +108,8 @@ export default function MoodJarVisual({
   onOpenHistory,
 }) {
   return (
-    <div className="h-auto overflow-hidden rounded-[32px] bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 pb-4 pt-4 shadow-lg sm:px-6 lg:h-full lg:px-5 lg:pb-6 lg:pt-5">
+    // <div className="h-auto overflow-visible rounded-[32px] bg-transparent px-4 pb-4 pt-4 sm:px-6 lg:h-full lg:px-5 lg:pb-6 lg:pt-5">
+    <div className="relative h-auto rounded-2xl overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 py-2 text-white lg:h-[560px]">
       {/* header */}
       <motion.div
         className="relative mb-6 flex items-center justify-between gap-3 overflow-hidden rounded-xl"
@@ -112,7 +143,7 @@ export default function MoodJarVisual({
         />
 
         <div className="relative z-10 flex w-full items-center justify-between">
-          <h2 className="text-2xl font-bold text-white">Jar of Feelings</h2>
+          {/* <h2 className="text-2xl font-bold text-white">Jar of Feelings</h2> */}
 
           <button
             type="button"
@@ -125,7 +156,7 @@ export default function MoodJarVisual({
       </motion.div>
 
       {/* body visual */}
-      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-visible rounded-[24px] bg-transparent px-4 pb-7 pt-4">
+      <div className="relative mx-auto flex w-full max-w-[360px] items-end justify-center overflow-visible rounded-[24px] bg-transparent px-2 pb-7">
         {stars.map((s, i) => (
           <StarIcon
             key={i}

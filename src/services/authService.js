@@ -16,6 +16,8 @@ export async function loginUser(payload) {
     tokenStorage.setUser(data.data);
   }
 
+  await getUserProfile();
+
   return data;
 }
 
@@ -40,6 +42,8 @@ export async function exchangeGoogleCode(code) {
   if (data.data) {
     tokenStorage.setUser(data.data);
   }
+
+  await getUserProfile();
 
   return data;
 }
@@ -113,7 +117,7 @@ export async function logoutUser() {
       });
     }
   } catch (error) {
-    // console.error("Logout API error:", error);
+    console.error("Logout API error:", error);
     console.warn("Logout API gagal, tapi tetap clear token");
     // tetap lanjut hapus token walaupun gagal
   } finally {

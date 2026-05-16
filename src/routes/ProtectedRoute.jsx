@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import {
   refreshAccessToken,
   getCurrentUser,
@@ -7,9 +7,12 @@ import {
 } from "../services/authService";
 
 function ProtectedRoute({ children }) {
+  const location = useLocation();
+
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [allowed, setAllowed] = useState(false);
-  const [role, setRole] = useState(null);
+  // const [role, setRole] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function checkAuth() {
@@ -19,11 +22,16 @@ function ProtectedRoute({ children }) {
           await refreshAccessToken();
         }
 
-        const user = getCurrentUser();
+        // const user = getCurrentUser();
 
-        setRole(user?.role || null);
+        // setRole(user?.role || null);
+        // setAllowed(true);
+
+        const currentUser = getCurrentUser();
+
+        setUser(currentUser);
         setAllowed(true);
-      } catch  {
+      } catch {
         setAllowed(false);
       } finally {
         setCheckingAuth(false);
@@ -45,8 +53,15 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
-  if (role === "admin") {
+  if (user?.role === "admin") {
     return <Navigate to="/admin" replace />;
+  }
+
+  const isOnboardingRequired =
+    user?.role === "user" && !user?.onboardingCompleted;
+
+  if (isOnboardingRequired && location.pathname !== "/user/mood") {
+    return <Navigate to="/user/mood" replace />;
   }
 
   return children;

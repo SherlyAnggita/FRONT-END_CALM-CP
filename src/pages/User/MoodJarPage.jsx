@@ -10,14 +10,22 @@ import {
   getJarFillHeight,
   getPaperPositions,
   getTimeUntilNextDay,
-  getMoodPaperStyle,
+  // getMoodPaperStyle,
 } from "../../utils/User/moodJar";
 import MoodJarVisual from "../../components/User/MoodJar/MoodJarVisual";
 import MoodJarForm from "../../components/User/MoodJar/MoodJarForm";
 import MoodJarHistory from "../../components/User/MoodJar/MoodJarHistory";
 import MoodJarModal from "../../components/User/MoodJar/MoodJarModal";
+import MoodJarDetail from "../../components/User/MoodJar/MoodJarDetail";
+// import cloudSmall1 from "../../assets/cloud-small1.png";
+import { getCurrentUser, getUserProfile } from "../../services/authService";
 
 export default function MoodJarPage() {
+  const currentUser = getCurrentUser();
+
+  const isOnboardingRequired =
+    currentUser?.role === "user" && !currentUser?.onboardingCompleted;
+
   const [labels, setLabels] = useState([]);
   const [entries, setEntries] = useState([]);
 
@@ -50,6 +58,8 @@ export default function MoodJarPage() {
     feelingText: "",
   });
 
+  const [completedOnboarding, setCompletedOnboarding] = useState(false);
+
   const paperPositions = getPaperPositions();
 
   async function fetchMoodJarData() {
@@ -80,21 +90,6 @@ export default function MoodJarPage() {
       setLoading(false);
     }
   }
-
-  function getReadableTextColor(style) {
-  const color = style?.backgroundColor || style?.background || "#ffffff";
-  const hex = color.replace("#", "");
-
-  if (hex.length !== 6) return "#111827";
-
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
-  return brightness < 140 ? "#ffffff" : "#111827";
-}
 
   async function fetchHistory(page = 1) {
     try {
@@ -131,6 +126,16 @@ export default function MoodJarPage() {
   const todayEntry = useMemo(() => {
     return entries.find((item) => isSameDay(item.entryDate));
   }, [entries]);
+
+  useEffect(() => {
+    if (!loading && isOnboardingRequired && !hasTodayEntry) {
+      const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+
+      if (isMobile) {
+        setIsFormModalOpen(true);
+      }
+    }
+  }, [loading, isOnboardingRequired, hasTodayEntry]);
 
   useEffect(() => {
     if (!hasTodayEntry) {
@@ -177,6 +182,10 @@ export default function MoodJarPage() {
   function handleCloseDetail() {
     setSelectedEntry(null);
     setIsDetailModalOpen(false);
+
+    if (completedOnboarding) {
+      window.location.href = "/user";
+    }
   }
 
   async function handleOpenHistory() {
@@ -206,12 +215,34 @@ export default function MoodJarPage() {
 
       setSuccessMessage(res.message || "Mood berhasil disimpan");
 
+      const createdEntry = res.data?.moodEntry || res.moodEntry;
+      const encouragementResult =
+        res.data?.encouragementResult || res.encouragementResult;
+
+      if (createdEntry) {
+        setSelectedEntry({
+          ...createdEntry,
+          encouragementResult,
+          moodLabel: labels.find(
+            (label) => label.id === createdEntry.moodLabelId,
+          ),
+        });
+
+        setIsDetailModalOpen(true);
+      }
+
       setForm({
         moodLabelId: "",
         feelingText: "",
       });
 
       await fetchMoodJarData();
+
+      await getUserProfile();
+
+      if (isOnboardingRequired) {
+        setCompletedOnboarding(true);
+      }
 
       if (isHistoryModalOpen) {
         await fetchHistory(1);
@@ -237,8 +268,27 @@ export default function MoodJarPage() {
   }
 
   return (
+    // <div className="relative h-full min-h-0 overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 py-4 text-white">
     <>
-      <div className="space-y-6">
+      {/* <img
+        src={cloudSmall1}
+        alt=""
+        className="pointer-events-none absolute -left-10 top-28 w-64 opacity-30"
+      />
+
+      <img
+        src={cloudSmall1}
+        alt=""
+        className="pointer-events-none absolute -right-14 top-40 w-72 scale-x-[-1] opacity-25"
+      />
+
+      <img
+        src={cloudSmall1}
+        alt=""
+        className="pointer-events-none absolute -bottom-10 left-[20%] w-96 opacity-35"
+      /> */}
+      <div className="relative z-10 flex h-full flex-col gap-3">
+        {/* <div className="relative z-10 space-y-3"> */}
         <div>
           <h1 className="text-2xl font-bold">Mood Jar</h1>
           <p className="text-sm text-base-content/70">
@@ -253,27 +303,35 @@ export default function MoodJarPage() {
           </div>
         )}
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">              
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <button
-                type="button"
-                className="
-                lg:hidden
-                mt-2
-                w-full rounded-xl bg-[#49769F] py-3
-                font-medium text-[#FFFFFF]
-                shadow-md
-                transition
-                hover:bg-[#BDD8E9]
-                active:scale-[0.98] "
-                 onClick={() => setIsFormModalOpen(true)}
-               >
-                    Tuliskan Perasaanmu
-              </button>
-             </div>
-         </div>
+        <div className="lg:hidden">
+          <button
+            type="button"
+            className="
+              mt-2
+              w-full
+              rounded-2xl
+              border border-[#7FA8C9]
+              bg-white/10
+              px-6 py-3
+              text-center
+              font-semibold
+              text-[#D6E9F8]
+              backdrop-blur-md
+              shadow-md
+              transition-all duration-300
+            hover:border-[#A8C7E2]
+            hover:bg-[#8dcbfa]
+              hover:text-white
+              active:scale-[0.98]
+            "
+            onClick={() => setIsFormModalOpen(true)}
+          >
+            Bagaimana Perasaanmu Hari ini?
+          </button>
+        </div>
 
-        <div className="grid gap-4 lg:h-[calc(100vh-280px)] lg:min-h-[500px] lg:items-stretch lg:gap-6 lg:grid-cols-[1fr_420px]">
+        {/* <div className="grid gap-4 lg:h-[calc(100vh-280px)] lg:min-h-[500px] lg:items-stretch lg:gap-6 lg:grid-cols-[1fr_420px]"> */}
+        <div className="grid flex-1 min-h-0 gap-4 lg:items-stretch lg:gap-6 lg:grid-cols-[1fr_420px]">
           <div className="flex h-full flex-col">
             <MoodJarVisual
               entries={entries}
@@ -282,9 +340,6 @@ export default function MoodJarPage() {
               getJarFillHeight={getJarFillHeight}
               onOpenHistory={handleOpenHistory}
             />
-
-            
-              
           </div>
 
           <div className="hidden h-full lg:block">
@@ -307,8 +362,14 @@ export default function MoodJarPage() {
 
       <MoodJarModal
         open={isFormModalOpen}
-        title="Input Mood Hari Ini"
-        onClose={() => setIsFormModalOpen(false)}
+        title={
+          isOnboardingRequired
+            ? "Sebelum mulai, ceritakan perasaanmu hari ini"
+            : "Bagaimana Perasaanmu Hari ini?"
+        }
+        onClose={
+          isOnboardingRequired ? undefined : () => setIsFormModalOpen(false)
+        }
       >
         <MoodJarForm
           hasTodayEntry={hasTodayEntry}
@@ -352,43 +413,7 @@ export default function MoodJarPage() {
         }
         onClose={handleCloseDetail}
       >
-        {selectedEntry && (
-          <div>
-            <p className="text-sm text-base-content/60">
-              {formatMoodDate(selectedEntry.entryDate)}
-            </p>
-
-            {(() => {
-            const paperStyle = getMoodPaperStyle(selectedEntry);
-            const textColor = getReadableTextColor(paperStyle);
-
-            return (
-              <div
-                className="mt-4 rounded-lg border border-base-300 p-4"
-                style={{
-                  ...paperStyle,
-                  color: textColor,
-                }}
-              >
-                <p className="text-sm leading-relaxed font-medium">
-                  {selectedEntry.feelingText}
-                </p>
-              </div>
-            );
-          })()}
-
-            {selectedEntry.encouragementResult?.supportMessage && (
-               <div className="mt-4 rounded-2xl bg-[#d8dfe8]/95 p-4 text-black shadow-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-black/60">
-                  Support Message
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-black/95">
-                  {selectedEntry.encouragementResult.supportMessage}
-                </p>
-              </div>
-              )}
-          </div>
-        )}
+        <MoodJarDetail entry={selectedEntry} formatMoodDate={formatMoodDate} />
       </MoodJarModal>
     </>
   );
