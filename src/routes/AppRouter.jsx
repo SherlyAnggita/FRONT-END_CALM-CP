@@ -21,6 +21,7 @@ import SettingPage from "../pages/User/settings/SettingPage";
 import ChangePasswordPage from "../pages/User/settings/ChangePasswordPage";
 import SocialBatteryHistoryPage from "../pages/User/SocialBatteryHistoryPage";
 import NotificationsPage from "../pages/User/notifications/index";
+import NotificationDetailPage from "../pages/User/notifications/detail";
 
 import UserLayout from "../layouts/User/UserLayout";
 
@@ -137,6 +138,10 @@ export default function AppRouter() {
             element={<ChangePasswordPage />}
           />
           <Route path="notifications" element={<NotificationsPage />} />
+          <Route
+            path="notifications/:id"
+            element={<NotificationDetailPage />}
+          />
         </Route>
 
         {/* halaman admin */}

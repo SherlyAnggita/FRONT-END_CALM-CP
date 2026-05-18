@@ -4,8 +4,7 @@ import { FiMenu, FiBell } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 export default function HeaderAdmin({ toggleSidebar }) {
-  const user = getCurrentUser();
-  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [user, setUser] = useState(getCurrentUser());
 
   const notifications = [
     {
@@ -23,16 +22,15 @@ export default function HeaderAdmin({ toggleSidebar }) {
   const unreadCount = notifications.length;
 
   useEffect(() => {
-    const loadProfilePhoto = () => {
-      const savedPhoto = localStorage.getItem("profilePhoto");
-      setProfilePhoto(savedPhoto);
+    const loadUser = () => {
+      setUser(getCurrentUser());
     };
 
-    loadProfilePhoto();
-    window.addEventListener("profile-photo-updated", loadProfilePhoto);
+    loadUser();
+    window.addEventListener("profile-photo-updated", loadUser);
 
     return () => {
-      window.removeEventListener("profile-photo-updated", loadProfilePhoto);
+      window.removeEventListener("profile-photo-updated", loadUser);
     };
   }, []);
 
@@ -48,7 +46,9 @@ export default function HeaderAdmin({ toggleSidebar }) {
           </button>
 
           <div className="hidden md:block">
-            <h2 className="text-lg font-semibold md:text-xl">Dashboard Admin</h2>
+            <h2 className="text-lg font-semibold md:text-xl">
+              Dashboard Admin
+            </h2>
             <p className="text-sm text-base-content/60">
               Selamat datang, {user?.username || "User"}
             </p>
@@ -125,9 +125,9 @@ export default function HeaderAdmin({ toggleSidebar }) {
 
           <Link to="/admin/profile" className="avatar">
             <div className="w-10 rounded-full overflow-hidden bg-primary text-primary-content transition hover:scale-105">
-              {profilePhoto ? (
+              {user?.profilePhotoUrl ? (
                 <img
-                  src={profilePhoto}
+                  src={user.profilePhotoUrl}
                   alt="Profile"
                   className="h-full w-full object-cover"
                 />

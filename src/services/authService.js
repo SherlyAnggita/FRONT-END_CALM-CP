@@ -67,9 +67,11 @@ export async function getUserProfile() {
 }
 
 export async function updateUserProfile(payload) {
+  const isFormData = payload instanceof FormData;
+
   const data = await apiFetch("api/users/profile", {
     method: "PATCH",
-    body: JSON.stringify(payload),
+    body: isFormData ? payload : JSON.stringify(payload),
   });
 
   if (data.data) {
