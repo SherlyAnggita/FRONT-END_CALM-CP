@@ -12,6 +12,12 @@ export async function getUnreadNotificationCount() {
   });
 }
 
+export async function getNotificationById(id) {
+  return await apiFetchWithRefresh(`api/users/notifications/${id}`, {
+    method: "GET",
+  });
+}
+
 export async function markNotificationAsRead(id) {
   return await apiFetchWithRefresh(`api/users/notifications/${id}/read`, {
     method: "PATCH",

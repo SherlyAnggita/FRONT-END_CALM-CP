@@ -38,9 +38,7 @@ export default function AdminProfilePage() {
   const [savedPreview, setSavedPreview] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [userData, setUserData] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -107,13 +105,11 @@ export default function AdminProfilePage() {
   }, []);
 
   useEffect(() => {
-    const savedPhoto = localStorage.getItem("profilePhoto");
-
-    if (savedPhoto) {
-      setPreview(savedPhoto);
-      setSavedPreview(savedPhoto);
+    if (userData?.profilePhotoUrl) {
+      setPreview(userData.profilePhotoUrl);
+      setSavedPreview(userData.profilePhotoUrl);
     }
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -139,7 +135,10 @@ export default function AdminProfilePage() {
     if (!file) return;
 
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      showToast("Format file tidak didukung. Gunakan JPG, JPEG, atau PNG.", "error");
+      showToast(
+        "Format file tidak didukung. Gunakan JPG, JPEG, atau PNG.",
+        "error",
+      );
       e.target.value = "";
       return;
     }
@@ -147,7 +146,7 @@ export default function AdminProfilePage() {
     if (file.size > MAX_FILE_SIZE_BYTES) {
       showToast(
         `Ukuran file terlalu besar. Maksimal ukuran file adalah ${MAX_FILE_SIZE_MB} MB.`,
-        "error"
+        "error",
       );
       e.target.value = "";
       return;
@@ -156,6 +155,7 @@ export default function AdminProfilePage() {
     const reader = new FileReader();
 
     reader.onloadend = () => {
+      setSelectedFile(file);
       setRawImage(reader.result);
       setShowCropModal(true);
     };
@@ -216,15 +216,19 @@ export default function AdminProfilePage() {
     try {
       setIsSaving(true);
 
-      const payload = {
-        fullName: form.fullName,
-        username: form.username,
-        email: form.email,
-        phoneNumber: form.phoneNumber,
-      };
+      const payload = new FormData();
+
+      payload.append("fullName", form.fullName);
+      payload.append("username", form.username);
+      payload.append("email", form.email);
+      payload.append("phoneNumber", form.phoneNumber);
+
+      if (selectedFile) {
+        payload.append("profilePhoto", selectedFile);
+      }
 
       if (form.password.trim() !== "") {
-        payload.password = form.password;
+        payload.append("password", form.password);
       }
 
       const result = await updateUserProfile(payload);
@@ -242,7 +246,6 @@ export default function AdminProfilePage() {
       }));
 
       if (hasPendingPhotoChange && preview) {
-        localStorage.setItem("profilePhoto", preview);
         window.dispatchEvent(new Event("profile-photo-updated"));
         setSavedPreview(preview);
         setHasPendingPhotoChange(false);
@@ -250,11 +253,13 @@ export default function AdminProfilePage() {
 
       setShowSaveModal(false);
       showToast("Profile admin berhasil diperbarui.", "success");
+      setPreview(updatedUser.profilePhotoUrl);
+      setSavedPreview(updatedUser.profilePhotoUrl);
     } catch (error) {
       console.error("Gagal update profile admin:", error);
       showToast(
         error?.data?.message || error.message || "Gagal update profile admin",
-        "error"
+        "error",
       );
     } finally {
       setIsSaving(false);
@@ -289,7 +294,7 @@ export default function AdminProfilePage() {
                   src={
                     preview ||
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      form.fullName || form.username || "Admin"
+                      form.fullName || form.username || "Admin",
                     )}&background=random`
                   }
                   alt="admin profile"
@@ -327,7 +332,10 @@ export default function AdminProfilePage() {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="relative z-10 mt-10 px-4 md:px-8">
+          <form
+            onSubmit={handleSubmit}
+            className="relative z-10 mt-10 px-4 md:px-8"
+          >
             <div className="space-y-5">
               <div className="rounded-2xl border border-[#d8e7ed] bg-white p-5 shadow-[0_8px_24px_rgba(70,110,130,0.14)] dark:border-white/10 dark:bg-[#1e293b] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
                 <h2 className="mb-4 text-base font-bold text-[#19445e] dark:text-white">
@@ -368,7 +376,9 @@ export default function AdminProfilePage() {
                     name="phoneNumber"
                     value={form.phoneNumber}
                     onChange={(e) => {
-                      const value = e.target.value.replace(/\D/g, "").slice(0, 13);
+                      const value = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 13);
                       setForm((prev) => ({
                         ...prev,
                         phoneNumber: value,
@@ -486,7 +496,10 @@ export default function AdminProfilePage() {
             </div>
 
             <div className="modal-action">
-              <button className="btn btn-ghost dark:text-white" onClick={handleCancelCrop}>
+              <button
+                className="btn btn-ghost dark:text-white"
+                onClick={handleCancelCrop}
+              >
                 Batal
               </button>
 
@@ -564,7 +577,9 @@ function Field({
       </label>
 
       <div className="flex items-center gap-2 rounded-lg border border-[#dce8ed] bg-[#f9fcfd] px-3 py-2 focus-within:border-[#82b6cc] dark:border-white/10 dark:bg-[#0f172a] dark:focus-within:border-[#38bdf8]">
-        <span className="text-base text-gray-500 dark:text-slate-400">{icon}</span>
+        <span className="text-base text-gray-500 dark:text-slate-400">
+          {icon}
+        </span>
 
         <input
           type={type}

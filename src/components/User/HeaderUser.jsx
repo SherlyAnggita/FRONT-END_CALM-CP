@@ -10,8 +10,7 @@ import {
 } from "../../services/User/notificationService";
 
 export default function HeaderUser({ toggleSidebar }) {
-  const user = getCurrentUser();
-  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [user, setUser] = useState(getCurrentUser());
   const profileDropdownRef = useRef(null);
 
   const [notifOpen, setNotifOpen] = useState(false);
@@ -65,16 +64,15 @@ export default function HeaderUser({ toggleSidebar }) {
   };
 
   useEffect(() => {
-    const loadProfilePhoto = () => {
-      const savedPhoto = localStorage.getItem("profilePhoto");
-      setProfilePhoto(savedPhoto);
+    const loadUser = () => {
+      setUser(getCurrentUser());
     };
 
-    loadProfilePhoto();
-    window.addEventListener("profile-photo-updated", loadProfilePhoto);
+    loadUser();
+    window.addEventListener("profile-photo-updated", loadUser);
 
     return () => {
-      window.removeEventListener("profile-photo-updated", loadProfilePhoto);
+      window.removeEventListener("profile-photo-updated", loadUser);
     };
   }, []);
 
@@ -219,9 +217,11 @@ export default function HeaderUser({ toggleSidebar }) {
           <details ref={profileDropdownRef} className="dropdown dropdown-end">
             <summary className="list-none cursor-pointer avatar transition hover:scale-105">
               <div className="w-10 rounded-full overflow-hidden bg-primary text-primary-content">
-                {profilePhoto ? (
+                {user?.profilePhotoUrl ? (
                   <img
-                    src={profilePhoto}
+                    src={`${user.profilePhotoUrl}?updated=${encodeURIComponent(
+                      user.updatedAt || Date.now(),
+                    )}`}
                     alt="Profile"
                     className="h-full w-full object-cover"
                   />

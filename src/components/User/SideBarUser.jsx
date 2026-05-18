@@ -104,28 +104,34 @@ export default function SideBarUser({ isCollapsed }) {
 
       {showLogoutModal && (
         <div className="modal modal-open">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Yakin ingin logout?</h3>
-            <p className="py-3 text-sm text-white-600">
-              Kamu akan keluar dari akun ini.
-            </p>
-
-            <div className="modal-action">
+          <div className="modal-box max-w-sm bg-white dark:bg-[#1e293b] dark:text-white rounded-2xl">
+            <div className="flex flex-col items-center text-center gap-3 py-2">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-950/40">
+                <FiLogOut
+                  size={22}
+                  className="text-red-500 dark:text-red-400"
+                />
+              </div>
+              <h3 className="text-base font-bold">Yakin ingin keluar?</h3>
+              <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">
+                Kamu akan keluar dari sesi ini.
+              </p>
+            </div>
+            <div className="modal-action mt-4 gap-2">
               <button
-                className="btn btn-ghost"
+                className="btn btn-ghost btn-sm flex-1 dark:text-white"
                 onClick={() => setShowLogoutModal(false)}
               >
                 Batal
               </button>
-
               <button
-                className="btn btn-error"
+                className="btn btn-sm flex-1 bg-red-500 hover:bg-red-600 border-red-500 hover:border-red-600 text-white"
                 onClick={() => {
                   setShowLogoutModal(false);
                   handleLogout();
                 }}
               >
-                Logout
+                Ya, Keluar
               </button>
             </div>
           </div>
