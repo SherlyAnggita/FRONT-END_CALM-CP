@@ -211,30 +211,22 @@ export default function CalendarEventPage() {
   }, []);
 
   return (
- <div className="relative min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br from-[#4d739a] via-[#7fb0da] to-[#f8e8d2] px-1 py-2 dark:from-[#0f172a] dark:via-[#111827] dark:to-[#1e293b] sm:p-5">
-    {/* decorative clouds/blobs */}
-    <div className="pointer-events-none absolute -left-8 top-8 h-28 w-28 rounded-full bg-orange-100/70 blur-sm" />
-    <div className="pointer-events-none absolute right-16 top-6 h-16 w-32 rounded-full bg-indigo-300/40 blur-sm" />
-    <div className="pointer-events-none absolute -right-10 top-28 h-24 w-40 rounded-full bg-white/50 blur-sm" />
-    <div className="pointer-events-none absolute bottom-8 left-10 h-24 w-40 rounded-full bg-white/40 blur-sm" />
-
+  <div className="w-full min-w-0 p-2 sm:p-7">
    <div className="relative mx-auto w-full max-w-6xl overflow-x-hidden">
       <div className="mb-4 md:hidden">
         <Link
           to="/user/social-battery"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-900"
+          className="inline-flex items-center gap-2 text-sm font-medium text-white transition hover:text-white/80"
         >
           <FiArrowLeft size={16} />
           <span>Kembali</span>
         </Link>
       </div>
 
-      {/* Main glass panel */}
-   <div className=" w-full min-w-0 rounded-[28px] border border-white/60 bg-white/35 p-2 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-white/10 dark:shadow-black/30 sm:rounded-[36px]sm:p-7">
         {/* Google Integration Card */}
-       <div className="rounded-[28px] border border-white/60 bg-[#d9efff]/70 p-5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#1e293b]/80">
+       <div className="rounded-[28px] border border-white/60 bg-[#d9efff]/40 p-5 shadow-lg dark:border-white/10 dark:bg-[#1e293b]/50">
           <div className="mb-4 flex items-center gap-2">
-            <h1 className="text-xl font-bold text-[#7a5f4b] dark:text-slate-100 sm:text-2xl">
+            <h1 className="text-xl font-bold text-[#ffffff] dark:text-slate-100 sm:text-2xl">
               Google Calendar Integration
             </h1>
             <FiCloud className="text-[#7f96c9]" size={18} />
@@ -248,12 +240,12 @@ export default function CalendarEventPage() {
 
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm text-[#7a6f68] dark:text-slate-300">Google Account:</p>
+                  <p className="text-sm text-[#ffffff] dark:text-slate-300">Google Account:</p>
 
                   <span
                     className={`text-sm font-semibold ${
                       googleStatus.connected
-                        ? "text-emerald-600"
+                        ? "text-[#3FF224]"
                         : "text-slate-500"
                     }`}
                   >
@@ -261,7 +253,7 @@ export default function CalendarEventPage() {
                   </span>
                 </div>
 
-                <p className="font-medium text-[#6b5547] dark:text-slate-100">
+                <p className="font-medium text-[#ffffff] dark:text-slate-100">
                   {googleStatus.connected
                     ? googleStatus.googleEmail || "Connected"
                     : "Not connected"}
@@ -282,7 +274,7 @@ export default function CalendarEventPage() {
             <button
               onClick={fetchGoogleStatus}
               disabled={loading}
-              className="btn h-auto min-h-0 rounded-full border-none bg-[#c58f65] px-2 py-2 text-[11px] text-white shadow transition hover:bg-[#b77d54] disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm"
+              className="btn h-auto min-h-0 rounded-full border-none bg-[#ffffff] px-2 py-2 text-[11px] text-black shadow transition hover:bg-[#b77d54] disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-3 sm:text-sm"
             >
               {loading ? "Checking..." : "Check Status"}
             </button>
@@ -316,7 +308,7 @@ export default function CalendarEventPage() {
             )}
           </div>
 
-         <p className="text-sm text-[#6f777f] dark:text-slate-300">
+         <p className="text-sm text-[#ffffff] dark:text-slate-300">
             Data from your synchronized calendar will automatically update your
             Social Battery.
           </p>
@@ -389,19 +381,17 @@ export default function CalendarEventPage() {
         {/* Calendar + Upcoming */}
         {googleStatus.connected && (
         <div className="mt-6 grid w-full min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="w-full min-w-0 rounded-[24px] border border-white/70 bg-[#ffe7cf]/75 p-1 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#111827]/80 sm:p-3">
               <CalendarEventVisual
                 fullCalendarEvents={fullCalendarEvents}
                 eventsLoading={eventsLoading}
               />
-            </div>
-
+    
             <div className="min-w-0 rounded-[28px] border border-white/70 bg-white/45 p-4 shadow-lg backdrop-blur-md dark:bg-[#111827]/80">
               <UpcomingEventsCard calendarEvents={calendarEvents} />
             </div>
-          </div>
+        </div>
         )}
-      </div>
+      
     </div>
 
     {googleModal.open && (
