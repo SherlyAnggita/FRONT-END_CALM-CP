@@ -56,6 +56,12 @@ export default function CalendarEventVisual({
             justify-content: space-between !important;
             gap: 3rem !important;
             margin-bottom: 1.5rem !important;
+
+              padding-top: 0.8rem !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
+
+              margin-bottom: 1.5rem !important;
           }
 
           .calendar-clean .fc-toolbar-chunk {
@@ -98,6 +104,24 @@ export default function CalendarEventVisual({
             color: white !important;
             font-size: 0.65rem !important;
             font-weight: 700 !important;
+          }
+
+          /* HOVER */
+          .calendar-clean .fc-button:hover {
+            background: rgba(255,255,255,0.15) !important;
+            transition: all 0.2s ease !important;
+          }
+
+          /* ACTIVE BUTTON */
+          .calendar-clean .fc-button-active {
+            background: #49769f !important;
+            color: #e1e5eb !important;
+            border-radius: 6px !important;
+          }
+
+          /* CLICK EFFECT */
+          .calendar-clean .fc-button:active {
+            transform: scale(0.96);
           }
 
           .calendar-clean .fc-col-header-cell-cushion {
@@ -150,14 +174,19 @@ export default function CalendarEventVisual({
           }
 
           @media (max-width: 420px) {
+            .calendar-clean .fc-header-toolbar {
+              gap: 0.4rem !important;
+            }
+
             .calendar-clean .fc-toolbar-title {
-              max-width: 92px !important;
+              max-width: none !important;
               font-size: 0.85rem !important;
             }
 
             .calendar-clean .fc-button {
-              min-width: 20px !important;
-              padding: 0.15rem 0.25rem !important;
+              min-width: 18px !important;
+              padding: 0.15rem 0.22rem !important;
+              font-size: 0.6rem !important;
             }
 
             .calendar-clean .fc-col-header-cell-cushion {

@@ -85,11 +85,11 @@ function SocialBatteryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-        <p className="text-gray-500 dark:text-slate-300">
+      
+        <p className="text-black dark:text-slate-300">
           Loading social battery...
         </p>
-      </div>
+     
     );
   }
 
@@ -166,14 +166,14 @@ if (!battery && calendarConnected === true) {
   const statusColor = battery.batteryStatus?.color || "#6B7280";
 
   return (
-    <div className="min-h-screen space-y-6 p-4 pb-24 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="w-full min-w-0 space-y-6 p-4 sm:p-7">
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-4 overflow-x-hidden md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
+          <h1 className="text-xl font-bold text-white dark:text-white sm:text-2xl">
             Social Battery
           </h1>
 
-          <p className="text-sm text-gray-500 dark:text-slate-300 sm:text-base">
+          <p className="text-sm text-white dark:text-slate-300 sm:text-base">
             Ringkasan energi sosial kamu berdasarkan aktivitas kalender hari ini.
           </p>
         </div>
@@ -183,14 +183,14 @@ if (!battery && calendarConnected === true) {
             type="button"
             onClick={handleSyncCalendar}
             disabled={syncing}
-            className="w-full rounded-full bg-[#49769F] px-4 py-2 text-center text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487] sm:w-auto"
+            className="w-full rounded-full bg-[#D3EAFA] px-4 py-2 text-center text-xs font-semibold text-black shadow-md transition hover:bg-[#D3EAFA] sm:w-auto"
           >
              {syncing ? "Syncing..." : "Synchronize Calendar"}
           </button>
 
           <Link
             to="/user/social-battery/history"
-            className="w-full rounded-full bg-[#0a4174] px-4 py-2 text-center text-xs font-semibold text-white transition hover:bg-[#0E5A92] sm:w-auto"
+            className="w-full rounded-full bg-[#73B2C7] px-4 py-2 text-center text-xs font-semibold text-white transition hover:bg-[#73B2C7] sm:w-auto"
           >
             View History
           </Link>
@@ -198,7 +198,7 @@ if (!battery && calendarConnected === true) {
       </div>
 
       <div className="grid grid-cols-[1.25fr_1fr] gap-4 md:hidden">
-     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/80 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
         <p className="mb-2 text-sm font-bold text-[#1F2A44] dark:text-white">
           Battery Score
         </p>
@@ -260,7 +260,7 @@ if (!battery && calendarConnected === true) {
           type="button"
           onClick={handleSyncCalendar}
           disabled={syncing}
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#49769F] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition hover:bg-[#95c6e6] disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex items-center justify-center gap-2 rounded-xl bg-[#D3EAFA] px-3 py-3 text-center text-sm font-semibold text-black shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition hover:bg-[#D3EAFA] disabled:cursor-not-allowed disabled:opacity-60"
         >
           <FiRefreshCw className={syncing ? "animate-spin text-base" : "text-base"} />
           <span>{syncing ? "Syncing..." : "Synchronize"}</span>
@@ -268,7 +268,7 @@ if (!battery && calendarConnected === true) {
 
         <Link
           to="/user/calendar"
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#0a4174] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)]"
+          className="flex items-center justify-center gap-2 rounded-xl bg-[#73B2C7] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)]"
         >
           <FiCalendar className="text-base" />
           <span>calendar</span>
@@ -343,7 +343,7 @@ if (!battery && calendarConnected === true) {
           })()}
         </div>
 
-        <div className="overflow-hidden rounded-[24px] border border-[#9FC9E3] bg-gradient-to-b from-[#063B60] via-[#72BCE0] to-[#B8E7F8] p-4 shadow-[0_10px_24px_rgba(70,130,180,0.22),inset_0_1px_0_rgba(255,255,255,0.55)] dark:border-slate-700 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 sm:p-6 lg:col-span-2">
+        <div className="overflow-hidden rounded-[24px] border border-[#9FC9E3] bg-gradient-to-b from-[#063B60] via-[#72BCE0] to-[#B8E7F8] p-4 shadow-[0_10px_24px_rgba(70,130,180,0.22),inset_0_1px_0_rgba(255,255,255,0.55)]  sm:p-6 lg:col-span-2 dark:border-white/10 dark:bg-[#172234]/80 dark:bg-none dark:shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
           <div>
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold leading-tight text-white">
@@ -369,7 +369,7 @@ if (!battery && calendarConnected === true) {
               onClick={() =>
                 setOpenCard(openCard === "insight" ? null : "insight")
               }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900"
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
@@ -394,7 +394,7 @@ if (!battery && calendarConnected === true) {
                   openCard === "explanation" ? null : "explanation",
                 )
               }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900"
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
@@ -417,7 +417,7 @@ if (!battery && calendarConnected === true) {
               onClick={() =>
                 setOpenCard(openCard === "suggestion" ? null : "suggestion")
               }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900"
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
@@ -445,7 +445,7 @@ if (!battery && calendarConnected === true) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-5 shadow-[0_10px_24px_rgba(70,130,180,0.25),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 sm:p-6">
+      <div className="rounded-[28px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-5 shadow-[0_10px_24px_rgba(70,130,180,0.25),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-white/10 dark:bg-[#172234]/80 dark:bg-none dark:shadow-[0_8px_24px_rgba(0,0,0,0.18)] sm:p-6">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-bold text-[#1F2A44] dark:text-white">
             Ringkasan Kalkulasi
@@ -460,7 +460,7 @@ if (!battery && calendarConnected === true) {
         </div>
 
         <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
+          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)] sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
             <div className="flex h-full flex-col items-center justify-center text-center sm:h-auto sm:flex-row sm:text-left">
               <FiCalendar className="mb-1 text-lg text-[#5B8CCB] drop-shadow-sm sm:mb-0 sm:text-3xl" />
 
@@ -476,7 +476,7 @@ if (!battery && calendarConnected === true) {
             </div>
           </div>
 
-          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
+          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)] sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
             <div className="flex h-full flex-col items-center justify-center text-center sm:h-auto sm:flex-row sm:text-left">
               <FiClock className="mb-1 text-lg text-[#5B8CCB] drop-shadow-sm sm:mb-0 sm:text-3xl" />
 
@@ -495,7 +495,7 @@ if (!battery && calendarConnected === true) {
             </div>
           </div>
 
-          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
+          <div className="aspect-square rounded-2xl border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-2 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)] sm:aspect-auto sm:flex sm:items-center sm:gap-3 sm:p-4">
             <div className="flex h-full flex-col items-center justify-center text-center sm:h-auto sm:flex-row sm:text-left">
               <FiUsers className="mb-1 text-lg text-[#5B8CCB] drop-shadow-sm sm:mb-0 sm:text-3xl" />
 
@@ -513,7 +513,7 @@ if (!battery && calendarConnected === true) {
           </div>
         </div>
 
-        <div className="mt-5 rounded-2xl border border-[#5D8FBD] bg-gradient-to-br from-[#6FA0CC] via-[#5B8FC2] to-[#4F7EAE] p-5 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.28),inset_0_-4px_8px_rgba(24,63,103,0.22)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
+        <div className="mt-5 rounded-2xl border border-[#5D8FBD] bg-gradient-to-br from-[#6FA0CC] via-[#5B8FC2] to-[#4F7EAE] p-5 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.28),inset_0_-4px_8px_rgba(24,63,103,0.22)] dark:border-white/10 dark:bg-[#101827]/70 dark:bg-none dark:shadow-none">
           <p className="text-xs font-semibold tracking-wide text-[#EAF7FF] dark:text-slate-300">
             Calculation Notes
           </p>
