@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiCalendar, FiClock, FiUsers,  FiRefreshCw, } from "react-icons/fi";
+import { FiCalendar, FiClock, FiUsers,  FiRefreshCw, FiChevronRight, FiChevronDown } from "react-icons/fi";
 import {
   getTodaySocialBattery,
   generateAiInsight,
@@ -12,9 +12,20 @@ function SocialBatteryPage() {
   const [loading, setLoading] = useState(true);
   const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState("");
-  const [openCard, setOpenCard] = useState(null);
   const [syncing, setSyncing] = useState(false);
   const [calendarConnected, setCalendarConnected] = useState(null);
+  const [openCard, setOpenCard] = useState({
+    insight: false,
+    explanation: false,
+    suggestion: false,
+  });
+
+  const toggleCard = (cardName) => {
+  setOpenCard((prev) => ({
+    ...prev,
+    [cardName]: !prev[cardName],
+  }));
+};
 
   async function fetchTodaySocialBattery() {
     try {
@@ -86,7 +97,7 @@ function SocialBatteryPage() {
   if (loading) {
     return (
       
-        <p className="text-black dark:text-slate-300">
+        <p className="text-white dark:text-slate-300">
           Loading social battery...
         </p>
      
@@ -155,7 +166,7 @@ if (!battery && calendarConnected === true) {
   if (!battery) {
   return (
     <div className="min-h-screen bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-      <p className="text-gray-500 dark:text-slate-300">
+      <p className="text-white dark:text-slate-300">
         Checking social battery...
       </p>
     </div>
@@ -198,7 +209,7 @@ if (!battery && calendarConnected === true) {
       </div>
 
       <div className="grid grid-cols-[1.25fr_1fr] gap-4 md:hidden">
-     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/80 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
+     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF]/85 via-[#BFE8FA]/85 to-[#A9D9F2]/85 p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/80 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
         <p className="mb-2 text-sm font-bold text-[#1F2A44] dark:text-white">
           Battery Score
         </p>
@@ -282,15 +293,15 @@ if (!battery && calendarConnected === true) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
-        <div className="hidden h-fit flex-col items-start rounded-[28px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-5 shadow-[0_10px_24px_rgba(70,130,180,0.25),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 sm:p-6 md:flex">
-          <p className="mb-1 text-lg font-bold text-[#1F2A44] dark:text-white">
-            Battery Score
-          </p>
+      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-3">
+      <div className="hidden rounded-[28px] border border-white/50 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] md:block">
+         <p className="text-base font-bold text-[#ffffff] dark:text-white">
+          Battery Score
+        </p>
 
-          <p className="mb-3 text-lg font-semibold text-[#1E3557] dark:text-slate-200 sm:text-xl">
-            {battery.batteryScore?.toFixed(2) || 0} / 100
-          </p>
+        <p className="mt-1 text-sm font-semibold text-[#ffffff] dark:text-slate-300">
+          {battery.batteryScore?.toFixed(2) || 0} / 100
+        </p>
 
           {(() => {
             const score =
@@ -304,8 +315,8 @@ if (!battery && calendarConnected === true) {
 
             return (
               <>
-                <div className="relative w-full overflow-hidden rounded-[24px] border border-[#B9D8EB] bg-gradient-to-br from-[#F3FBFF] via-[#E2F5FF] to-[#D0ECFA] p-4 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900">
-                  <div className="relative rounded-[18px] border-4 border-[#78A9D2] bg-gradient-to-br from-[#CFEFFF] to-[#8FC8E8] p-2 shadow-[inset_0_2px_4px_rgba(255,255,255,0.75),inset_0_-3px_6px_rgba(58,111,153,0.22)] dark:border-slate-600 dark:from-slate-700 dark:to-slate-900">
+               <div className="mt-4 rounded-[22px] border border-white/60 bg-white/35 p-3 shadow-[inset_0_2px_5px_rgba(255,255,255,0.7),0_8px_20px_rgba(80,140,180,0.22)] backdrop-blur-sm dark:border-white/10 dark:bg-slate-800/45 dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.08),0_8px_20px_rgba(0,0,0,0.25)]">
+                <div className="relative rounded-[16px] border-[5px] border-[#A6D4EA] bg-[#DDF5FF] p-2 shadow-inner dark:border-slate-600 dark:bg-slate-900">
                     <div
                       className="relative h-18 overflow-hidden rounded-[14px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.25)] dark:bg-slate-950"
                       style={{
@@ -343,7 +354,7 @@ if (!battery && calendarConnected === true) {
           })()}
         </div>
 
-        <div className="overflow-hidden rounded-[24px] border border-[#9FC9E3] bg-gradient-to-b from-[#063B60] via-[#72BCE0] to-[#B8E7F8] p-4 shadow-[0_10px_24px_rgba(70,130,180,0.22),inset_0_1px_0_rgba(255,255,255,0.55)]  sm:p-6 lg:col-span-2 dark:border-white/10 dark:bg-[#172234]/80 dark:bg-none dark:shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
+       <div className="rounded-[28px] border border-white/55 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md transition dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.06)] sm:p-6 lg:col-span-2">
           <div>
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold leading-tight text-white">
@@ -366,22 +377,27 @@ if (!battery && calendarConnected === true) {
 
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div
-              onClick={() =>
-                setOpenCard(openCard === "insight" ? null : "insight")
-              }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCard("insight");
+              }}
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/70 via-[#E7F7FF]/70 to-[#CDEBFA]/70 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
                   Insight
                 </p>
 
-                <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "insight" ? "^" : ">"}
-                </span>
+                <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
+                  {openCard.insight ? (
+                    <FiChevronDown className="text-base" />
+                  ) : (
+                    <FiChevronRight className="text-base" />
+                  )}
+                </div>
               </div>
 
-              {openCard === "insight" && (
+              {openCard.insight && (
                 <p className="mt-3 text-sm leading-relaxed text-[#41546B] dark:text-slate-300">
                   {battery.aiInsight || "-"}
                 </p>
@@ -389,24 +405,27 @@ if (!battery && calendarConnected === true) {
             </div>
 
             <div
-              onClick={() =>
-                setOpenCard(
-                  openCard === "explanation" ? null : "explanation",
-                )
-              }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCard("explanation");
+              }}
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/70 via-[#E7F7FF]/70 to-[#CDEBFA]/70  p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
                   Explanation
                 </p>
 
-                <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "explanation" ? "^" : ">"}
-                </span>
+                <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
+                  {openCard.explanation ? (
+                    <FiChevronDown className="text-base" />
+                  ) : (
+                    <FiChevronRight className="text-base" />
+                  )}
+                </div>
               </div>
 
-              {openCard === "explanation" && (
+              {openCard.explanation && (
                 <p className="mt-3 text-sm leading-relaxed text-[#41546B] dark:text-slate-300">
                   {battery.aiScoreExplanation || "-"}
                 </p>
@@ -414,22 +433,27 @@ if (!battery && calendarConnected === true) {
             </div>
 
             <div
-              onClick={() =>
-                setOpenCard(openCard === "suggestion" ? null : "suggestion")
-              }
-              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/95 via-[#E7F7FF]/90 to-[#CDEBFA]/90 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCard("suggestion");
+              }}
+              className="cursor-pointer rounded-2xl border border-white/70 bg-gradient-to-br from-[#F5FCFF]/70 via-[#E7F7FF]/70 to-[#CDEBFA]/70 p-5 shadow-[0_8px_16px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_-3px_6px_rgba(104,153,190,0.18)] transition-all duration-300 dark:border-white/10 dark:bg-[#2b3d59]/70 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
                   Recovery Suggestion
                 </p>
 
-                <span className="text-sm font-bold text-[#1E3557] dark:text-white">
-                  {openCard === "suggestion" ? "^" : ">"}
-                </span>
+                <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
+                  {openCard.suggestion ? (
+                    <FiChevronDown className="text-base" />
+                  ) : (
+                    <FiChevronRight className="text-base" />
+                  )}
+                </div>
               </div>
 
-              {openCard === "suggestion" && (
+              {openCard.suggestion && (
                 <p className="mt-3 text-sm leading-relaxed text-[#41546B] dark:text-slate-300">
                   {battery.recoverySuggestion || "-"}
                 </p>
@@ -445,7 +469,7 @@ if (!battery && calendarConnected === true) {
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF] via-[#BFE8FA] to-[#A9D9F2] p-5 shadow-[0_10px_24px_rgba(70,130,180,0.25),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-white/10 dark:bg-[#172234]/80 dark:bg-none dark:shadow-[0_8px_24px_rgba(0,0,0,0.18)] sm:p-6">
+      <div className="rounded-[28px] border border-[#B8D8EF] bg-gradient-to-br from-[#D9F3FF]/80 via-[#BFE8FA]/80to-[#A9D9F2]/80 p-5 shadow-[0_10px_24px_rgba(70,130,180,0.25),inset_0_1px_0_rgba(255,255,255,0.85)] dark:border-white/10 dark:bg-[#172234]/80 dark:bg-none dark:shadow-[0_8px_24px_rgba(0,0,0,0.18)] sm:p-6">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-bold text-[#1F2A44] dark:text-white">
             Ringkasan Kalkulasi
