@@ -39,11 +39,11 @@ export default function DashboardUserPage() {
   const { greeting, socialBattery } = dashboard;
 
   return (
-    <div className="relative z-10 flex h-full flex-col max-lg:px-4 max-lg:pb-24">
+    <div className="relative z-10 flex min-h-full flex-col max-lg:px-4 max-lg:pb-[130px]">
       <div className="relative z-10 flex items-start justify-between max-lg:gap-2">
-        <div className="max-lg:mt-2">
+        <div className="max-lg:mt-11">
           <div className="flex items-center gap-2">
-           <h2 className="text-4xl font-extrabold text-white max-lg:text-[22px] max-lg:leading-[0.9]">
+           <h2 className="text-4xl font-extrabold text-white max-lg:text-[22px] max-lg:leading-tight max-lg:whitespace-nowrap">
               {greeting.title}
             </h2>
 
@@ -59,8 +59,8 @@ export default function DashboardUserPage() {
           </p>
         </div>
 
-       <div className="rounded-[14px] bg-[#426E96]/70 px-4 py-2 text-center shadow-[0_4px_0_rgba(40,75,105,0.35)] max-lg:ml-auto max-lg:mt-3 max-lg:translate-x-2 max-lg:px-3 max-lg:py-2">
-          <p className="text-[15px] font-extrabold capitalize text-white max-lg:max-w-[78px] max-lg:text-[7px] max-lg:leading-tight">
+        <div className="rounded-[9px] bg-[#426E96]/70 px-4 py-2 text-center shadow-[0_4px_0_rgba(40,75,105,0.35)] max-lg:ml-auto max-lg:mt-1 max-lg:translate-x-2 max-lg:min-w-[120px] max-lg:px-3 max-lg:py-2">
+          <p className="text-[15px] font-extrabold capitalize text-white max-lg:text-[10px] max-lg:leading-tight">
             {formattedDate}
           </p>
         </div>
@@ -215,7 +215,22 @@ export default function DashboardUserPage() {
       <img
         src={duck}
         alt="duck"
-        className="pointer-events-none absolute bottom-[-30px] right-[-20px] z-10 w-[470px] object-contain opacity-95 md:w-[570px] max-lg:fixed max-lg:bottom-[58px] max-lg:right-0 max-lg:w-[260px]"
+        className="
+          pointer-events-none
+          absolute
+          z-0
+          object-contain
+          opacity-95
+
+          bottom-[-30px]
+          right-[-20px]
+          w-[470px]
+          md:w-[570px]
+
+          max-lg:bottom-[-30px]
+          max-lg:right-[-12px]
+          max-lg:w-[280px]
+        "
       />
     </div>
   );

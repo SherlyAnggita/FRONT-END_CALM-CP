@@ -106,24 +106,26 @@ function SocialBatteryPage() {
 
   if (calendarConnected === false) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-      <div className="rounded-2xl border border-[#B9D0EB] bg-[#D7E6FF] p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-8">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
-          Google Calendar Belum Terhubung
-        </h2>
+    <div className="flex h-full items-center justify-center p-4">
+      <div className="w-full max-w-2xl">
+        <div className="rounded-2xl border border-[#B9D0EB]/60 bg-[#D7E6FF]/60 p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-8">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
+            Google Calendar Belum Terhubung
+          </h2>
 
-        <p className="mt-2 text-sm text-gray-500 dark:text-slate-300 sm:text-base">
-          Anda belum menautkan Google Calendar. Silakan tautkan terlebih dahulu
-          jika ingin mengakses menu Social Battery.
-        </p>
+          <p className="mt-2 text-sm text-black dark:text-slate-300 sm:text-base">
+            Anda belum menautkan Google Calendar. Silakan tautkan terlebih dahulu
+            jika ingin mengakses menu Social Battery.
+          </p>
 
-        <div className="mt-4">
-          <Link
-            to="/user/calendar"
-            className="inline-flex justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487]"
-          >
-            Hubungkan Google Calendar
-          </Link>
+          <div className="mt-4">
+            <Link
+              to="/user/calendar"
+              className="inline-flex justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487]"
+            >
+              Hubungkan Google Calendar
+            </Link>
+          </div>
         </div>
       </div>
     </div>
