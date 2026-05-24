@@ -27,13 +27,6 @@ const cardClouds = [
   },
 
   {
-    left: "-8%",
-    top: "120px",
-    width: "w-35",
-    opacity: "opacity-25",
-    delay: 0.8,
-  },
-  {
     right: "-60%",
     top: "56%",
     width: "w-40",
@@ -49,9 +42,9 @@ const cardClouds = [
     delay: 0.6,
   },
   {
-    right: "100%",
+    right: "120%",
     bottom: "-30px",
-    width: "w-70",
+    width: "w-50",
     opacity: "opacity-25",
     delay: 1,
   },
@@ -109,7 +102,7 @@ export default function MoodJarVisual({
 }) {
   return (
     // <div className="h-auto overflow-visible rounded-[32px] bg-transparent px-4 pb-4 pt-4 sm:px-6 lg:h-full lg:px-5 lg:pb-6 lg:pt-5">
-    <div className="relative h-auto rounded-2xl overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 py-2 text-white lg:h-[560px]">
+    <div className="relative h-auto rounded-2xl overflow-hidden bg-gradient-to-b from-[#1f4d7a]/60 via-[#5f87b3]/50 to-[#dbe8f5]/50 dark:from-[#0f172a]/50 dark:via-[#17263c]/50 dark:to-[#223449]/50 px-4 py-2 text-white lg:h-[560px]">
       {/* header */}
       <motion.div
         className="relative mb-6 flex items-center justify-between gap-3 overflow-hidden rounded-xl"
@@ -126,21 +119,6 @@ export default function MoodJarVisual({
           />
         ))}
 
-        <motion.img
-          src={cloudSmall1}
-          alt=""
-          className="pointer-events-none absolute bottom-[-10px] left-[-12px] z-[1] w-24 opacity-50"
-          animate={{ x: [0, 8, 0, -8, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <motion.img
-          src={cloudSmall1}
-          alt=""
-          className="pointer-events-none absolute bottom-[-8px] right-[-12px] z-[1] w-20 scale-x-[-1] opacity-40"
-          animate={{ x: [0, -6, 0, 6, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
 
         <div className="relative z-10 flex w-full items-center justify-between">
           {/* <h2 className="text-2xl font-bold text-white">Jar of Feelings</h2> */}
@@ -218,22 +196,6 @@ export default function MoodJarVisual({
         <motion.img
           src={cloudSmall1}
           alt=""
-          className="pointer-events-none absolute bottom-[-8px] left-[50%] z-10 w-28 -translate-x-1/2 opacity-75 sm:w-32"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            opacity: { duration: 0.8, delay: 0.3, ease: "easeOut" },
-            x: {
-              duration: 9,
-              repeat: Infinity,
-              ease: "easeInOut",
-            },
-          }}
-        />
-
-        <motion.img
-          src={cloudSmall1}
-          alt=""
           className="pointer-events-none absolute bottom-[-14px] right-[-16px] z-10 w-32 scale-x-[-1] opacity-90 sm:w-36"
           initial={{ opacity: 0, x: 40 }}
           animate={{
@@ -256,22 +218,6 @@ export default function MoodJarVisual({
           className="pointer-events-none absolute bottom-[2px] left-[10px] z-[9] w-55 opacity-90"
           initial={{ opacity: 0, x: -20, y: 10 }}
           animate={{ opacity: 0.45, x: 0, y: 0 }}
-          transition={{
-            opacity: { duration: 0.8, delay: 0.3, ease: "easeOut" },
-            x: {
-              duration: 9,
-              repeat: Infinity,
-              ease: "easeInOut",
-            },
-          }}
-        />
-
-        <motion.img
-          src={cloudSmall1}
-          alt=""
-          className="pointer-events-none absolute bottom-[72px] right-[26px] z-[9] w-20 scale-x-[-1] opacity-40"
-          initial={{ opacity: 0, x: 20, y: 10 }}
-          animate={{ opacity: 0.4, x: 0, y: 0 }}
           transition={{
             opacity: { duration: 0.8, delay: 0.3, ease: "easeOut" },
             x: {

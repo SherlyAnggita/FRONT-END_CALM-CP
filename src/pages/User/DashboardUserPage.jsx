@@ -194,7 +194,7 @@ export default function DashboardUserPage() {
             </h3>
 
             <div className="mt-3 w-full rounded-t-[14px] bg-[#D8E5F2]/90 p-3 shadow-inner dark:bg-slate-700/80">
-              <p className="text-[11px] font-bold leading-relaxed text-[#34445C] dark:text-slate-200">
+              <p className="text-[10px] font-bold leading-relaxed text-[#34445C] dark:text-slate-200">
                 {socialBattery.recoverySuggestion ||
                   "Klik ‘Pesan Hari Ini’ di halaman social battery dan dapatkan tips pemulihan yang pas buatmu!"}
               </p>
@@ -207,7 +207,7 @@ export default function DashboardUserPage() {
             </h3>
 
            <div className="relative z-10 mt-3 rounded-[14px] bg-[#365E82]/90 p-6 pr-20 shadow-inner dark:bg-slate-700/90">
-              <p className="text-[11px] font-bold leading-relaxed text-white">
+              <p className="text-[10px] font-bold leading-relaxed text-white">
                 {socialBattery.supportMessage ||
                   socialBattery.aiInsight ||
                   "Ceritakan perasaanmu di Mood Jar dan dapatkan pesan dukungan khusus buatmu!"}
@@ -240,7 +240,7 @@ export default function DashboardUserPage() {
 
           max-lg:bottom-[-30px]
           max-lg:right-[-12px]
-          max-lg:w-[280px]
+          max-lg:w-[320px]
         "
       />
     </div>

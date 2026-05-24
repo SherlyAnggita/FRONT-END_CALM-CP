@@ -12,16 +12,8 @@ export default function MoodJarForm({
   submitLoading,
 }) {
 
-  // const moodColors = [
-  //   "bg-red-100 border-red-300 text-red-600",
-  //   "bg-yellow-100 border-yellow-300 text-yellow-600",
-  //   "bg-blue-100 border-blue-300 text-blue-600",
-  //   "bg-purple-100 border-purple-300 text-purple-600",
-  //   "bg-green-100 border-green-300 text-green-600",
-  // ];
-
   return (
-    <div className="h-full rounded-2xl bg-base-100 p-6 shadow">
+    <div className="h-full rounded-2xl bg-base-100/60 p-6 shadow lg:h-[560px]">
       {hasTodayEntry && (
         <div className="alert alert-warning mb-4">
           <span>
@@ -73,18 +65,17 @@ export default function MoodJarForm({
                       ? {
                           backgroundColor: `${label.paperColor}22`,
                           borderColor: label.paperColor,
-                          color: "#7c5a00",
                         }
                       : undefined
                   }
                   className={`
                     flex items-center gap-2 rounded-xl border p-3 text-left transition
 
-                    ${
-                      isSelected
-                        ? ""
-                        : "border-base-300 bg-base-200 text-base-content/40 grayscale opacity-70"
-                    }
+                     ${
+                        isSelected
+                          ? "text-[#7c5a00] dark:text-[#fde68a]"
+                          : "border-base-300 bg-base-200 text-base-content/40 grayscale opacity-70"
+                      }
 
                     ${
                       hasTodayEntry || submitLoading
