@@ -161,6 +161,17 @@ export default function CalendarEventPage() {
       }
     } catch (error) {
       console.error("Failed to sync Google Calendar:", error);
+
+      if (
+        error.response?.status === 409 &&
+        error.response?.data?.code === "GOOGLE_TOKEN_EXPIRED"
+      ) {
+        setSyncMessage(
+          "Sesi Google Calendar sudah expired. Silakan reconnect Google Calendar.",
+        );
+        return;
+      }
+
       setSyncMessage(
         error?.response?.data?.message || "Failed to sync Google Calendar.",
       );
@@ -211,20 +222,20 @@ export default function CalendarEventPage() {
   }, []);
 
   return (
-  <div className="w-full min-w-0 p-2 sm:p-7">
-   <div className="relative mx-auto w-full max-w-6xl overflow-x-hidden">
-      <div className="mb-4 md:hidden">
-        <Link
-          to="/user/social-battery"
-          className="inline-flex items-center gap-2 text-sm font-medium text-white transition hover:text-white/80"
-        >
-          <FiArrowLeft size={16} />
-          <span>Kembali</span>
-        </Link>
-      </div>
+    <div className="w-full min-w-0 p-2 sm:p-7">
+      <div className="relative mx-auto w-full max-w-6xl overflow-x-hidden">
+        <div className="mb-4 md:hidden">
+          <Link
+            to="/user/social-battery"
+            className="inline-flex items-center gap-2 text-sm font-medium text-white transition hover:text-white/80"
+          >
+            <FiArrowLeft size={16} />
+            <span>Kembali</span>
+          </Link>
+        </div>
 
         {/* Google Integration Card */}
-       <div className="rounded-[28px] border border-white/60 bg-[#d9efff]/40 p-5 shadow-lg dark:border-white/10 dark:bg-[#1e293b]/50">
+        <div className="rounded-[28px] border border-white/60 bg-[#d9efff]/40 p-5 shadow-lg dark:border-white/10 dark:bg-[#1e293b]/50">
           <div className="mb-4 flex items-center gap-2">
             <h1 className="text-xl font-bold text-[#ffffff] dark:text-slate-100 sm:text-2xl">
               Google Calendar Integration
@@ -240,7 +251,9 @@ export default function CalendarEventPage() {
 
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm text-[#ffffff] dark:text-slate-300">Google Account:</p>
+                  <p className="text-sm text-[#ffffff] dark:text-slate-300">
+                    Google Account:
+                  </p>
 
                   <span
                     className={`text-sm font-semibold ${
@@ -308,9 +321,10 @@ export default function CalendarEventPage() {
             )}
           </div>
 
-         <p className="text-sm text-[#ffffff] dark:text-slate-300">
-            Data from your synchronized calendar will automatically update your
-            Social Battery.
+          <p className="text-sm text-[#ffffff] dark:text-slate-300">
+            Pastikan untuk menyinkronkan secara berkala agar Social Battery kamu
+            selalu up-to-date dengan aktivitas sosial yang tercatat di Google
+            Calendar.
           </p>
 
           {googleStatus.connected && showGoogleInfo && (
@@ -380,57 +394,56 @@ export default function CalendarEventPage() {
 
         {/* Calendar + Upcoming */}
         {googleStatus.connected && (
-        <div className="mt-6 grid w-full min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-              <CalendarEventVisual
-                fullCalendarEvents={fullCalendarEvents}
-                eventsLoading={eventsLoading}
-              />
-    
+          <div className="mt-6 grid w-full min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <CalendarEventVisual
+              fullCalendarEvents={fullCalendarEvents}
+              eventsLoading={eventsLoading}
+            />
+
             <div className="min-w-0 rounded-[28px] border border-white/70 bg-white/45 p-4 shadow-lg backdrop-blur-md dark:bg-[#111827]/80">
               <UpcomingEventsCard calendarEvents={calendarEvents} />
             </div>
-        </div>
+          </div>
         )}
-      
-    </div>
+      </div>
 
-    {googleModal.open && (
-      <dialog open className="modal modal-open">
-        <div className="modal-box bg-white text-slate-800">
-          <div
-            className={`mb-4 rounded-2xl px-4 py-3 text-sm font-semibold ${
-              googleModal.type === "success"
-                ? "bg-emerald-100 text-emerald-700"
-                : googleModal.type === "warning"
-                  ? "bg-amber-100 text-amber-700"
-                  : "bg-rose-100 text-rose-700"
-            }`}
-          >
-            {googleModal.title}
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-600">
-            {googleModal.message}
-          </p>
-
-          <div className="modal-action">
-            <button
-              type="button"
-              onClick={closeGoogleModal}
-              className="btn rounded-full border-none bg-[#49769F] px-6 text-white hover:bg-[#3d6487]"
+      {googleModal.open && (
+        <dialog open className="modal modal-open">
+          <div className="modal-box bg-white text-slate-800">
+            <div
+              className={`mb-4 rounded-2xl px-4 py-3 text-sm font-semibold ${
+                googleModal.type === "success"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : googleModal.type === "warning"
+                    ? "bg-amber-100 text-amber-700"
+                    : "bg-rose-100 text-rose-700"
+              }`}
             >
-              Mengerti
-            </button>
-          </div>
-        </div>
+              {googleModal.title}
+            </div>
 
-        <form method="dialog" className="modal-backdrop">
-          <button type="button" onClick={closeGoogleModal}>
-            close
-          </button>
-        </form>
-      </dialog>
-    )}
-  </div>
-);
+            <p className="text-sm leading-relaxed text-slate-600">
+              {googleModal.message}
+            </p>
+
+            <div className="modal-action">
+              <button
+                type="button"
+                onClick={closeGoogleModal}
+                className="btn rounded-full border-none bg-[#49769F] px-6 text-white hover:bg-[#3d6487]"
+              >
+                Mengerti
+              </button>
+            </div>
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button type="button" onClick={closeGoogleModal}>
+              close
+            </button>
+          </form>
+        </dialog>
+      )}
+    </div>
+  );
 }

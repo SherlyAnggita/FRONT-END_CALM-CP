@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import {
@@ -11,11 +10,9 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
-import { RiLogoutBoxLine } from "react-icons/ri";
 import { MdOutlineEdit } from "react-icons/md";
 import {
   getCurrentUser,
-  logoutUser,
   getUserProfile,
   updateUserProfile,
 } from "../../services/authService";
@@ -23,7 +20,6 @@ import {
 import awanbg from "../../assets/awanbg.png";
 
 export default function ProfilePage() {
-  const navigate = useNavigate();
   const cropperRef = useRef(null);
 
   const [form, setForm] = useState({
@@ -34,7 +30,6 @@ export default function ProfilePage() {
   });
 
   const [preview, setPreview] = useState(null);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
@@ -217,11 +212,6 @@ export default function ProfilePage() {
     setShowSaveModal(true);
   }
 
-  async function handleLogout() {
-    await logoutUser();
-    navigate("/login", { replace: true });
-  }
-
   return (
     <div className="relative min-h-screen w-full overflow-y-auto bg-[#f0f6fa] dark:bg-[#0f172a]">
       {/* Background hero */}
@@ -339,15 +329,6 @@ export default function ProfilePage() {
             {/* Card footer / actions */}
             <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center sm:justify-end justify-between gap-3 px-5 sm:px-6 py-4 border-t border-[#e8f0f5] dark:border-white/[0.07] bg-[#f7fbfd] dark:bg-[#172033] rounded-b-3xl">
               <button
-                type="button"
-                onClick={() => setShowLogoutModal(true)}
-                className="flex sm:hidden items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-5 py-2.5 text-xs font-semibold text-red-500 shadow-sm transition-all duration-200 hover:bg-red-50 hover:border-red-300 active:scale-95 dark:border-red-900/40 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950/30"
-              >
-                <RiLogoutBoxLine size={14} />
-                Keluar
-              </button>
-
-              <button
                 type="submit"
                 disabled={isSaving || isLoadingProfile}
                 className="flex items-center justify-center gap-2 rounded-xl bg-[#2f6f95] px-6 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#245a78] hover:shadow-lg active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600"
@@ -368,43 +349,6 @@ export default function ProfilePage() {
           </form>
         </div>
       </div>
-
-      {/* Modal: Logout */}
-      {showLogoutModal && (
-        <ModalOverlay>
-          <div className="modal-box max-w-sm bg-white dark:bg-[#1e293b] dark:text-white rounded-2xl">
-            <div className="flex flex-col items-center text-center gap-3 py-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-950/40">
-                <RiLogoutBoxLine
-                  size={22}
-                  className="text-red-500 dark:text-red-400"
-                />
-              </div>
-              <h3 className="text-base font-bold">Yakin ingin keluar?</h3>
-              <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">
-                Kamu akan keluar dari akun ini.
-              </p>
-            </div>
-            <div className="modal-action mt-4 gap-2">
-              <button
-                className="btn btn-ghost btn-sm flex-1 dark:text-white"
-                onClick={() => setShowLogoutModal(false)}
-              >
-                Batal
-              </button>
-              <button
-                className="btn btn-sm flex-1 bg-red-500 hover:bg-red-600 border-red-500 hover:border-red-600 text-white"
-                onClick={async () => {
-                  setShowLogoutModal(false);
-                  await handleLogout();
-                }}
-              >
-                Ya, Keluar
-              </button>
-            </div>
-          </div>
-        </ModalOverlay>
-      )}
 
       {/* Modal: Crop */}
       {showCropModal && (
