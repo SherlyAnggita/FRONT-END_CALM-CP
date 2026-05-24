@@ -273,8 +273,8 @@ export default function MoodJarPage() {
       <div className="relative z-10 flex h-full flex-col gap-3">
         {/* <div className="relative z-10 space-y-3"> */}
         <div>
-          <h1 className="text-2xl font-bold">Mood Jar</h1>
-          <p className="text-sm text-base-content/70">
+          <h1 className="text-2xl text-white font-bold">Mood Jar</h1>
+          <p className="text-sm text-white">
             Simpan perasaanmu hari ini. Kamu hanya bisa mengisi 1 kali setiap
             hari.
           </p>
