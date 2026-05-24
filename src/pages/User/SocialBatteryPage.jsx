@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiCalendar, FiClock, FiUsers,  FiRefreshCw, FiChevronRight, FiChevronDown } from "react-icons/fi";
+import {
+  FiCalendar,
+  FiClock,
+  FiUsers,
+  FiRefreshCw,
+  FiChevronRight,
+  FiChevronDown,
+} from "react-icons/fi";
 import {
   getTodaySocialBattery,
   generateAiInsight,
@@ -21,11 +28,11 @@ function SocialBatteryPage() {
   });
 
   const toggleCard = (cardName) => {
-  setOpenCard((prev) => ({
-    ...prev,
-    [cardName]: !prev[cardName],
-  }));
-};
+    setOpenCard((prev) => ({
+      ...prev,
+      [cardName]: !prev[cardName],
+    }));
+  };
 
   async function fetchTodaySocialBattery() {
     try {
@@ -56,24 +63,24 @@ function SocialBatteryPage() {
   }
 
   async function handleSyncCalendar() {
-  try {
-    setSyncing(true);
-    setError("");
+    try {
+      setSyncing(true);
+      setError("");
 
-    const response = await googleCalendarService.syncCalendar();
+      const response = await googleCalendarService.syncCalendar();
 
-    if (response.success) {
-      await checkGoogleCalendarStatus();
-      await fetchTodaySocialBattery();
-    } else {
-      setError(response.message || "Gagal synchronize calendar");
+      if (response.success) {
+        await checkGoogleCalendarStatus();
+        await fetchTodaySocialBattery();
+      } else {
+        setError(response.message || "Gagal synchronize calendar");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Gagal synchronize calendar");
+    } finally {
+      setSyncing(false);
     }
-  } catch (err) {
-    setError(err.response?.data?.message || "Gagal synchronize calendar");
-  } finally {
-    setSyncing(false);
   }
-}
 
   async function handleGenerateAiInsight() {
     try {
@@ -94,53 +101,54 @@ function SocialBatteryPage() {
     fetchTodaySocialBattery();
   }, []);
 
-  if (loading) {
-    return (
-      
-        <p className="text-white dark:text-slate-300">
+if (loading) {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
+        <p className="text-slate-700 dark:text-slate-300">
           Loading social battery...
         </p>
-     
-    );
-  }
-
-  if (calendarConnected === false) {
-  return (
-    <div className="flex h-full items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
-        <div className="rounded-2xl border border-[#B9D0EB]/60 bg-[#D7E6FF]/60 p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-8">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
-            Google Calendar Belum Terhubung
-          </h2>
-
-          <p className="mt-2 text-sm text-black dark:text-slate-300 sm:text-base">
-            Anda belum menautkan Google Calendar. Silakan tautkan terlebih dahulu
-            jika ingin mengakses menu Social Battery.
-          </p>
-
-          <div className="mt-4">
-            <Link
-              to="/user/calendar"
-              className="inline-flex justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487]"
-            >
-              Hubungkan Google Calendar
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );
 }
 
-if (!battery && calendarConnected === true) {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-      <div className="rounded-2xl border border-[#B9D0EB] bg-[#D7E6FF] p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-8">
+  if (calendarConnected === false) {
+    return (
+      <div className="flex h-full items-center justify-center p-4">
+        <div className="w-full max-w-2xl">
+          <div className="rounded-2xl border border-[#B9D0EB]/60 bg-[#D7E6FF]/60 p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-8">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
+              Google Calendar Belum Terhubung
+            </h2>
+
+            <p className="mt-2 text-sm text-black dark:text-slate-300 sm:text-base">
+              Anda belum menautkan Google Calendar. Silakan tautkan terlebih
+              dahulu jika ingin mengakses menu Social Battery.
+            </p>
+
+            <div className="mt-4">
+              <Link
+                to="/user/calendar"
+                className="inline-flex justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487]"
+              >
+                Hubungkan Google Calendar
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!battery && calendarConnected === true) {
+    return (
+      <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 p-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5 sm:p-8  mx-auto max-w-md mt-40">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
           Belum ada data Social Battery
         </h2>
 
-        <p className="mt-2 text-sm text-gray-500 dark:text-slate-300 sm:text-base">
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 sm:text-base">
           Sync Google Calendar dulu untuk menghitung social battery hari ini.
         </p>
 
@@ -162,18 +170,17 @@ if (!battery && calendarConnected === true) {
           </Link>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
   if (!battery) {
-  return (
-    <div className="min-h-screen bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
-      <p className="text-white dark:text-slate-300">
-        Checking social battery...
-      </p>
-    </div>
-  );
-}
+    return (
+      <div className="min-h-screen bg-[#ffffff] p-4 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 sm:p-6">
+        <p className="text-white dark:text-slate-300">
+          Checking social battery...
+        </p>
+      </div>
+    );
+  }
 
   const statusName = battery.batteryStatus?.name || "-";
   const statusColor = battery.batteryStatus?.color || "#6B7280";
@@ -187,7 +194,8 @@ if (!battery && calendarConnected === true) {
           </h1>
 
           <p className="text-sm text-white dark:text-slate-300 sm:text-base">
-            Ringkasan energi sosial kamu berdasarkan aktivitas kalender hari ini.
+            Ringkasan energi sosial kamu berdasarkan aktivitas kalender hari
+            ini.
           </p>
         </div>
 
@@ -198,7 +206,7 @@ if (!battery && calendarConnected === true) {
             disabled={syncing}
             className="w-full rounded-full bg-[#D3EAFA] px-4 py-2 text-center text-xs font-semibold text-black shadow-md transition hover:bg-[#D3EAFA] sm:w-auto"
           >
-             {syncing ? "Syncing..." : "Synchronize Calendar"}
+            {syncing ? "Syncing..." : "Synchronize Calendar"}
           </button>
 
           <Link
@@ -211,83 +219,85 @@ if (!battery && calendarConnected === true) {
       </div>
 
       <div className="grid grid-cols-[1.25fr_1fr] gap-4 md:hidden">
-     <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF]/85 via-[#BFE8FA]/85 to-[#A9D9F2]/85 p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/80 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
-        <p className="mb-2 text-sm font-bold text-[#1F2A44] dark:text-white">
-          Battery Score
-        </p>
+        <div className="relative overflow-hidden rounded-[24px] border-2 border-[#0a4174] bg-gradient-to-br from-[#D9F3FF]/85 via-[#BFE8FA]/85 to-[#A9D9F2]/85 p-3 shadow-[0_10px_24px_rgba(70,130,180,0.32),0_0_0_2px_rgba(255,255,255,0.45),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-4px_10px_rgba(70,130,180,0.18)] dark:border-white/10 dark:bg-[#2b3d59]/80 dark:bg-none dark:shadow-[0_4px_16px_rgba(0,0,0,0.12)]">
+          <p className="mb-2 text-sm font-bold text-[#1F2A44] dark:text-white">
+            Battery Score
+          </p>
 
-        {(() => {
-          const score =
-            battery.totalEvents === 0 ? 100 : battery.batteryScore || 0;
+          {(() => {
+            const score =
+              battery.totalEvents === 0 ? 100 : battery.batteryScore || 0;
 
-          const mobileStatusName =
-            score < 50 ? "Low" : score <= 70 ? "Medium" : "High";
+            const mobileStatusName =
+              score < 50 ? "Low" : score <= 70 ? "Medium" : "High";
 
-          const mobileStatusColor =
-            score < 50 ? "#ef4444" : score <= 70 ? "#facc15" : "#22c55e";
+            const mobileStatusColor =
+              score < 50 ? "#ef4444" : score <= 70 ? "#facc15" : "#22c55e";
 
-          return (
-            <div className="flex items-center justify-between gap-3 px-[-22px]">
-              <div
-                className="relative flex h-[40px] w-[160px] items-center justify-center overflow-hidden rounded-[20px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.20),0_4px_10px_rgba(58,111,153,0.18)]"
-                style={{
-                  border: `4px solid ${mobileStatusColor}`,
-                }}
-              >
+            return (
+              <div className="flex items-center justify-between gap-3 px-[-22px]">
                 <div
-                  className="absolute inset-0"
+                  className="relative flex h-[40px] w-[160px] items-center justify-center overflow-hidden rounded-[20px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.20),0_4px_10px_rgba(58,111,153,0.18)]"
                   style={{
-                    background:
-                      score < 50
-                        ? "repeating-linear-gradient(135deg,#fecaca 0px,#fecaca 8px,#ffffff 8px,#ffffff 16px)"
-                        : score <= 70
-                          ? "repeating-linear-gradient(135deg,#fde68a 0px,#fde68a 8px,#ffffff 8px,#ffffff 16px)"
-                          : "repeating-linear-gradient(135deg,#bbf7d0 0px,#bbf7d0 8px,#ffffff 8px,#ffffff 16px)",
+                    border: `4px solid ${mobileStatusColor}`,
                   }}
-                />
-
-                <div className="relative z-8 text-[13px] font-extrabold text-[#7D9BFF] drop-shadow-sm">
-                  {score.toFixed(0)}%
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-[9px] font-bold text-[#1E3557] dark:text-slate-200">
-                  {battery.batteryScore?.toFixed(2) || 0} / 100
-                </p>
-
-                <div
-                  className="inline-block rounded-full px-4 py-[3px] text-[9px] font-semibold text-white shadow-[0_4px_8px_rgba(58,111,153,0.25),inset_0_1px_2px_rgba(255,255,255,0.35)]"
-                  style={{ backgroundColor: mobileStatusColor }}
                 >
-                  {mobileStatusName.toUpperCase()}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        score < 50
+                          ? "repeating-linear-gradient(135deg,#fecaca 0px,#fecaca 8px,#ffffff 8px,#ffffff 16px)"
+                          : score <= 70
+                            ? "repeating-linear-gradient(135deg,#fde68a 0px,#fde68a 8px,#ffffff 8px,#ffffff 16px)"
+                            : "repeating-linear-gradient(135deg,#bbf7d0 0px,#bbf7d0 8px,#ffffff 8px,#ffffff 16px)",
+                    }}
+                  />
+
+                  <div className="relative z-8 text-[13px] font-extrabold text-[#7D9BFF] drop-shadow-sm">
+                    {score.toFixed(0)}%
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center justify-center">
+                  <p className="text-[9px] font-bold text-[#1E3557] dark:text-slate-200">
+                    {battery.batteryScore?.toFixed(2) || 0} / 100
+                  </p>
+
+                  <div
+                    className="inline-block rounded-full px-4 py-[3px] text-[9px] font-semibold text-white shadow-[0_4px_8px_rgba(58,111,153,0.25),inset_0_1px_2px_rgba(255,255,255,0.35)]"
+                    style={{ backgroundColor: mobileStatusColor }}
+                  >
+                    {mobileStatusName.toUpperCase()}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })()}
-      </div>
+            );
+          })()}
+        </div>
 
-      <div className="flex flex-col justify-center gap-3">
-       <button
-          type="button"
-          onClick={handleSyncCalendar}
-          disabled={syncing}
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#D3EAFA] px-3 py-3 text-center text-sm font-semibold text-black shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition hover:bg-[#D3EAFA] disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <FiRefreshCw className={syncing ? "animate-spin text-base" : "text-base"} />
-          <span>{syncing ? "Syncing..." : "Synchronize"}</span>
-        </button>
+        <div className="flex flex-col justify-center gap-3">
+          <button
+            type="button"
+            onClick={handleSyncCalendar}
+            disabled={syncing}
+            className="flex items-center justify-center gap-2 rounded-xl bg-[#D3EAFA] px-3 py-3 text-center text-sm font-semibold text-black shadow-[0_4px_8px_rgba(0,0,0,0.25)] transition hover:bg-[#D3EAFA] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <FiRefreshCw
+              className={syncing ? "animate-spin text-base" : "text-base"}
+            />
+            <span>{syncing ? "Syncing..." : "Synchronize"}</span>
+          </button>
 
-        <Link
-          to="/user/calendar"
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#73B2C7] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)]"
-        >
-          <FiCalendar className="text-base" />
-          <span>calendar</span>
-        </Link>
+          <Link
+            to="/user/calendar"
+            className="flex items-center justify-center gap-2 rounded-xl bg-[#73B2C7] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)]"
+          >
+            <FiCalendar className="text-base" />
+            <span>calendar</span>
+          </Link>
+        </div>
       </div>
-    </div>
 
       {error && (
         <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-300">
@@ -296,14 +306,14 @@ if (!battery && calendarConnected === true) {
       )}
 
       <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-3">
-      <div className="hidden rounded-[28px] border border-white/50 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] md:block">
-         <p className="text-base font-bold text-[#ffffff] dark:text-white">
-          Battery Score
-        </p>
+        <div className="hidden rounded-[28px] border border-white/50 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] md:block">
+          <p className="text-base font-bold text-[#ffffff] dark:text-white">
+            Battery Score
+          </p>
 
-        <p className="mt-1 text-sm font-semibold text-[#ffffff] dark:text-slate-300">
-          {battery.batteryScore?.toFixed(2) || 0} / 100
-        </p>
+          <p className="mt-1 text-sm font-semibold text-[#ffffff] dark:text-slate-300">
+            {battery.batteryScore?.toFixed(2) || 0} / 100
+          </p>
 
           {(() => {
             const score =
@@ -317,8 +327,8 @@ if (!battery && calendarConnected === true) {
 
             return (
               <>
-               <div className="mt-4 rounded-[22px] border border-white/60 bg-white/35 p-3 shadow-[inset_0_2px_5px_rgba(255,255,255,0.7),0_8px_20px_rgba(80,140,180,0.22)] backdrop-blur-sm dark:border-white/10 dark:bg-slate-800/45 dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.08),0_8px_20px_rgba(0,0,0,0.25)]">
-                <div className="relative rounded-[16px] border-[5px] border-[#A6D4EA] bg-[#DDF5FF] p-2 shadow-inner dark:border-slate-600 dark:bg-slate-900">
+                <div className="mt-4 rounded-[22px] border border-white/60 bg-white/35 p-3 shadow-[inset_0_2px_5px_rgba(255,255,255,0.7),0_8px_20px_rgba(80,140,180,0.22)] backdrop-blur-sm dark:border-white/10 dark:bg-slate-800/45 dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.08),0_8px_20px_rgba(0,0,0,0.25)]">
+                  <div className="relative rounded-[16px] border-[5px] border-[#A6D4EA] bg-[#DDF5FF] p-2 shadow-inner dark:border-slate-600 dark:bg-slate-900">
                     <div
                       className="relative h-18 overflow-hidden rounded-[14px] bg-[#F7FCFF] shadow-[inset_0_3px_6px_rgba(58,111,153,0.25)] dark:bg-slate-950"
                       style={{
@@ -356,7 +366,7 @@ if (!battery && calendarConnected === true) {
           })()}
         </div>
 
-       <div className="rounded-[28px] border border-white/55 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md transition dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.06)] sm:p-6 lg:col-span-2">
+        <div className="rounded-[28px] border border-white/55 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md transition dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.06)] sm:p-6 lg:col-span-2">
           <div>
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold leading-tight text-white">
@@ -492,7 +502,8 @@ if (!battery && calendarConnected === true) {
 
               <div className="sm:ml-3">
                 <p className="text-[9px] font-medium leading-tight text-[#5D6B82] dark:text-slate-300 sm:text-xs">
-                  Total<br className="sm:hidden" /> Acara
+                  Total
+                  <br className="sm:hidden" /> Acara
                 </p>
 
                 <p className="mt-1 text-base font-bold leading-none text-[#1E3557] dark:text-white sm:text-xl">
@@ -508,7 +519,8 @@ if (!battery && calendarConnected === true) {
 
               <div className="sm:ml-3">
                 <p className="text-[9px] font-medium leading-tight text-[#5D6B82] dark:text-slate-300 sm:text-xs">
-                  Total<br className="sm:hidden" /> Durasi
+                  Total
+                  <br className="sm:hidden" /> Durasi
                 </p>
 
                 <p className="mt-1 text-base font-bold leading-none text-[#1E3557] dark:text-white sm:text-xl">
@@ -527,7 +539,8 @@ if (!battery && calendarConnected === true) {
 
               <div className="sm:ml-3">
                 <p className="text-[9px] font-medium leading-tight text-[#5D6B82] dark:text-slate-300 sm:text-xs">
-                  Intensitas<br className="sm:hidden" /> Sosial
+                  Intensitas
+                  <br className="sm:hidden" /> Sosial
                 </p>
 
                 <p className="mt-1 text-base font-bold leading-none text-[#1E3557] dark:text-white sm:text-xl">

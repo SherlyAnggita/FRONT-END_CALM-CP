@@ -258,35 +258,18 @@ export default function MoodJarPage() {
 
   if (loading) {
     return (
-      <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Mood Jar</h1>
-        <div className="rounded-xl bg-base-100 p-6 shadow">
-          <p>Loading mood jar...</p>
+      <div className="flex h-full items-center justify-center">
+        <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
+          <p className="text-slate-700 dark:text-slate-300">
+            Loading mood jar...
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    // <div className="relative h-full min-h-0 overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] px-4 py-4 text-white">
     <>
-      {/* <img
-        src={cloudSmall1}
-        alt=""
-        className="pointer-events-none absolute -left-10 top-28 w-64 opacity-30"
-      />
-
-      <img
-        src={cloudSmall1}
-        alt=""
-        className="pointer-events-none absolute -right-14 top-40 w-72 scale-x-[-1] opacity-25"
-      />
-
-      <img
-        src={cloudSmall1}
-        alt=""
-        className="pointer-events-none absolute -bottom-10 left-[20%] w-96 opacity-35"
-      /> */}
       <div className="relative z-10 flex h-full flex-col gap-3">
         {/* <div className="relative z-10 space-y-3"> */}
         <div>
