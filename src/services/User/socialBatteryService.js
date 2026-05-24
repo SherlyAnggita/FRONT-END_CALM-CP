@@ -21,9 +21,15 @@ socialBatteryApi.interceptors.request.use((config) => {
 socialBatteryApi.interceptors.response.use(
   (response) => response,
   async (error) => {
+    // if (
+    //   error.response?.status === 401 &&
+    //   error.response?.data?.code !== "GOOGLE_TOKEN_EXPIRED"
+    // ) {
+    //   await logoutUser();
+    // }
     if (
-      error.response?.status === 401 &&
-      error.response?.data?.code !== "GOOGLE_TOKEN_EXPIRED"
+      error.response?.status === 403 &&
+      error.response?.data?.code === "ACCOUNT_DISABLED"
     ) {
       await logoutUser();
     }

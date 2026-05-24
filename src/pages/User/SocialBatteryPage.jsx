@@ -43,7 +43,9 @@ function SocialBatteryPage() {
       setBattery(response.data);
     } catch (err) {
       setError(
-        err.response?.data?.message || "Gagal mengambil data social battery",
+        err.data?.message ||
+          err.response?.data?.message ||
+          "Gagal mengambil data social battery",
       );
     } finally {
       setLoading(false);
@@ -76,7 +78,11 @@ function SocialBatteryPage() {
         setError(response.message || "Gagal synchronize calendar");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Gagal synchronize calendar");
+      setError(
+        err.data?.message ||
+          err.response?.data?.message ||
+          "Gagal synchronize calendar",
+      );
     } finally {
       setSyncing(false);
     }
@@ -90,7 +96,12 @@ function SocialBatteryPage() {
       const response = await generateAiInsight();
       setBattery(response.data.socialBattery);
     } catch (err) {
-      setError(err.response?.data?.message || "Gagal generate AI insight");
+      // setError(err.response?.data?.message || "Gagal generate AI insight");
+      setError(
+        err.data?.message ||
+          err.response?.data?.message ||
+          "Gagal generate AI insight",
+      );
     } finally {
       setAiLoading(false);
     }
@@ -101,17 +112,17 @@ function SocialBatteryPage() {
     fetchTodaySocialBattery();
   }, []);
 
-if (loading) {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
-        <p className="text-slate-700 dark:text-slate-300">
-          Loading social battery...
-        </p>
+  if (loading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
+          <p className="text-slate-700 dark:text-slate-300">
+            Loading social battery...
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   if (calendarConnected === false) {
     return (
