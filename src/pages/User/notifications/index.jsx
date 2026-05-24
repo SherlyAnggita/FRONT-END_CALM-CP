@@ -35,7 +35,7 @@ function timeAgo(dateString) {
 // ─── Skeleton ────────────────────────────────────────────────────────────────
 function NotifSkeleton() {
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-base-200 bg-base-100 p-4 dark:border-white/[0.06]">
+    <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 dark:border-white/[0.07] dark:bg-white/[0.04]">
       <div className="flex items-center justify-between">
         <div className="skeleton h-2 w-2 rounded-full" />
         <div className="skeleton h-3 w-16 rounded-md" />
@@ -58,11 +58,11 @@ function NotifCard({ notif, onRead, style }) {
       onClick={() => onRead(notif.id)}
       style={style}
       className={`group relative flex cursor-pointer flex-col gap-2.5 rounded-2xl border p-4 transition-all duration-200
-        hover:-translate-y-[1px] hover:shadow-md active:scale-[0.985]
+        hover:-translate-y-[2px] hover:shadow-lg active:scale-[0.985] backdrop-blur-sm
         ${
           isUnread
-            ? "border-primary/20 bg-primary/[0.04] dark:border-primary/25 dark:bg-primary/[0.07]"
-            : "border-base-200 bg-base-100 hover:border-base-300 dark:border-white/[0.06] dark:bg-base-100"
+            ? "border-primary/30 bg-primary/10 dark:border-primary/25 dark:bg-primary/[0.12]"
+            : "border-white/10 bg-white/5 hover:bg-white/10 dark:border-white/[0.07] dark:bg-white/[0.04] dark:hover:bg-white/[0.07]"
         }`}
     >
       {/* Top row */}
@@ -71,17 +71,17 @@ function NotifCard({ notif, onRead, style }) {
           {isUnread ? (
             <span className="h-2 w-2 flex-shrink-0 rounded-full bg-primary shadow-[0_0_6px_rgba(var(--p),0.6)]" />
           ) : (
-            <span className="h-2 w-2 flex-shrink-0 rounded-full bg-base-300 dark:bg-base-content/20" />
+            <span className="h-2 w-2 flex-shrink-0 rounded-full bg-base-content/20" />
           )}
           <span
             className={`text-[11px] font-medium uppercase tracking-wide ${
-              isUnread ? "text-primary/70" : "text-base-content/35"
+              isUnread ? "text-primary/70" : "text-black dark:text-white/40"
             }`}
           >
             {notif.type?.replace(/_/g, " ") || "Notifikasi"}
           </span>
         </div>
-        <span className="text-[11px] tabular-nums text-base-content/35">
+        <span className="text-[11px] tabular-nums text-[#111]/40 dark:text-white/40">
           {timeAgo(notif.createdAt)}
         </span>
       </div>
@@ -89,14 +89,16 @@ function NotifCard({ notif, onRead, style }) {
       {/* Title */}
       <p
         className={`line-clamp-2 text-[13px] font-semibold leading-snug ${
-          isUnread ? "text-base-content" : "text-base-content/55"
+          isUnread
+            ? "text-[#111] dark:text-white"
+            : "text-[#111]/60 dark:text-white/55"
         }`}
       >
         {notif.title}
       </p>
 
       {/* Message */}
-      <p className="line-clamp-3 flex-1 text-xs leading-relaxed text-base-content/50">
+      <p className="line-clamp-3 flex-1 text-xs leading-relaxed text-[#111]/60 dark:text-white/50">
         {notif.message}
       </p>
 
@@ -165,13 +167,15 @@ function EmptyState({ filter }) {
   const { title, sub } = messages[filter] || messages.all;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-base-200 bg-base-100 py-20 dark:border-white/[0.06]">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-base-200 text-base-content/30 dark:bg-base-content/5">
+    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm py-16 sm:py-20 dark:border-white/[0.07] dark:bg-white/[0.04]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-[#111]/40 dark:text-white/30 dark:bg-white/[0.06]">
         <FiInbox size={24} strokeWidth={1.5} />
       </div>
-      <div className="text-center">
-        <p className="text-sm font-semibold text-base-content/50">{title}</p>
-        <p className="mt-1 text-xs text-base-content/35">{sub}</p>
+      <div className="text-center px-4">
+        <p className="text-sm font-semibold text-[#111]/60 dark:text-white/50">
+          {title}
+        </p>
+        <p className="mt-1 text-xs text-[#111]/40 dark:text-white/40">{sub}</p>
       </div>
     </div>
   );
@@ -211,7 +215,7 @@ export default function NotificationsPage() {
   useEffect(() => {
     setPage(1);
   }, [filter]);
-  
+
   const handleRead = async (id) => {
     const notif = notifications.find((n) => n.id === id);
 
@@ -278,26 +282,29 @@ export default function NotificationsPage() {
   }, [hasMore, loadingMore]);
 
   return (
-    <div className="min-h-screen bg-base-200 dark:bg-[#0f172a]">
+    // ✅ Tidak ada bg apapun — 100% transparan, ikut background parent
+    <div className="min-h-screen">
       {/* ── Sticky Header ── */}
-      <div className="sticky top-0 z-20 border-b border-base-300/60 bg-base-200/90 backdrop-blur-lg dark:border-white/[0.06] dark:bg-[#0f172a]/90">
-        <div className="mx-auto max-w-5xl px-4 pb-3 pt-4 md:px-8">
+      {/* ✅ bg-transparent + backdrop-blur supaya blur tapi tidak nambah warna gelap */}
+      <div className="sticky top-0 z-20 border-b border-white/10 bg-transparent backdrop-blur-xl dark:border-white/[0.06]">
+        <div className="mx-auto max-w-5xl px-4 pb-3 pt-4 sm:px-6 md:px-8">
           {/* Title row */}
           <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/15">
-                <FiBell size={17} />
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/15 sm:h-9 sm:w-9">
+                <FiBell size={15} className="sm:hidden" />
+                <FiBell size={17} className="hidden sm:block" />
                 {unreadCount > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-content shadow">
+                  <span className="absolute -right-1 -top-1 flex h-[17px] w-[17px] items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-content shadow sm:h-[18px] sm:w-[18px] sm:text-[10px]">
                     {unreadCount > 9 ? "9+" : unreadCount}
                   </span>
                 )}
               </div>
               <div>
-                <h1 className="text-base font-bold leading-tight text-base-content">
+                <h1 className="text-sm font-bold leading-tight text-[#111] dark:text-white sm:text-base">
                   Notifikasi
                 </h1>
-                <p className="text-[11px] text-base-content/40">
+                <p className="text-[10px] text-[#111] dark:text-white/60 sm:text-[11px]">
                   {unreadCount > 0
                     ? `${unreadCount} belum dibaca`
                     : "Semua sudah dibaca"}
@@ -309,7 +316,7 @@ export default function NotificationsPage() {
               <button
                 onClick={handleReadAll}
                 disabled={loadingReadAll}
-                className="flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary transition-all duration-150 hover:bg-primary/10 active:scale-95 disabled:opacity-60 dark:border-primary/25 dark:bg-primary/10"
+                className="flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/10 px-2.5 py-1.5 text-xs font-semibold text-primary transition-all duration-150 hover:bg-primary/20 active:scale-95 disabled:opacity-60 dark:border-primary/25 dark:bg-primary/10 sm:px-3"
               >
                 {loadingReadAll ? (
                   <span className="loading loading-spinner loading-xs" />
@@ -317,21 +324,22 @@ export default function NotificationsPage() {
                   <FiCheckCircle size={13} />
                 )}
                 <span className="hidden sm:inline">Tandai semua dibaca</span>
-                <span className="sm:hidden">Tandai semua</span>
+                <span className="sm:hidden">Semua dibaca</span>
               </button>
             )}
           </div>
 
           {/* Filter tabs */}
-          <div className="mt-3 flex gap-1 rounded-xl bg-base-100 p-1 shadow-sm dark:bg-base-content/5">
+          {/* ✅ bg-white/10 bukan bg-base-100 — netral di light & dark */}
+          <div className="mt-3 flex gap-1 rounded-xl bg-white/10 p-1 backdrop-blur-sm dark:bg-white/[0.06]">
             {FILTERS.map((f) => (
               <button
                 key={f.value}
                 onClick={() => setFilter(f.value)}
-                className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold transition-all duration-200 ${
+                className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-lg py-1.5 text-[11px] font-semibold transition-all duration-200 sm:py-2 sm:text-xs ${
                   filter === f.value
                     ? "bg-primary text-primary-content shadow-sm"
-                    : "text-base-content/50 hover:text-base-content"
+                    : "text-[#111]/60 dark:text-white/50 hover:text-[#111] dark:hover:text-white"
                 }`}
               >
                 {f.label}
@@ -353,9 +361,8 @@ export default function NotificationsPage() {
       </div>
 
       {/* ── Content ── */}
-      <div className="mx-auto max-w-5xl px-4 py-5 pb-20 md:px-8 md:py-6">
+      <div className="mx-auto max-w-5xl px-4 py-4 pb-20 sm:px-6 sm:py-5 md:px-8 md:py-6">
         {loading ? (
-          // Skeleton grid
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <NotifSkeleton key={i} />
@@ -366,8 +373,8 @@ export default function NotificationsPage() {
         ) : (
           <>
             {/* Stats bar */}
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-xs text-base-content/40">
+            <div className="mb-3 flex items-center justify-between sm:mb-4">
+              <p className="text-[11px] text-[#111] dark:text-white/40 sm:text-xs">
                 {filtered.length} notifikasi
                 {filter !== "all" && (
                   <span className="ml-1">
@@ -376,14 +383,14 @@ export default function NotificationsPage() {
                 )}
               </p>
               {filtered.length > PAGE_SIZE && (
-                <p className="text-xs text-base-content/30">
+                <p className="text-[11px] text-[#111]/40 dark:text-white/30 sm:text-xs">
                   {Math.min(visibleItems.length, filtered.length)} /{" "}
                   {filtered.length}
                 </p>
               )}
             </div>
 
-            {/* Grid */}
+            {/* Grid — 1 col HP, 2 col tablet, 3 col desktop */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {visibleItems.map((notif, i) => (
                 <LazyNotifCard
@@ -405,12 +412,12 @@ export default function NotificationsPage() {
 
             {/* End of list */}
             {!hasMore && filtered.length > PAGE_SIZE && (
-              <div className="mt-8 flex items-center gap-3">
-                <div className="h-px flex-1 bg-base-300 dark:bg-white/[0.06]" />
-                <p className="text-[11px] text-base-content/30">
+              <div className="mt-6 flex items-center gap-3 sm:mt-8">
+                <div className="h-px flex-1 bg-white/10 dark:bg-white/[0.06]" />
+                <p className="text-[11px] text-[#111]/40 dark:text-white/30">
                   Semua {filtered.length} notifikasi ditampilkan
                 </p>
-                <div className="h-px flex-1 bg-base-300 dark:bg-white/[0.06]" />
+                <div className="h-px flex-1 bg-white/10 dark:bg-white/[0.06]" />
               </div>
             )}
           </>
