@@ -12,8 +12,7 @@ export default function UserLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-   <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] dark:from-[#0f172a] dark:via-[#17263c] dark:to-[#223449]">
-
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#1f4d7a] via-[#5f87b3] to-[#dbe8f5] dark:from-[#0f172a] dark:via-[#17263c] dark:to-[#223449]">
       {/* ===== STARS ===== */}
       <img
         src={star1}
@@ -98,7 +97,7 @@ export default function UserLayout() {
           <SideBarUser isCollapsed={isCollapsed} />
         </aside>
 
-        <div
+        {/* <div
           className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${
             isCollapsed ? "md:ml-20" : "md:ml-64"
           }`}
@@ -106,6 +105,18 @@ export default function UserLayout() {
           <HeaderUser toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
 
           <main className="flex-1 p-4 pb-24 md:p-6 md:pb-6">
+            <Outlet />
+          </main>
+        </div> */}
+
+        <div
+          className={`flex h-screen w-full flex-col transition-all duration-300 ${
+            isCollapsed ? "md:ml-20" : "md:ml-64"
+          }`}
+        >
+          <HeaderUser toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
+
+          <main className="flex-1 overflow-y-auto p-4 pb-24 md:p-6 md:pb-6">
             <Outlet />
           </main>
         </div>

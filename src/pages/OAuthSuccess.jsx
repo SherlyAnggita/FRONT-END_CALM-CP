@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { exchangeGoogleCode, getCurrentUser } from "../services/authService";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
+  const hasExchanged = useRef(false);
 
   useEffect(() => {
+    if (hasExchanged.current) return;
+    hasExchanged.current = true;
+
     const handleGoogleSuccess = async () => {
       try {
         const params = new URLSearchParams(window.location.search);

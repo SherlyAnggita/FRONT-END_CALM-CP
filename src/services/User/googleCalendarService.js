@@ -2,10 +2,20 @@ import axios from "axios";
 import { tokenStorage } from "../../lib/token";
 import { logoutUser } from "../authService";
 
-// const BASE_URL = "https://api.calm-be.online/api/google";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL + "api/google";
 
 let isRedirectingToLogin = false;
+
+const handleGoogleTokenExpired = (error) => {
+  if (
+    error.response?.status === 409 &&
+    error.response?.data?.code === "GOOGLE_TOKEN_EXPIRED"
+  ) {
+    return true;
+  }
+
+  return false;
+};
 
 const getAuthHeaders = () => {
   const token = tokenStorage.getAccessToken();
@@ -36,7 +46,12 @@ const safeRequest = async (requestFn) => {
     const response = await requestFn();
     return response.data;
   } catch (error) {
+    // if (handleAccountDisabled(error)) return;
     if (handleAccountDisabled(error)) return;
+
+    if (handleGoogleTokenExpired(error)) {
+      throw error; // jangan logout, biar component yang handle reconnect
+    }
     throw error;
   }
 };
