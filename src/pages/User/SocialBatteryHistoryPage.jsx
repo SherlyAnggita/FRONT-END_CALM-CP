@@ -43,8 +43,13 @@ function SocialBatteryHistoryPage() {
         response.data?.meta || { page: 1, limit: 7, total: 0, totalPages: 1 },
       );
     } catch (err) {
+      // setError(
+      //   err.response?.data?.message || "Gagal mengambil history social battery",
+      // );
       setError(
-        err.response?.data?.message || "Gagal mengambil history social battery",
+        err.data?.message ||
+          err.response?.data?.message ||
+          "Gagal mengambil history social battery",
       );
     } finally {
       setHistoryLoading(false);
@@ -62,7 +67,8 @@ function SocialBatteryHistoryPage() {
     } catch (err) {
       setSelectedData(null);
       setError(
-        err.response?.data?.message ||
+        err.data?.message ||
+          err.response?.data?.message ||
           "Gagal mengambil social battery berdasarkan tanggal",
       );
     } finally {

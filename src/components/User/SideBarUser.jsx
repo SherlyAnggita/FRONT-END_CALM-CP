@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 import { getCurrentUser } from "../../services/authService";
 import {
   FiHome,
-  FiUser,
+  // FiUser,
   FiCalendar,
   FiBattery,
-  FiSettings,
+  // FiSettings,
   FiHeart,
 } from "react-icons/fi";
 
@@ -70,7 +70,7 @@ export default function SideBarUser({ isCollapsed }) {
         </NavLink>
       </nav>
 
-      <div className="mt-auto flex flex-col gap-2 pt-4 border-t border-base-300">
+      {/* <div className="mt-auto flex flex-col gap-2 pt-4 border-t border-base-300">
         <NavLink to="/user/profile" className={navClass}>
           <FiUser size={18} />
           {!isCollapsed && <span>Profile</span>}
@@ -80,7 +80,7 @@ export default function SideBarUser({ isCollapsed }) {
           <FiSettings size={18} />
           {!isCollapsed && <span>Settings</span>}
         </NavLink>
-      </div>
+      </div> */}
     </div>
   );
 }
