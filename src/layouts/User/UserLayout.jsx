@@ -85,7 +85,7 @@ export default function UserLayout() {
       <img
         src={cloudSmall}
         alt=""
-        className="pointer-events-none absolute bottom-[-2%] left-[28%] w-60 opacity-100"
+        className="pointer-events-none absolute bottom-[15%] left-[-20%] w-45 opacity-100"
       />
 
       {/* ===== MAIN LAYOUT ===== */}

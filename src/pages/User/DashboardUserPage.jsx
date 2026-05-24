@@ -33,24 +33,35 @@ export default function DashboardUserPage() {
     year: "numeric",
   });
 
-  if (loading) return <div className="p-4 text-center">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
+          <p className="text-slate-700 dark:text-slate-300">
+            Loading Home...
+          </p>
+        </div>
+      </div>
+    );
+  }
   if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
 
   const { greeting, socialBattery } = dashboard;
 
   return (
     <div className="relative z-10 flex min-h-full flex-col max-lg:px-4 max-lg:pb-[130px]">
-      <div className="relative z-10 flex items-start justify-between max-lg:gap-2">
-        <div className="max-lg:mt-11">
-          <div className="flex items-center gap-2">
-           <h2 className="text-4xl font-extrabold text-white max-lg:text-[22px] max-lg:leading-tight max-lg:whitespace-nowrap">
-              {greeting.title}
+      <div className="relative z-10 flex items-start justify-between max-lg:items-start max-lg:gap-2">
+        <div className="max-lg:mt-2 max-lg:min-w-0">
+          <div className="flex min-w-0 items-center gap-2">
+            <h2 className="text-4xl font-extrabold text-white max-lg:text-[22px] max-lg:leading-tight max-lg:break-words">
+              {greeting.title.replace("!", "").trimEnd()}
+              <span className="whitespace-nowrap">!</span>
             </h2>
 
             <img
               src={awanKecil}
               alt="cloud"
-              className="h-14 w-14 object-contain max-lg:h-9 max-lg:w-9"
+              className="h-14 w-14 object-contain max-lg:hidden"
             />
           </div>
 
@@ -59,8 +70,8 @@ export default function DashboardUserPage() {
           </p>
         </div>
 
-        <div className="rounded-[9px] bg-[#426E96]/70 px-4 py-2 text-center shadow-[0_4px_0_rgba(40,75,105,0.35)] max-lg:ml-auto max-lg:mt-1 max-lg:translate-x-2 max-lg:min-w-[120px] max-lg:px-3 max-lg:py-2">
-          <p className="text-[15px] font-extrabold capitalize text-white max-lg:text-[10px] max-lg:leading-tight">
+       <div className="rounded-[9px] bg-[#426E96]/70 px-4 py-2 text-center shadow-[0_4px_0_rgba(40,75,105,0.35)] max-lg:min-w-[120px] max-lg:px-3 max-lg:py-2">
+          <p className="text-[15px] font-extrabold capitalize text-white max-lg:text-[9px] max-lg:leading-tight">
             {formattedDate}
           </p>
         </div>
