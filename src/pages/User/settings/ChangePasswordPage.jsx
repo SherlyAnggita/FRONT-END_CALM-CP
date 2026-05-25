@@ -91,27 +91,27 @@ export default function ChangePasswordPage() {
         <button
           type="button"
           onClick={() => navigate("/user/settings")}
-          className="mb-4 flex items-center gap-2 text-sm text-base-content/70 hover:text-base-content"
+          className="mb-4 flex items-center gap-2 text-sm text-white hover:text-base-content"
         >
           <FiArrowLeft />
           Kembali ke Settings
         </button>
 
-        <h1 className="text-2xl font-bold">Ubah Password</h1>
-        <p className="text-sm text-base-content/60">
+        <h1 className="text-2xl text-white font-bold">Ubah Password</h1>
+        <p className="text-sm text-white">
           Setelah password berhasil diubah, kamu akan diminta login kembali.
         </p>
       </div>
 
-      <div className="rounded-2xl bg-base-100 p-6 shadow">
+      <div className="rounded-[28px] border border-white/40 bg-white/15 p-6 shadow-[0_8px_30px_rgba(255,255,255,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]">
         {error && (
-          <div className="alert alert-error mb-4">
+          <div className="mb-4 rounded-2xl border border-red-300/30 bg-red-400/10 text-white backdrop-blur-md">
             <span>{error}</span>
           </div>
         )}
 
         {successMessage && (
-          <div className="alert alert-success mb-4">
+          <div className="mb-4 rounded-2xl border border-emerald-300/30 bg-emerald-400/10 text-white backdrop-blur-md">
             <span>{successMessage}</span>
           </div>
         )}
@@ -178,7 +178,7 @@ function PasswordInput({
   return (
     <div className="form-control">
       <label className="mb-2 label">
-        <span className="label-text">{label}</span>
+        <span className="label-text text-white">{label}</span>
       </label>
 
       <div className="relative">
@@ -188,7 +188,7 @@ function PasswordInput({
           value={value}
           onChange={onChange}
           disabled={disabled}
-          className="input input-bordered w-full pr-12"
+          className="w-full rounded-xl border border-white/40 bg-white/10 px-4 py-3 pr-12 text-white placeholder:text-white/40 backdrop-blur-md outline-none transition-all duration-200 focus:border-white/60 focus:bg-white/15"
           placeholder={placeholder}
           required
         />
@@ -197,7 +197,7 @@ function PasswordInput({
           type="button"
           onClick={onToggle}
           disabled={disabled}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+         className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 transition hover:text-white"
         >
           {show ? <FiEyeOff size={18} /> : <FiEye size={18} />}
         </button>

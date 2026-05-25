@@ -213,7 +213,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-y-auto bg-[#f0f6fa] dark:bg-[#0f172a]">
+    <div className="relative -m-6 min-h-screen w-[calc(100%+3rem)] overflow-y-auto bg-[#f0f6fa] dark:bg-[#0f172a]">
       {/* Background hero */}
       <div className="absolute inset-x-0 top-0 h-[320px] sm:h-[360px] overflow-hidden">
         <img
@@ -221,10 +221,10 @@ export default function ProfilePage() {
           alt=""
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f0f6fa] dark:to-[#0f172a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#D5EDF2] dark:to-[#223449]" />
       </div>
 
-      <div className="absolute inset-x-0 top-[320px] sm:top-[360px] bottom-0 bg-[#f0f6fa] dark:bg-[#0f172a]" />
+      <div className="absolute inset-x-0 top-[320px] sm:top-[360px] bottom-0 bg-gradient-to-b from-[#D5EDF2] to-[#9FBEDB] dark:from-[#223449] dark:to-[#17263c]" />
 
       {/* Main content */}
       <div className="relative z-10 mx-auto w-full max-w-2xl px-4 pb-16 pt-[100px] sm:pt-[120px]">
@@ -266,7 +266,7 @@ export default function ProfilePage() {
         {/* Card */}
         <div className="rounded-3xl border border-white/80 bg-white shadow-[0_8px_40px_rgba(60,100,130,0.13)] dark:border-white/[0.07] dark:bg-[#1e293b] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
           {/* Card header */}
-          <div className="flex items-center gap-3 px-6 pt-6 pb-4 border-b border-[#e8f0f5] dark:border-white/[0.07]">
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4 border-b border-[#F7F3E7] dark:border-white/[0.07]">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e8f4fb] text-[#2f6f95] dark:bg-sky-900/40 dark:text-sky-400">
               <MdOutlineEdit size={18} />
             </div>
@@ -331,7 +331,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={isSaving || isLoadingProfile}
-                className="flex items-center justify-center gap-2 rounded-xl bg-[#2f6f95] px-6 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#245a78] hover:shadow-lg active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600"
+                className="flex items-center justify-center gap-2 rounded-xl bg-[#5f87b3] px-6 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#245a78] hover:shadow-lg active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600"
               >
                 {isSaving ? (
                   <>
@@ -510,7 +510,7 @@ function Field({
         {label}
       </label>
 
-      <div className="flex items-center gap-2.5 rounded-xl border border-[#dce8ed] bg-[#f7fbfd] px-3.5 py-2.5 transition-all duration-200 focus-within:border-[#2f6f95] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(47,111,149,0.12)] dark:border-white/[0.08] dark:bg-[#0f172a] dark:focus-within:bg-[#0f172a] dark:focus-within:border-sky-500 dark:focus-within:shadow-[0_0_0_3px_rgba(56,189,248,0.12)]">
+      <div className="flex items-center gap-2.5 rounded-xl border border-[#efe7d6] bg-[#f8f3e8]/75 px-3.5 py-2.5 transition-all duration-200 focus-within:border-[#2f6f95] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(47,111,149,0.12)] dark:border-white/[0.08] dark:bg-[#0f172a] dark:focus-within:bg-[#0f172a] dark:focus-within:border-sky-500 dark:focus-within:shadow-[0_0_0_3px_rgba(56,189,248,0.12)]">
         <span className="shrink-0 text-[#82b6cc] transition-colors duration-200 group-focus-within:text-[#2f6f95] dark:text-slate-500 dark:group-focus-within:text-sky-400">
           {icon}
         </span>

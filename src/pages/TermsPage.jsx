@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const terms = [
   {
@@ -36,13 +36,19 @@ const terms = [
 ];
 
 export default function Terms() {
+  const navigate = useNavigate();
+
   return (
     <main className="min-h-screen bg-base-200 px-4 py-6 text-base-content sm:px-6 sm:py-10 lg:px-8">
       <section className="mx-auto w-full max-w-5xl">
         <div className="mb-4 sm:mb-6">
-          <Link to="/login" className="btn btn-ghost btn-sm">
-            ← Back to Login
-          </Link>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="btn btn-ghost btn-sm"
+          >
+            ← Kembali
+          </button>
         </div>
 
         <div className="card overflow-hidden border border-base-300 bg-base-100 shadow-xl">
