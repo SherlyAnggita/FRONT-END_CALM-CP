@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getCurrentUser, logoutUser } from "../../services/authService";
-import { FiMenu, FiBell, FiUser, FiSettings, FiLogOut } from "react-icons/fi";
+import { FiMenu, FiBell, FiUser, FiSettings, FiLogOut, FiSun, FiMoon } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getNotifications,
@@ -9,6 +9,7 @@ import {
   markAllNotificationsAsRead,
 } from "../../services/User/notificationService";
 
+import cloudSmall from "../../assets/cloud-small1.png";
 import LogoutModal from "../LogoutModal/LogoutModal";
 
 export default function HeaderUser({ toggleSidebar }) {
@@ -122,6 +123,22 @@ export default function HeaderUser({ toggleSidebar }) {
     };
   }, []);
 
+const [isDark, setIsDark] = useState(() => {
+  return localStorage.getItem("theme") === "dark";
+});
+
+useEffect(() => {
+  const theme = isDark ? "dark" : "light";
+
+  document.documentElement.classList.toggle("dark", isDark);
+  document.body.classList.toggle("dark", isDark);
+
+  document.documentElement.setAttribute("data-theme", theme);
+  document.body.setAttribute("data-theme", theme);
+
+  localStorage.setItem("theme", theme);
+}, [isDark]);
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-base-300 bg-base-100/90 backdrop-blur">
@@ -164,6 +181,55 @@ export default function HeaderUser({ toggleSidebar }) {
             <p className="text-sm text-base-content/60">{user?.email || "-"}</p>
           </div> */}
 
+          <button
+            type="button"
+            onClick={() => setIsDark((prev) => !prev)}
+            className={`relative flex h-9 w-20 items-center overflow-hidden rounded-full border transition-all duration-700 ${
+              isDark
+                ? "border-slate-600 bg-gradient-to-r from-[#0F172A] to-[#1E293B]"
+                : "border-[#B9DDF5] bg-gradient-to-r from-[#BFE7FF] to-[#D9F1FF]"
+            }`}
+          >
+            {/* STARS */}
+            <div
+              className={`absolute inset-0 transition-opacity duration-700 ${
+                isDark ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <span className="absolute left-4 top-2 h-1 w-1 rounded-full bg-white" />
+              <span className="absolute right-5 top-3 h-1.5 w-1.5 rounded-full bg-white" />
+              <span className="absolute bottom-3 left-7 h-1 w-1 rounded-full bg-white" />
+              <span className="absolute bottom-2 right-8 h-2 w-2 rounded-full bg-white/90" />
+            </div>
+
+            {/* CLOUD */}
+            {!isDark && (
+              <img  src={cloudSmall}  alt="cloud"  className=" absolute left-5 top-1/2 z-10 w-12 -translate-y-1/2 opacity-100 "
+              />
+            )}
+
+            {/* TOGGLE */}
+            <div
+              className={`absolute top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-all duration-700 ${
+                isDark
+                  ? "left-1 bg-[#F8FAFC] shadow-white/20"
+                  : "left-[48px] bg-[#FFD76A] shadow-yellow-300/50"
+              }`}
+            >
+              {isDark ? (
+                <div className="relative h-5 w-5 rounded-full bg-[#E5E7EB]">
+                  <span className="absolute left-0 top-0 h-2 w-2 rounded-full bg-[#D4D4C8]" />
+                  <span className="absolute bottom-1 right-0 h-1.5 w-1.5 rounded-full bg-[#D4D4C8]" />
+                </div>
+              ) : (
+                <FiSun
+                  size={16}
+                  className="text-yellow-500"
+                />
+              )}
+            </div>
+          </button>
+
             <div ref={notifDropdownRef} className="relative">
               <button
                 onClick={() => {
@@ -172,7 +238,7 @@ export default function HeaderUser({ toggleSidebar }) {
                 }}
                 className="btn btn-ghost btn-sm btn-circle relative"
               >
-                <FiBell size={20} />
+                <FiBell size={24} />
                 {unreadCount > 0 && (
                   <span className="absolute -top-1 -right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
                     {unreadCount}
