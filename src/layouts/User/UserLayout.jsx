@@ -116,7 +116,7 @@ export default function UserLayout() {
         >
           <HeaderUser toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
 
-          <main className="flex-1 overflow-y-auto p-4 pb-24 md:p-6 md:pb-6">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-24 md:p-6 md:pb-6">
             <Outlet />
           </main>
         </div>
