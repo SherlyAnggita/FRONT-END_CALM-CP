@@ -181,55 +181,6 @@ useEffect(() => {
             <p className="text-sm text-base-content/60">{user?.email || "-"}</p>
           </div> */}
 
-          <button
-            type="button"
-            onClick={() => setIsDark((prev) => !prev)}
-            className={`relative flex h-9 w-20 items-center overflow-hidden rounded-full border transition-all duration-700 ${
-              isDark
-                ? "border-slate-600 bg-gradient-to-r from-[#0F172A] to-[#1E293B]"
-                : "border-[#B9DDF5] bg-gradient-to-r from-[#BFE7FF] to-[#D9F1FF]"
-            }`}
-          >
-            {/* STARS */}
-            <div
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                isDark ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <span className="absolute left-4 top-2 h-1 w-1 rounded-full bg-white" />
-              <span className="absolute right-5 top-3 h-1.5 w-1.5 rounded-full bg-white" />
-              <span className="absolute bottom-3 left-7 h-1 w-1 rounded-full bg-white" />
-              <span className="absolute bottom-2 right-8 h-2 w-2 rounded-full bg-white/90" />
-            </div>
-
-            {/* CLOUD */}
-            {!isDark && (
-              <img  src={cloudSmall}  alt="cloud"  className=" absolute left-5 top-1/2 z-10 w-12 -translate-y-1/2 opacity-100 "
-              />
-            )}
-
-            {/* TOGGLE */}
-            <div
-              className={`absolute top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-all duration-700 ${
-                isDark
-                  ? "left-1 bg-[#F8FAFC] shadow-white/20"
-                  : "left-[48px] bg-[#FFD76A] shadow-yellow-300/50"
-              }`}
-            >
-              {isDark ? (
-                <div className="relative h-5 w-5 rounded-full bg-[#E5E7EB]">
-                  <span className="absolute left-0 top-0 h-2 w-2 rounded-full bg-[#D4D4C8]" />
-                  <span className="absolute bottom-1 right-0 h-1.5 w-1.5 rounded-full bg-[#D4D4C8]" />
-                </div>
-              ) : (
-                <FiSun
-                  size={16}
-                  className="text-yellow-500"
-                />
-              )}
-            </div>
-          </button>
-
             <div ref={notifDropdownRef} className="relative">
               <button
                 onClick={() => {
@@ -313,40 +264,118 @@ useEffect(() => {
                 </div>
               </summary>
 
-              <ul className="menu dropdown-content z-[1] mt-3 w-48 rounded-xl bg-base-100 p-2 shadow-lg">
-                <li>
+             <ul
+                className={`dropdown-content z-[60] mt-3 w-72 rounded-[22px] border p-4 shadow-[0_18px_45px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-500 ${
+                  isDark
+                    ? "border-white/10 bg-[#172334] text-white"
+                    : "border-[#CFE5F7] bg-white text-[#1E293B]"
+                }`}
+              > 
+                <li className="list-none">
                   <Link
                     to="/user/profile"
                     onClick={closeProfileDropdown}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-4 rounded-xl px-2 py-2 hover:bg-white/10"
                   >
-                    <FiUser size={16} />
-                    Profile
+                    <FiUser size={18} />
+                    <span className="font-bold">Profile</span>
                   </Link>
                 </li>
 
-                <li>
+                 <li className="list-none">
                   <Link
                     to="/user/settings"
                     onClick={closeProfileDropdown}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-4 rounded-xl px-2 py-2 hover:bg-white/10"
                   >
-                    <FiSettings size={16} />
-                    Settings
+                    <FiSettings size={18} />
+                    <span className="font-bold">Settings</span>
                   </Link>
                 </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      closeProfileDropdown();
-                      setShowLogoutModal(true);
-                    }}
-                    className="flex items-center gap-2 text-red-500"
-                  >
-                    <FiLogOut size={16} />
-                    Logout
-                  </button>
+
+                <li className="list-none">
+                    <div className="flex items-center justify-between rounded-xl px-2 py-2">
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-5 w-5 items-center justify-center text-[#8EA7FF]">
+                          {isDark ? <FiMoon size={18} /> : <FiSun size={18} />}
+                        </div>
+
+                        <div>
+                          <p className="font-bold">Display Mode</p>
+                      </div>
+                    </div>
+
+                    {/* TOGGLE */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setIsDark((prev) => !prev);
+                      }}
+                      className={`relative flex h-8 w-18 items-center overflow-hidden rounded-full border transition-all duration-700 ${
+                        isDark
+                          ? "border-slate-600 bg-gradient-to-r from-[#0F172A] to-[#1E293B]"
+                          : "border-[#B9DDF5] bg-gradient-to-r from-[#BFE7FF] to-[#D9F1FF]"
+                      }`}
+                    >
+                      {/* STARS */}
+                      <div
+                        className={`absolute inset-0 transition-opacity duration-700 ${
+                          isDark ? "opacity-100" : "opacity-0"
+                        }`}
+                      >
+                        <span className="absolute left-3 top-2 h-1 w-1 rounded-full bg-white" />
+                        <span className="absolute right-4 top-3 h-1.5 w-1.5 rounded-full bg-white" />
+                        <span className="absolute bottom-2 left-6 h-1 w-1 rounded-full bg-white" />
+                         <span className="absolute right-7 top-5 h-0.5 w-0.5 rounded-full bg-white" />
+                      </div>
+
+                      {/* CLOUD */}
+                      {!isDark && (
+                        <img
+                          src={cloudSmall}
+                          alt="cloud"
+                          className="absolute left-4 top-1/2 z-10 w-8 -translate-y-1/2 opacity-100"
+                        />
+                      )}
+
+                      {/* KNOB */}
+                      <div
+                        className={`absolute top-1/2 z-20 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full shadow-lg transition-all duration-700 ${
+                          isDark
+                            ? "left-1 bg-[#F8FAFC]"
+                            : "left-[42px] bg-[#FFD76A]"
+                        }`}
+                      >
+                        {isDark ? (
+                          <div className="relative h-4 w-4 rounded-full bg-[#E5E7EB]">
+                            <span className="absolute left-0 top-0 h-1.5 w-1.5 rounded-full bg-[#D4D4C8]" />
+                            <span className="absolute bottom-0 right-0 h-1 w-1 rounded-full bg-[#D4D4C8]" />
+                          </div>
+                        ) : (
+                          <FiSun
+                            size={12}
+                            className="text-yellow-500"
+                          />
+                        )}
+                      </div>
+                    </button>
+                  </div>
+                </li>
+
+                 <li className="list-none">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeProfileDropdown();
+                        setShowLogoutModal(true);
+                      }}
+                      className="flex w-full items-center gap-4 rounded-xl px-2 py-2 font-bold text-red-400 hover:bg-red-500/10"
+                    >
+                      <FiLogOut size={18} />
+                      Logout
+                    </button>
                 </li>
               </ul>
             </details>
