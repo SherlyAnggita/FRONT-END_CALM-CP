@@ -266,7 +266,7 @@ function SocialBatteryPage() {
                   />
 
                   <div className="relative z-8 text-[13px] font-extrabold text-[#7D9BFF] drop-shadow-sm">
-                    {score.toFixed(0)}%
+                    {score.toFixed(2)}%
                   </div>
                 </div>
 
@@ -360,7 +360,7 @@ function SocialBatteryPage() {
                       />
 
                       <div className="absolute inset-0 flex items-center justify-center text-xl font-extrabold text-[#1E3557] drop-shadow-sm dark:text-blue-300 sm:text-2xl">
-                        {score.toFixed(0)}%
+                        {score.toFixed(2)}%
                       </div>
                     </div>
                   </div>

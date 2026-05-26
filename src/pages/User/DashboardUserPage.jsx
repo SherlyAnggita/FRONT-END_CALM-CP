@@ -91,7 +91,7 @@ export default function DashboardUserPage() {
                 <div
                   className="h-full rounded-lg transition-all duration-500"
                   style={{
-                    width: `${socialBattery.score}%`,
+                    width: `${socialBattery.score?.toFixed(2)}%`,
                     background:
                       socialBattery.score < 50
                         ? "repeating-linear-gradient(135deg,#fecaca 0px,#fecaca 8px,#ffffff 8px,#ffffff 16px)"
@@ -102,7 +102,7 @@ export default function DashboardUserPage() {
                 />
 
                 <div className="absolute inset-0 flex items-center justify-center text-2xl font-extrabold text-[#5e7ee8] max-lg:text-sm">
-                  {socialBattery.score}%
+                  {socialBattery.score?.toFixed(2)}%
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function DashboardUserPage() {
                   <div
                     className="h-full"
                     style={{
-                      width: `${socialBattery.score}%`,
+                      width: `${socialBattery.score?.toFixed(2)}%`,
                       background:
                         socialBattery.score < 50
                           ? "repeating-linear-gradient(135deg,#fecaca 0px,#fecaca 6px,#ffffff 6px,#ffffff 12px)"
@@ -124,7 +124,7 @@ export default function DashboardUserPage() {
                   />
 
                   <div className="absolute inset-0 flex items-center justify-center text-[10px] font-extrabold text-[#5e7ee8]">
-                    {socialBattery.score}%
+                    {socialBattery.score?.toFixed(2)}%
                   </div>
                 </div>
               </div>

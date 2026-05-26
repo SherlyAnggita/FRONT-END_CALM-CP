@@ -238,46 +238,44 @@ export default function CalendarEventVisual({
             overflow-x: hidden !important;
           }
 
-          @media (prefers-color-scheme: dark) {
-            .calendar-clean .fc {
-              background: #1f2937 !important;
-            }
+         .dark .calendar-clean .fc {
+  background: #1f2937 !important;
+}
 
-            .calendar-clean .fc-toolbar-title,
-            .calendar-clean .fc-col-header-cell-cushion,
-            .calendar-clean .fc-daygrid-day-number,
-            .calendar-clean .fc-event-main {
-              color: #f9fafb !important;
-            }
+.dark .calendar-clean .fc-toolbar-title,
+.dark .calendar-clean .fc-col-header-cell-cushion,
+.dark .calendar-clean .fc-daygrid-day-number,
+.dark .calendar-clean .fc-event-main {
+  color: #f9fafb !important;
+}
 
-            .calendar-clean .fc-col-header-cell {
-              background: #111827 !important;
-            }
+.dark .calendar-clean .fc-col-header-cell {
+  background: #111827 !important;
+}
 
-            .calendar-clean .fc-daygrid-day {
-              background: #1f2937 !important;
-            }
+.dark .calendar-clean .fc-daygrid-day {
+  background: #1f2937 !important;
+}
 
-            .calendar-clean .fc-day-today {
-              background: #334155 !important;
-            }
+.dark .calendar-clean .fc-day-today {
+  background: #334155 !important;
+}
 
-            .calendar-clean .fc-theme-standard td,
-            .calendar-clean .fc-theme-standard th {
-              border-color: #374151 !important;
-            }
+.dark .calendar-clean .fc-theme-standard td,
+.dark .calendar-clean .fc-theme-standard th {
+  border-color: #374151 !important;
+}
 
-            .calendar-clean .fc-popover {
-              background: #1f2937 !important;
-              color: #f9fafb !important;
-              border: 1px solid #374151 !important;
-            }
+.dark .calendar-clean .fc-popover {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+  border: 1px solid #374151 !important;
+}
 
-            .calendar-clean .fc-popover-header {
-              background: #111827 !important;
-              color: #f9fafb !important;
-            }
-          }
+.dark .calendar-clean .fc-popover-header {
+  background: #111827 !important;
+  color: #f9fafb !important;
+}
         `}
       </style>
 
