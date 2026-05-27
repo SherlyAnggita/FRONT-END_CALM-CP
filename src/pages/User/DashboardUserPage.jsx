@@ -79,7 +79,7 @@ export default function DashboardUserPage() {
 
       <div className="relative z-10 mt-8 grid grid-cols-1 gap-5 lg:grid-cols-5 max-lg:mt-5 max-lg:gap-4">
         <div className="space-y-5 lg:col-span-2">
-          <div className="relative overflow-hidden rounded-[24px] border-2 border-[#8bb9e8] bg-[#dff0ff] p-4 shadow-sm dark:border-slate-600 dark:bg-slate-800/80 max-lg:rounded-[20px] max-lg:p-3">
+          <div className="relative min-h-[250px] overflow-hidden rounded-[24px] border-2 border-[#8bb9e8] bg-[#dff0ff] p-4 shadow-sm dark:border-slate-600 dark:bg-slate-800/80 max-lg:rounded-[20px] max-lg:p-3">
             <div className="mb-3">
              <h3 className="text-base font-bold text-[#34445c] dark:text-white max-lg:text-sm">
                 social battery status
@@ -140,7 +140,7 @@ export default function DashboardUserPage() {
               <div className="rounded-md bg-white/70 p-2 text-gray-600 dark:bg-slate-700/80 dark:text-slate-200 max-lg:p-1.5">
                 <div className="flex items-center justify-center gap-1 font-semibold text-[#49769f] dark:text-blue-200 max-lg:text-[9px]">
                   <FiCalendar className="text-[16px] max-lg:text-[12px]" />
-                  <span>events</span>
+                  <span>agenda</span>
                 </div>
                 <div className="mt-1 text-center">
                   {socialBattery.totalEvents}
@@ -150,7 +150,7 @@ export default function DashboardUserPage() {
               <div className="rounded-md bg-white/70 p-2 text-gray-600 dark:bg-slate-700/80 dark:text-slate-200 max-lg:p-1.5">
                 <div className="flex items-center justify-center gap-1 font-semibold text-[#49769f] dark:text-blue-200 max-lg:text-[9px]">
                   <FiZap className="text-[16px] max-lg:text-[12px]" />
-                  <span>intensity</span>
+                  <span>intensitas</span>
                 </div>
                 <div className="mt-1 text-center">
                   {socialBattery.socialIntensityScore}
@@ -165,7 +165,7 @@ export default function DashboardUserPage() {
                 onClick={() => setOpenMobileRecovery(!openMobileRecovery)}
                className="flex w-full items-center justify-between rounded-[10px] bg-[#365E82] px-4 py-2 text-left text-[11px] font-bold text-white shadow-sm dark:bg-slate-700 dark:text-white"
               >
-                <span>Recovery Suggestion</span>
+                <span>Saran Pemulihan</span>
 
                 {openMobileRecovery ? (
                   <FiChevronDown className="text-base" />
@@ -190,10 +190,10 @@ export default function DashboardUserPage() {
           {/* Desktop Recovery Suggestion */}
          <div className="relative hidden min-h-[250px] overflow-hidden rounded-[22px] border border-[#7FA6C7] bg-[#B7C8DA] pt-4 shadow-[0_4px_0_rgba(74,98,122,0.55)] dark:border-slate-600 dark:bg-slate-800/80 dark:shadow-[0_4px_0_rgba(0,0,0,0.35)] lg:block">
             <h3 className="px-4 text-sm font-extrabold text-[#34445C] dark:text-white">
-              Recovery Suggestion
+              Saran Pemulihan
             </h3>
 
-            <div className="mt-3 w-full rounded-t-[14px] bg-[#D8E5F2]/90 p-3 shadow-inner dark:bg-slate-700/80">
+            <div className="mt-3 min-h-[200px] w-full rounded-t-[14px] bg-[#D8E5F2]/90 p-3 shadow-inner dark:bg-slate-700/80">
               <p className="text-[10px] font-bold leading-relaxed text-[#34445C] dark:text-slate-200">
                 {socialBattery.recoverySuggestion ||
                   "Klik ‘Pesan Hari Ini’ di halaman social battery dan dapatkan tips pemulihan yang pas buatmu!"}
@@ -203,7 +203,7 @@ export default function DashboardUserPage() {
 
         <div className="relative min-h-[250px] overflow-visible rounded-[22px] border border-[#B7C8DA] bg-[#F3EEEE]/45 p-4 shadow-[0_4px_0_rgba(74,98,122,0.55)] dark:border-slate-600 dark:bg-slate-800/70 dark:shadow-[0_4px_0_rgba(0,0,0,0.35)] max-lg:min-h-[155px] max-lg:rounded-[18px] max-lg:p-3">
             <h3 className="text-sm font-extrabold text-[#34445C] dark:text-white">
-              Support Message
+              Pesan Dukungan
             </h3>
 
            <div className="relative z-10 mt-3 rounded-[14px] bg-[#365E82]/90 p-6 pr-20 shadow-inner dark:bg-slate-700/90">

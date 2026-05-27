@@ -177,7 +177,7 @@ function SocialBatteryPage() {
             to="/user/social-battery/history"
             className="inline-flex w-full justify-center rounded-full bg-[#C7DBFF] px-4 py-2 text-xs font-semibold text-[#2D4F73] hover:bg-[#A2C5FF] dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 sm:w-auto"
           >
-            View History
+            Lihat Riwayat
           </Link>
         </div>
       </div>
@@ -224,7 +224,7 @@ function SocialBatteryPage() {
             to="/user/social-battery/history"
             className="w-full rounded-full bg-[#73B2C7] px-4 py-2 text-center text-xs font-semibold text-white transition hover:bg-[#73B2C7] sm:w-auto"
           >
-            View History
+            Lihat Riwayat
           </Link>
         </div>
       </div>
@@ -305,7 +305,7 @@ function SocialBatteryPage() {
             className="flex items-center justify-center gap-2 rounded-xl bg-[#73B2C7] px-3 py-3 text-center text-sm font-semibold text-white shadow-[0_4px_8px_rgba(0,0,0,0.25)]"
           >
             <FiCalendar className="text-base" />
-            <span>calendar</span>
+            <span>kalender</span>
           </Link>
         </div>
       </div>
@@ -317,9 +317,9 @@ function SocialBatteryPage() {
       )}
 
       <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-3">
-        <div className="hidden rounded-[28px] border border-white/50 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] md:block">
+        <div className="hidden min-h-[300px] rounded-[28px] border border-white/50 bg-white/20 p-5 shadow-[0_10px_30px_rgba(50,120,180,0.25),inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55 dark:shadow-[0_10px_30px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] md:block">
           <p className="text-base font-bold text-[#ffffff] dark:text-white">
-            Battery Score
+            Social Battery Score
           </p>
 
           <p className="mt-1 text-sm font-semibold text-[#ffffff] dark:text-slate-300">
@@ -394,7 +394,7 @@ function SocialBatteryPage() {
             </div>
 
             <p className="mt-1 max-w-[260px] text-xs leading-snug text-[#E3F6FF] dark:text-slate-300 sm:max-w-none">
-              Insight dan saran recovery berdasarkan social battery kamu.
+              Rangkuman dan tips pulihkan energi berdasarkan social battery-mu. Klik tombol "Pesan Hari Ini" untuk mendapatkan tips dan saran.
             </p>
           </div>
 
@@ -408,7 +408,7 @@ function SocialBatteryPage() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
-                  Insight
+                  Kabar Energimu Hari Ini 
                 </p>
 
                 <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
@@ -436,7 +436,7 @@ function SocialBatteryPage() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
-                  Explanation
+                  Catatan Skor
                 </p>
 
                 <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
@@ -464,7 +464,7 @@ function SocialBatteryPage() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-[#1E3557] dark:text-white">
-                  Recovery Suggestion
+                  Saran Pemulihan
                 </p>
 
                 <div className="text-[#1E3557] transition-transform duration-300 dark:text-white">
@@ -565,7 +565,7 @@ function SocialBatteryPage() {
 
         <div className="mt-5 rounded-2xl border border-[#5D8FBD] bg-gradient-to-br from-[#6FA0CC] via-[#5B8FC2] to-[#4F7EAE] p-5 shadow-[0_6px_12px_rgba(58,111,153,0.25),inset_0_2px_3px_rgba(255,255,255,0.28),inset_0_-4px_8px_rgba(24,63,103,0.22)] dark:border-white/10 dark:bg-[#101827]/70 dark:bg-none dark:shadow-none">
           <p className="text-xs font-semibold tracking-wide text-[#EAF7FF] dark:text-slate-300">
-            Calculation Notes
+            Catatan Hari Ini  
           </p>
 
           <p className="mt-2 text-sm leading-relaxed text-white/90 dark:text-slate-400">

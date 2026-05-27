@@ -7,7 +7,7 @@ export default function SettingPage() {
   return (
     <div className="space-y-3">
       <div>
-        <h1 className="text-2xl text-white font-bold">Settings</h1>
+        <h1 className="text-2xl text-white font-bold">Pengaturan</h1>
         <p className="text-sm text-white">
           Kelola pengaturan akun kamu.
         </p>
