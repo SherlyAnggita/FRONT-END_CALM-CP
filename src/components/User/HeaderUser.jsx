@@ -200,7 +200,7 @@ useEffect(() => {
               {notifOpen && (
                 <div className="absolute right-0 z-50 mt-3 w-80 rounded-xl bg-base-100 shadow-lg">
                   <div className="p-4">
-                    <h3 className="mb-3 font-semibold">Notifications</h3>
+                    <h3 className="mb-3 font-semibold">Notifikasi</h3>
                     <div className="max-h-60 space-y-2 overflow-y-auto">
                       {notifications.length === 0 ? (
                         <p className="text-center text-sm text-base-content/60">
@@ -289,7 +289,7 @@ useEffect(() => {
                     className="flex items-center gap-4 rounded-xl px-2 py-2 hover:bg-white/10"
                   >
                     <FiSettings size={18} />
-                    <span className="font-bold">Settings</span>
+                    <span className="font-bold">Pengaturan</span>
                   </Link>
                 </li>
 
@@ -301,7 +301,7 @@ useEffect(() => {
                         </div>
 
                         <div>
-                          <p className="font-bold">Display Mode</p>
+                          <p className="font-bold">Tema</p>
                       </div>
                     </div>
 

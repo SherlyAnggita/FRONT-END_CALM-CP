@@ -94,7 +94,7 @@ export default function ChangePasswordPage() {
           className="mb-4 flex items-center gap-2 text-sm text-white hover:text-base-content"
         >
           <FiArrowLeft />
-          Kembali ke Settings
+          Kembali
         </button>
 
         <h1 className="text-2xl text-white font-bold">Ubah Password</h1>

@@ -40,14 +40,14 @@ export default function UpcomingEventsCard({ calendarEvents }) {
   return (
     <div className="rounded-[28px] bg-[#E3F3FD] p-5 shadow-md transition-colors dark:bg-slate-800">
       <h2 className="text-xl font-bold text-slate-800 dark:text-white">
-        Upcoming Events
+        Agenda Mendatang
       </h2>
 
-      <p className="mt-1 text-sm text-slate-500 dark:text-slate-300">
-        Don't miss schedule
+      <p className="mt-2 text-sm text-slate-500 dark:text-slate-300">
+       Pantau agenda mendatangmu disini yaa
       </p>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-4 space-y-4">
         {paginatedEvents.length === 0 ? (
           <p className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-500 dark:bg-slate-700 dark:text-slate-300">
             Belum ada event calendar yang ditemukan.
