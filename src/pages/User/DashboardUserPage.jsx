@@ -63,7 +63,7 @@ export default function DashboardUserPage() {
             />
           </div>
 
-          <p className="mt-1 text-lg text-white max-lg:max-w-[220px] max-lg:text-sm max-lg:leading-snug">
+          <p className="mt-1 text-lg text-white max-lg:max-w-none max-lg:text-sm max-lg:leading-snug">
             {greeting.subtitle}
           </p>
         </div>
