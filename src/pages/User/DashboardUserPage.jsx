@@ -38,7 +38,7 @@ export default function DashboardUserPage() {
       <div className="flex h-full items-center justify-center">
         <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
           <p className="text-slate-700 dark:text-slate-300">
-            Loading Home...
+            memuat beranda...
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function DashboardUserPage() {
               className="h-14 w-14 object-contain max-lg:hidden"
             />
           </div>
-          
+
           <p className="mt-1 text-lg text-white max-lg:w-[340px] max-lg:text-sm max-lg:leading-[1.2]">
             {greeting.subtitle}
           </p>

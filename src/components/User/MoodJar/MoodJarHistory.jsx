@@ -14,7 +14,7 @@ export default function MoodJarHistory({
   if (loading) {
     return (
       <div className="rounded-2xl bg-[#f8f6f2] p-6 text-center text-[#7b7280] shadow-sm dark:bg-slate-800 dark:text-slate-300">
-        Loading history mood...
+        memuat riwayat mood...
       </div>
     );
   }
@@ -22,7 +22,7 @@ export default function MoodJarHistory({
   if (!entries.length) {
     return (
       <div className="rounded-2xl bg-[#f8f6f2] p-6 text-center text-[#7b7280] shadow-sm dark:bg-slate-800 dark:text-slate-300">
-        Belum ada history mood.
+        Belum ada riwayat mood.
       </div>
     );
   }
