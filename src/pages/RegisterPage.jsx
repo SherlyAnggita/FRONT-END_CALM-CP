@@ -302,7 +302,7 @@ export default function RegisterPage() {
                       disabled={loading}
                       className="h-11 w-full rounded-full bg-gradient-to-r from-[#04264d] to-[#0a3a6d] text-sm font-semibold text-white shadow-[0_8px_20px_rgba(4,38,77,0.3)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(4,38,77,0.35)] disabled:opacity-70"
                     >
-                      {loading ? "Loading..." : "Sign up"}
+                      {loading ? "Memuat..." : "Sign up"}
                     </button>
                   </form>
 

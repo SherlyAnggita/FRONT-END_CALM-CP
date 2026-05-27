@@ -255,7 +255,7 @@ export default function LoginPage() {
                     disabled={loading}
                     className="h-14 w-full rounded-full bg-gradient-to-r from-[#04264d] to-[#0a3a6d] text-lg font-semibold text-white shadow-[0_10px_25px_rgba(4,38,77,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(4,38,77,0.4)] disabled:opacity-70"
                   >
-                    {loading ? "Loading..." : "Sign in"}
+                    {loading ? "Memuat..." : "Sign in"}
                   </button>
                 </form>
 

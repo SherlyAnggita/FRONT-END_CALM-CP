@@ -117,7 +117,7 @@ function SocialBatteryPage() {
       <div className="flex h-full items-center justify-center">
         <div className="rounded-2xl border border-[#B9D0EB]/50 bg-white/50 px-8 py-6 text-center shadow-sm dark:border-slate-700/50 dark:bg-white/5">
           <p className="text-slate-700 dark:text-slate-300">
-            Loading social battery...
+            memuat social battery...
           </p>
         </div>
       </div>
