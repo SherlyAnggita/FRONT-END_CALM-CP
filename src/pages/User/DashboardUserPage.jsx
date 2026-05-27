@@ -64,7 +64,7 @@ export default function DashboardUserPage() {
               className="h-14 w-14 object-contain max-lg:hidden"
             />
           </div>
-
+          
           <p className="mt-1 text-lg text-white max-lg:w-[340px] max-lg:text-sm max-lg:leading-[1.2]">
             {greeting.subtitle}
           </p>
