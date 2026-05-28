@@ -95,13 +95,13 @@ function GlassCard({ children, className = "" }) {
 
 function InfoItem({ icon: Icon, label, value, mono = false, accent = "" }) {
   return (
-    <div className="rounded-2xl border border-base-content/10 bg-base-100/25 p-3.5 backdrop-blur-md dark:bg-white/[0.03]">
-      <div className="mb-1.5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-base-content/45">
+    <div className="rounded-xl border border-base-content/10 bg-base-100/25 p-2 backdrop-blur-md dark:bg-white/[0.03] sm:rounded-2xl sm:p-3.5">
+      <div className="mb-1 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.12em] text-base-content/45 sm:text-[10px]">
         <Icon className="h-3.5 w-3.5 text-primary" />
         {label}
       </div>
-      <p
-        className={`truncate text-sm font-semibold text-base-content/80 ${mono ? "font-mono text-xs" : ""} ${accent}`}
+     <p
+        className={`truncate text-[9px] font-semibold text-base-content/80 sm:text-sm ${mono ? "font-mono text-xs" : ""} ${accent}`}
         title={value || "—"}
       >
         {value || "—"}
@@ -234,13 +234,13 @@ export default function NotificationDetailPage() {
             <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-base-content/40">
               Detail Notifikasi
             </p>
-            <h1 className="truncate text-sm font-black sm:text-base">
+            {/* <h1 className="truncate text-sm font-black sm:text-base">
               {loading
                 ? "Memuat notifikasi..."
                 : error
                   ? "Tidak ditemukan"
                   : notif?.title}
-            </h1>
+            </h1> */}
           </div>
 
           {notif && <StatusBadge status={notif.status} readAt={notif.readAt} />}
@@ -253,7 +253,7 @@ export default function NotificationDetailPage() {
 
       {!loading && !error && notif && (
         <div className="mx-auto box-border w-full max-w-5xl overflow-hidden px-4 py-4 sm:px-6 sm:py-5">
-          <GlassCard className="h-full overflow-hidden p-4 sm:p-5">
+          <GlassCard className="h-full overflow-hidden border-0 bg-transparent p-0 shadow-none lg:border lg:bg-base-100/35 lg:p-5 lg:shadow-sm">
             <div className="grid h-full gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
               <section className="min-w-0 overflow-hidden rounded-[1.25rem] border border-base-content/10 bg-base-100/25 p-4 backdrop-blur-md dark:bg-white/[0.03]">
                 <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -267,24 +267,43 @@ export default function NotificationDetailPage() {
                   )}
                 </div>
 
-                <h2 className="text-2xl font-black leading-tight tracking-tight text-base-content sm:text-3xl">
+                <h2 className="text-[15px] font-black leading-tight tracking-tight text-base-content sm:text-3xl">
                   {notif.title}
                 </h2>
 
-                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-base-content/50">
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-medium text-base-content/50">
                   <FiClock className="h-3.5 w-3.5" />
                   <span>{timeAgo(notif.createdAt)}</span>
                   <span className="text-base-content/25">•</span>
                   <span>{formatDate(notif.createdAt)}</span>
                 </div>
 
-                <div className="divider my-4 before:bg-base-content/10 after:bg-base-content/10" />
+                <div className="divider my-1 before:bg-base-content/10 after:bg-base-content/10" />
 
                 <SectionTitle>Pesan</SectionTitle>
-                <div className="max-h-[160px] overflow-y-auto rounded-3xl border border-base-content/10 bg-base-100/35 p-4 backdrop-blur-md dark:bg-white/[0.04] sm:max-h-[190px] sm:p-5">
-                  <p className="whitespace-pre-wrap text-sm leading-7 text-base-content/75 sm:text-base">
+                <div className="max-h-[130px] overflow-y-auto rounded-2xl border border-base-content/10 bg-base-100/35 p-3 backdrop-blur-md dark:bg-white/[0.04] sm:max-h-[190px] sm:rounded-3xl sm:p-5">
+                  <p className="whitespace-pre-wrap text-[10px] leading-5 text-base-content/75 sm:text-base">
                     {notif.message || "Tidak ada pesan."}
                   </p>
+                </div>
+
+                <div className="mt-4 lg:hidden">
+                  <SectionTitle>Status</SectionTitle>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <InfoItem icon={FiSend} label="Dikirim" value={formatDate(notif.sentAt)} />
+
+                    <InfoItem
+                      icon={FiCheckCircle}
+                      label="Dibaca"
+                      value={notif.readAt ? formatDate(notif.readAt) : "Belum dibaca"}
+                      accent={!notif.readAt ? "text-amber-600 dark:text-amber-300" : ""}
+                    />
+
+                    <InfoItem icon={FiClock} label="Dibuat" value={formatDate(notif.createdAt)} />
+
+                    <InfoItem icon={FiRefreshCw} label="Diperbarui" value={formatDate(notif.updatedAt)} />
+                  </div>
                 </div>
 
                 {notif.error && (
@@ -299,7 +318,7 @@ export default function NotificationDetailPage() {
                 )}
               </section>
 
-              <aside className="rounded-[1.25rem] border border-base-content/10 bg-base-100/25 p-4 backdrop-blur-md dark:bg-white/[0.03]">
+              <aside className="hidden rounded-[1.25rem] border border-base-content/10 bg-base-100/25 p-4 backdrop-blur-md dark:bg-white/[0.03] lg:block">
                 <SectionTitle>Status</SectionTitle>
                 <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
                   <InfoItem

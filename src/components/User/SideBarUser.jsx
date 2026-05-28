@@ -8,6 +8,8 @@ import {
   // FiSettings,
   FiHeart,
 } from "react-icons/fi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faJar } from "@fortawesome/free-solid-svg-icons";
 
 export default function SideBarUser({ isCollapsed }) {
   const user = getCurrentUser();
@@ -60,7 +62,9 @@ export default function SideBarUser({ isCollapsed }) {
         </NavLink>
 
         <NavLink to="/user/mood" className={navClass}>
-          <FiHeart size={18} />
+          <span className="flex h-[18px] w-[18px] items-center justify-center">
+            <FontAwesomeIcon icon={faJar} className="text-[16px]" />
+          </span>
           {!isCollapsed && <span>Mood Jar</span>}
         </NavLink>
 

@@ -74,7 +74,7 @@ export default function MoodJarDetail({ entry, formatMoodDate }) {
           {entry.encouragementResult.supportMessage && (
             <div className="mt-4 rounded-2xl bg-white/60 p-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-black/50">
-                Support Message
+                Pesan Dukungan
               </p>
 
               <p className="mt-2 text-sm leading-relaxed text-black/90">

@@ -371,7 +371,7 @@ export default function MoodJarPage() {
 
       <MoodJarModal
         open={isHistoryModalOpen}
-        title="History Mood"
+        title="Riwayat Mood Jar"
         onClose={() => setIsHistoryModalOpen(false)}
       >
         <MoodJarHistory
