@@ -197,8 +197,8 @@ function SocialBatteryPage() {
   const statusColor = battery.batteryStatus?.color || "#6B7280";
 
   return (
-    <div className="w-full min-w-0 space-y-6 p-4 sm:p-7">
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-4 overflow-x-hidden md:flex-row md:items-end md:justify-between">
+    <div className="w-full min-w-0 space-y-6 p-4 sm:p-5">
+      <div className="relative flex w-full flex-col gap-4 overflow-x-hidden md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-xl font-bold text-white dark:text-white sm:text-2xl">
             Social Battery

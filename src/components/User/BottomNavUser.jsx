@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { FiHome, FiBattery, FiHeart, } from "react-icons/fi";
+import { FiHome, FiBattery, } from "react-icons/fi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faJar } from "@fortawesome/free-solid-svg-icons";
 
 export default function BottomNavUser() {
     const mobileNavClass = ({ isActive }) =>
@@ -21,8 +23,13 @@ export default function BottomNavUser() {
         </NavLink>
 
         <NavLink to="/user/mood" className={mobileNavClass}>
-          <FiHeart size={20} />
-          <span>Mood</span>
+          <span className="flex h-[20px] w-[20px] items-center justify-center">
+            <FontAwesomeIcon
+              icon={faJar}
+              className="translate-y-[1px] text-[18px]"
+            />
+          </span>
+          <span>Mood Jar</span>
         </NavLink>
       </div>
     </nav>

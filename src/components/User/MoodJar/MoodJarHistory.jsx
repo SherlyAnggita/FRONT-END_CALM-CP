@@ -58,7 +58,7 @@ export default function MoodJarHistory({
           {entry.encouragementResult?.supportMessage && (
             <div className="mt-4 rounded-2xl bg-[#3f4d67]/95 p-4 text-white shadow-sm dark:bg-slate-950">
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 dark:text-slate-400">
-                Support Message
+                Pesan Dukungan
               </p>
 
               <p className="mt-2 text-sm leading-relaxed text-white/95 dark:text-slate-100">
