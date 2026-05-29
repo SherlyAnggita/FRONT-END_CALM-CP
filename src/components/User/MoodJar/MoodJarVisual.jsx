@@ -230,7 +230,7 @@ export default function MoodJarVisual({
 
         {/* area jar */}
         <motion.div
-          className="relative z-20 h-[340px] w-[220px] sm:h-[360px] sm:w-[240px]"
+          className="relative z-20 h-[360px] w-[240px] "
           initial={{ opacity: 0, y: 60, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
