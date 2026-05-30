@@ -213,7 +213,13 @@ export default function MoodJarPage() {
 
       const res = await createMoodEntry(payload);
 
-      setSuccessMessage(res.message || "Mood berhasil disimpan");
+      // setSuccessMessage(res.message || "Mood berhasil disimpan");
+      const isAiFailed = res.data?.aiFailed || res.aiFailed;
+      setSuccessMessage(
+        isAiFailed
+          ? "Mood berhasil disimpan, namun AI gagal menganalisis perasaanmu. Cobalah lagi besok!"
+          : res.message || "Mood berhasil disimpan",
+      );
 
       const createdEntry = res.data?.moodEntry || res.moodEntry;
       const encouragementResult =
