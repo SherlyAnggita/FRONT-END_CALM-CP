@@ -1,287 +1,119 @@
+# 🧠 CALM – Front-End
 
-# Web App
+Front-end web application for **CALM (Care And Life Mode)** — a mental health platform that helps users track their mood and social energy levels.
 
-Frontend aplikasi ini berada di folder `web`.
+Built with **Vite** + **React**, connected to the CALM Back-End API.
 
-## Persiapan
+---
 
-Pastikan perangkat sudah terpasang:
+## 🛠️ Tech Stack
 
-- Node.js versi 18 atau lebih baru
-- npm / pnpm / yarn
-- Git
+| Technology   | Purpose                     |
+| ------------ | --------------------------- |
+| React        | UI framework                |
+| Vite         | Module bundler & dev server |
+| Tailwind CSS | Styling                     |
+| Axios        | HTTP requests to API        |
 
-## 1) Clone repository
+---
+
+## ✅ Prerequisites
+
+Make sure the following are installed on your machine:
+
+- [Node.js](https://nodejs.org/) v18 or newer (check with `node -v`)
+- [npm](https://www.npmjs.com/) (check with `npm -v`)
+- [Git](https://git-scm.com/)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/AlfitoAdityaProtic/Capstone-Project.git
-cd Capstone-Project/web
+git clone https://github.com/SherlyAnggita/FRONT-END_CALM-CP.git
+cd FRONT-END_CALM-CP
 ```
 
-## 2) Install dependency
-
-Pilih salah satu package manager:
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-atau
-
-```bash
-yarn install
-```
-
-atau
-
-```bash
-pnpm install
-```
-
-## 3) Siapkan file environment
-
-Salin file contoh environment:
+### 3. Set up environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-Lalu isi nilainya sesuai kebutuhan project.
+Open the `.env` file and fill in the required values:
 
-Contoh yang biasanya paling penting:
+```env
+# Back-end API base URL
+# For local development:
+VITE_API_BASE_URL=http://localhost:5000/
 
-- `VITE_API_URL` = alamat backend / API
-- `VITE_APP_NAME` = nama aplikasi
-- `VITE_APP_ENV` = mode aplikasi (`development` / `production`)
-- `VITE_PORT` = port frontend jika dipakai di project
+```
 
-## 4) Jalankan project di mode development
+> **Note:** All Vite environment variables must start with `VITE_` to be accessible in the app.
+
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-Jika project memakai package manager lain:
+Open your browser at: **http://localhost:5173**
 
-```bash
-yarn dev
-```
+---
 
-atau
-
-```bash
-pnpm dev
-```
-
-Setelah berhasil dijalankan, buka alamat lokal yang tampil di terminal, biasanya:
-
-```bash
-http://localhost:5173
-```
-
-## 5) Build untuk production
+## 🔨 Build for Production
 
 ```bash
 npm run build
 ```
 
-Hasil build biasanya akan masuk ke folder seperti `dist/`.
+Output will be in the `dist/` folder.
 
-## 6) Preview hasil build
-
-```bash
-npm run preview
-```
-
-## Struktur penggunaan singkat
-
-Alur menjalankan project:
-
-1. Clone repository.
-2. Masuk ke folder `web`.
-3. Install dependency.
-4. Copy `.env.example` menjadi `.env`.
-5. Isi konfigurasi environment.
-6. Jalankan `npm run dev`.
-7. Akses aplikasi dari browser.
-
-## Catatan
-
-- Jika backend dijalankan terpisah, pastikan `VITE_API_URL` mengarah ke backend yang benar.
-- Jika ada error dependency, hapus `node_modules` lalu install ulang.
-- Jika port bentrok, ubah port di konfigurasi project atau di file environment.
-
-## Troubleshooting
-
-### Dependency gagal di-install
-
-Coba jalankan:
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### Environment tidak terbaca
-
-Pastikan:
-
-- nama file adalah `.env`
-- variabel untuk project Vite diawali dengan `VITE_`
-- setelah mengubah `.env`, server dev dijalankan ulang
-
-### API tidak terhubung
-
-Periksa:
-
-- backend sudah aktif
-- nilai `VITE_API_URL` sudah benar
-- tidak ada masalah CORS di backend
-
----
-
-README ini dibuat sebagai template penggunaan folder `web`.
-=======
-# Web App
-
-Frontend aplikasi ini berada di folder `web`.
-
-## Persiapan
-
-Pastikan perangkat sudah terpasang:
-
-- Node.js versi 18 atau lebih baru
-- npm / pnpm / yarn
-- Git
-
-## 1) Clone repository
-
-```bash
-git clone https://github.com/AlfitoAdityaProtic/Capstone-Project.git
-cd Capstone-Project/web
-```
-
-## 2) Install dependency
-
-Pilih salah satu package manager:
-
-```bash
-npm install
-```
-
-atau
-
-```bash
-yarn install
-```
-
-atau
-
-```bash
-pnpm install
-```
-
-## 3) Siapkan file environment
-
-Salin file contoh environment:
-
-```bash
-cp .env.example .env
-```
-
-Lalu isi nilainya sesuai kebutuhan project.
-
-Contoh yang biasanya paling penting:
-
-- `VITE_API_URL` = alamat backend / API
-- `VITE_APP_NAME` = nama aplikasi
-- `VITE_APP_ENV` = mode aplikasi (`development` / `production`)
-- `VITE_PORT` = port frontend jika dipakai di project
-
-## 4) Jalankan project di mode development
-
-```bash
-npm run dev
-```
-
-Jika project memakai package manager lain:
-
-```bash
-yarn dev
-```
-
-atau
-
-```bash
-pnpm dev
-```
-
-Setelah berhasil dijalankan, buka alamat lokal yang tampil di terminal, biasanya:
-
-```bash
-http://localhost:5173
-```
-
-## 5) Build untuk production
-
-```bash
-npm run build
-```
-
-Hasil build biasanya akan masuk ke folder seperti `dist/`.
-
-## 6) Preview hasil build
+### Preview the production build locally
 
 ```bash
 npm run preview
 ```
 
-## Struktur penggunaan singkat
+---
 
-Alur menjalankan project:
+## ⚙️ Environment Variables Guide
 
-1. Clone repository.
-2. Masuk ke folder `web`.
-3. Install dependency.
-4. Copy `.env.example` menjadi `.env`.
-5. Isi konfigurasi environment.
-6. Jalankan `npm run dev`.
-7. Akses aplikasi dari browser.
-
-## Catatan
-
-- Jika backend dijalankan terpisah, pastikan `VITE_API_URL` mengarah ke backend yang benar.
-- Jika ada error dependency, hapus `node_modules` lalu install ulang.
-- Jika port bentrok, ubah port di konfigurasi project atau di file environment.
-
-## Troubleshooting
-
-### Dependency gagal di-install
-
-Coba jalankan:
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### Environment tidak terbaca
-
-Pastikan:
-
-- nama file adalah `.env`
-- variabel untuk project Vite diawali dengan `VITE_`
-- setelah mengubah `.env`, server dev dijalankan ulang
-
-### API tidak terhubung
-
-Periksa:
-
-- backend sudah aktif
-- nilai `VITE_API_URL` sudah benar
-- tidak ada masalah CORS di backend
+| Variable            | Description           | Example                  |
+| ------------------- | --------------------- | ------------------------ |
+| `VITE_API_BASE_URL` | Back-end API base URL | `http://localhost:5000/` |
 
 ---
 
-README ini dibuat sebagai template penggunaan folder `web`.
+## 📡 URLs
 
+| Environment | URL                          |
+| ----------- | ---------------------------- |
+| Local       | `http://localhost:5173`      |
+| Production  | `https://mycalmspace.online` |
+
+---
+
+## 🐛 Troubleshooting
+
+| Problem                        | Solution                                                                                                       |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Dependencies fail to install   | Delete `node_modules` and `package-lock.json`, then re-run `npm install`                                       |
+| Environment variables not read | Make sure the file is named `.env`, all variables start with `VITE_`, and restart the dev server after changes |
+| API not connecting             | Make sure the back-end is running and `VITE_API_BASE_URL` is pointing to the correct address                        |
+| Port conflict                  | Change the port in `vite.config.js` or set `VITE_PORT` in `.env`                                               |
+
+---
+
+## 👥 Team
+
+Part of the **CALM Capstone Project** — Coding Camp 2026 powered by DBS Foundation.
+**Team ID:** CC26-PSU122
