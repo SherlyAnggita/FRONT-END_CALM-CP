@@ -19,6 +19,8 @@ export default function DashboardUserPage() {
   const [openMobileRecovery, setOpenMobileRecovery] = useState(false);
   const today = new Date();
 
+  const moodSummary = dashboard?.moodSummary;
+
   useEffect(() => {
     getDashboardData()
       .then((res) => setDashboard(res.data))
@@ -77,9 +79,9 @@ export default function DashboardUserPage() {
         </div>
       </div>
 
-      <div className="relative z-10 mt-8 grid grid-cols-1 gap-5 lg:grid-cols-5 max-lg:mt-5 max-lg:gap-4">
-        <div className="space-y-5 lg:col-span-2">
-          <div className="relative overflow-hidden rounded-[24px] border-2 border-[#8bb9e8] bg-[#dff0ff] p-4 shadow-sm dark:border-slate-600 dark:bg-slate-800/80 max-lg:rounded-[20px] max-lg:p-3">
+      <div className="relative z-10 mt-8 grid grid-cols-1 gap-5 lg:grid-cols-5 lg:items-stretch max-lg:mt-5 max-lg:gap-4">
+        <div className="space-y-5 lg:col-span-2 lg:flex">
+          <div className="relative overflow-hidden rounded-[24px] border-2 border-[#8bb9e8] bg-[#dff0ff] p-4 shadow-sm dark:border-slate-600 dark:bg-slate-800/80 max-lg:rounded-[20px] max-lg:p-3 lg:flex-1">
             <div className="mb-3">
              <h3 className="text-base font-bold text-[#34445c] dark:text-white max-lg:text-sm">
                 social battery status
@@ -206,10 +208,9 @@ export default function DashboardUserPage() {
               Pesan Dukungan
             </h3>
 
-           <div className="relative z-10 mt-3 rounded-[14px] bg-[#365E82]/90 p-6 pr-20 shadow-inner dark:bg-slate-700/90">
+           <div className="relative z-10 mt-3 rounded-[14px] bg-[#365E82]/90 p-5 pr-9 shadow-inner dark:bg-slate-700/90">
               <p className="text-[10px] font-bold leading-relaxed text-white">
-                {socialBattery.supportMessage ||
-                  socialBattery.aiInsight ||
+                  {moodSummary?.latestSupportMessage ||
                   "Ceritakan perasaanmu di Mood Jar dan dapatkan pesan dukungan khusus buatmu!"}
               </p>
             </div>
