@@ -308,9 +308,10 @@ export default function ProfilePage() {
                 icon={<AiOutlineMail size={15} />}
                 name="email"
                 value={form.email}
-                onChange={handleChange}
                 placeholder="email@contoh.com"
                 type="email"
+                readOnly={true}
+                title="Tidak dapat mengubah email"
               />
 
               <Field
@@ -503,6 +504,8 @@ function Field({
   onChange,
   placeholder,
   type = "text",
+  readOnly = false,
+  title,
 }) {
   return (
     <div className="group">
@@ -510,7 +513,11 @@ function Field({
         {label}
       </label>
 
-      <div className="flex items-center gap-2.5 rounded-xl border border-[#efe7d6] bg-[#f8f3e8]/75 px-3.5 py-2.5 transition-all duration-200 focus-within:border-[#2f6f95] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(47,111,149,0.12)] dark:border-white/[0.08] dark:bg-[#0f172a] dark:focus-within:bg-[#0f172a] dark:focus-within:border-sky-500 dark:focus-within:shadow-[0_0_0_3px_rgba(56,189,248,0.12)]">
+      <div
+        className={`flex items-center gap-2.5 rounded-xl border border-[#efe7d6] bg-[#f8f3e8]/75 px-3.5 py-2.5 transition-all duration-200 focus-within:border-[#2f6f95] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(47,111,149,0.12)] dark:border-white/[0.08] dark:bg-[#0f172a] dark:focus-within:bg-[#0f172a] dark:focus-within:border-sky-500 dark:focus-within:shadow-[0_0_0_3px_rgba(56,189,248,0.12)] ${
+          readOnly ? "bg-gray-100 cursor-not-allowed" : ""
+        }`}
+      >
         <span className="shrink-0 text-[#82b6cc] transition-colors duration-200 group-focus-within:text-[#2f6f95] dark:text-slate-500 dark:group-focus-within:text-sky-400">
           {icon}
         </span>
@@ -521,7 +528,11 @@ function Field({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full bg-transparent text-[13px] text-[#1f2937] outline-none placeholder:text-gray-300 dark:text-white dark:placeholder:text-slate-600"
+          readOnly={readOnly}
+          title={title}
+           className={`w-full bg-transparent text-[13px] text-[#1f2937] outline-none placeholder:text-gray-300 dark:text-white dark:placeholder:text-slate-600 ${
+            readOnly ? "cursor-not-allowed" : ""
+          }`}
         />
       </div>
     </div>
