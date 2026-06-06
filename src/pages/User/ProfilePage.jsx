@@ -144,7 +144,7 @@ export default function ProfilePage() {
       const formData = new FormData();
       formData.append("fullName", form.fullName);
       formData.append("username", form.username);
-      formData.append("email", form.email);
+      // formData.append("email", form.email);
       formData.append("phoneNumber", form.phoneNumber);
       formData.append("profilePhoto", blob, "profile.png");
 
@@ -179,7 +179,7 @@ export default function ProfilePage() {
       const formData = new FormData();
       formData.append("fullName", form.fullName);
       formData.append("username", form.username);
-      formData.append("email", form.email);
+      // formData.append("email", form.email);
       formData.append("phoneNumber", form.phoneNumber);
 
       const result = await updateUserProfile(formData);
