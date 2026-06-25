@@ -1,5 +1,11 @@
 import { IoClose } from "react-icons/io5";
-export default function MoodJarModal({ open, title, onClose, children }) {
+export default function MoodJarModal({
+  open,
+  title,
+  onClose,
+  children,
+  disableBackdropClose = false,
+}) {
   if (!open) return null;
 
   const canClose = typeof onClose === "function";
@@ -8,7 +14,7 @@ export default function MoodJarModal({ open, title, onClose, children }) {
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-24 pt-4 sm:items-center sm:pb-4"
       onClick={() => {
-        if (canClose) onClose();
+        if (canClose && !disableBackdropClose) onClose();
       }}
     >
       <div

@@ -39,6 +39,39 @@ export default function MoodJarDetail({ entry, formatMoodDate }) {
         </p>
       </div>
 
+      {entry.analysisStatus === "pending" && !entry.encouragementResult && (
+        <div className="mt-4 rounded-3xl bg-[#d8dfe8]/95 p-5 text-black shadow-sm">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-black/50">
+            AI Mood Analysis
+          </p>
+
+          <h3 className="mt-1 text-lg font-bold">Sedang menganalisis...</h3>
+
+          <p className="mt-2 text-sm leading-relaxed text-black/70">
+            CALM sedang membaca perasaanmu. Hasil analisis akan muncul sebentar
+            lagi.
+          </p>
+
+          <div className="mt-4 text-xs text-black/50">Status: pending</div>
+        </div>
+      )}
+
+      {entry.analysisStatus === "failed" && !entry.encouragementResult && (
+        <div className="mt-4 rounded-3xl bg-[#d8dfe8]/95 p-5 text-black shadow-sm">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-black/50">
+            AI Mood Analysis
+          </p>
+
+          <h3 className="mt-1 text-lg font-bold">Analisis gagal</h3>
+
+          <p className="mt-2 text-sm leading-relaxed text-black/70">
+            Mood kamu sudah tersimpan, tapi AI belum berhasil menganalisisnya.
+          </p>
+
+          <div className="mt-4 text-xs text-black/50">Status: failed</div>
+        </div>
+      )}
+
       {entry.encouragementResult && (
         <div className="mt-4 rounded-3xl bg-[#d8dfe8]/95 p-5 text-black shadow-sm">
           <div className="flex items-start justify-between gap-3">
