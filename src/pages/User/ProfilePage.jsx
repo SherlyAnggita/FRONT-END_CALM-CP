@@ -332,7 +332,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={isSaving || isLoadingProfile}
-                className="flex items-center justify-center gap-2 rounded-xl bg-[#5f87b3] px-6 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#245a78] hover:shadow-lg active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600"
+                className="cursor-pointer flex items-center justify-center gap-2 rounded-xl bg-[#5f87b3] px-6 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#245a78] hover:shadow-lg active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-sky-700 dark:hover:bg-sky-600"
               >
                 {isSaving ? (
                   <>

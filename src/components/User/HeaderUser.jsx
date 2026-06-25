@@ -371,7 +371,7 @@ useEffect(() => {
                         closeProfileDropdown();
                         setShowLogoutModal(true);
                       }}
-                      className="flex w-full items-center gap-4 rounded-xl px-2 py-2 font-bold text-red-400 hover:bg-red-500/10"
+                      className="cursor-pointer flex w-full items-center gap-4 rounded-xl px-2 py-2 font-bold text-red-400 hover:bg-red-500/10"
                     >
                       <FiLogOut size={18} />
                       Logout

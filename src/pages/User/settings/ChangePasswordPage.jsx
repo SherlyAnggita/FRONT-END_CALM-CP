@@ -91,7 +91,7 @@ export default function ChangePasswordPage() {
         <button
           type="button"
           onClick={() => navigate("/user/settings")}
-          className="mb-4 flex items-center gap-2 text-sm text-white hover:text-base-content"
+          className="cursor-pointer mb-4 flex items-center gap-2 text-sm text-white hover:text-base-content"
         >
           <FiArrowLeft />
           Kembali
@@ -154,7 +154,7 @@ export default function ChangePasswordPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary flex-1"
+              className="cursor-pointer btn btn-primary flex-1"
             >
               {loading ? "Menyimpan..." : "Simpan"}
             </button>
