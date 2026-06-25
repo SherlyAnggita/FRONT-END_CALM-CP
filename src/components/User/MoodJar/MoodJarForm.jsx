@@ -69,7 +69,7 @@ export default function MoodJarForm({
                       : undefined
                   }
                   className={`
-                    flex items-center gap-2 rounded-xl border p-3 text-left transition
+                     cursor-pointer flex items-center gap-2 rounded-xl border p-3 text-left transition
 
                      ${
                         isSelected
@@ -158,7 +158,7 @@ export default function MoodJarForm({
         <button
           type="submit"
           disabled={hasTodayEntry || submitLoading}
-          className="
+          className="cursor-pointer
             w-full rounded-xl bg-[#49769F] py-3
             font-medium text-[#FFFFFF]
             shadow-md

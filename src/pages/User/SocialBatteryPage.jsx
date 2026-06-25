@@ -168,7 +168,7 @@ function SocialBatteryPage() {
             type="button"
             onClick={handleSyncCalendar}
             disabled={syncing}
-            className="inline-flex w-full justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+            className="cursor-pointer inline-flex w-full justify-center rounded-full bg-[#49769F] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-[#3d6487] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {syncing ? "Syncing..." : "Synchronize Calendar"}
           </button>
@@ -215,7 +215,7 @@ function SocialBatteryPage() {
             type="button"
             onClick={handleSyncCalendar}
             disabled={syncing}
-            className="w-full rounded-full bg-[#D3EAFA] px-4 py-2 text-center text-xs font-semibold text-black shadow-md transition hover:bg-[#D3EAFA] sm:w-auto"
+            className="cursor-pointer w-full rounded-full bg-[#D3EAFA] px-4 py-2 text-center text-xs font-semibold text-black shadow-md transition hover:bg-[#D3EAFA] sm:w-auto"
           >
             {syncing ? "Syncing..." : "Synchronize Calendar"}
           </button>
@@ -387,7 +387,7 @@ function SocialBatteryPage() {
               <button
                 onClick={handleGenerateAiInsight}
                 disabled={aiLoading}
-                className="shrink-0 rounded-full border border-white/30 bg-[#E7F7FF]/90 px-2.5 py-1 text-[9px] font-semibold text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_3px_8px_rgba(0,0,0,0.18)] transition hover:bg-[#CDEBFA] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-500"
+                className=" cursor-pointer shrink-0 rounded-full border border-white/30 bg-[#E7F7FF]/90 px-2.5 py-1 text-[9px] font-semibold text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_3px_8px_rgba(0,0,0,0.18)] transition hover:bg-[#CDEBFA] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-500"
               >
                 {aiLoading ? "Generating..." : "Pesan Hari Ini"}
               </button>
@@ -398,7 +398,7 @@ function SocialBatteryPage() {
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 items-start gap-4 md:grid-cols-2">
             <div
               onClick={(e) => {
                 e.stopPropagation();

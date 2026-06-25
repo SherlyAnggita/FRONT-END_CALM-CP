@@ -201,6 +201,7 @@ export default function RegisterPage() {
                         type="email"
                         name="email"
                         placeholder="Masukan Email"
+                        title= "Masukkan email aktif agar notifikasi hasil analisismu tidak terlewat."
                         value={form.email}
                         onChange={handleChange}
                         className={inputClass}
@@ -240,6 +241,7 @@ export default function RegisterPage() {
                         type="text"
                         name="phoneNumber"
                         placeholder="Masukan No Handphone"
+                        title="Masukkan nomor handphone aktif agar notifikasi hasil analisismu tidak terlewat."
                         value={form.phoneNumber}
                         onChange={(e) => {
                           const value = e.target.value;
