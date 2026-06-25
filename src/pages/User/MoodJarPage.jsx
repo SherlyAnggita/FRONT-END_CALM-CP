@@ -3,6 +3,7 @@ import {
   getActiveMoodLabels,
   getMoodEntries,
   createMoodEntry,
+  getMoodEntryDetail,
 } from "../../services/User/moodJarService";
 import {
   isSameDay,
@@ -215,6 +216,7 @@ export default function MoodJarPage() {
 
       // setSuccessMessage(res.message || "Mood berhasil disimpan");
       const isAiFailed = res.data?.aiFailed || res.aiFailed;
+
       setSuccessMessage(
         isAiFailed
           ? "Mood berhasil disimpan, namun AI gagal menganalisis perasaanmu. Cobalah lagi besok!"
@@ -222,19 +224,54 @@ export default function MoodJarPage() {
       );
 
       const createdEntry = res.data?.moodEntry || res.moodEntry;
-      const encouragementResult =
-        res.data?.encouragementResult || res.encouragementResult;
+      // const encouragementResult =
+      //   res.data?.encouragementResult || res.encouragementResult;
 
+      // if (createdEntry) {
+      //   setSelectedEntry({
+      //     ...createdEntry,
+      //     encouragementResult,
+      //     moodLabel: labels.find(
+      //       (label) => label.id === createdEntry.moodLabelId,
+      //     ),
+      //   });
+
+      //   setIsDetailModalOpen(true);
+      // }
       if (createdEntry) {
         setSelectedEntry({
           ...createdEntry,
-          encouragementResult,
+          encouragementResult: null,
           moodLabel: labels.find(
             (label) => label.id === createdEntry.moodLabelId,
           ),
         });
 
         setIsDetailModalOpen(true);
+
+        const interval = setInterval(async () => {
+          try {
+            const latest = await getMoodEntryDetail(createdEntry.id);
+            const latestEntry = latest.data || latest;
+
+            setSelectedEntry({
+              ...latestEntry,
+              moodLabel:
+                latestEntry.moodLabel ||
+                labels.find((label) => label.id === latestEntry.moodLabelId),
+            });
+
+            if (
+              latestEntry.analysisStatus === "success" ||
+              latestEntry.analysisStatus === "failed"
+            ) {
+              clearInterval(interval);
+              await fetchMoodJarData();
+            }
+          } catch {
+            clearInterval(interval);
+          }
+        }, 2000);
       }
 
       setForm({
@@ -242,7 +279,7 @@ export default function MoodJarPage() {
         feelingText: "",
       });
 
-      await fetchMoodJarData();
+      // await fetchMoodJarData();
 
       await getUserProfile();
 
@@ -273,6 +310,10 @@ export default function MoodJarPage() {
       </div>
     );
   }
+
+  const detailCanClose =
+    selectedEntry?.analysisStatus === "success" ||
+    selectedEntry?.analysisStatus === "failed";
 
   return (
     <>
@@ -400,7 +441,7 @@ export default function MoodJarPage() {
               }`
             : "Mood Detail"
         }
-        onClose={handleCloseDetail}
+        onClose={detailCanClose ? handleCloseDetail : undefined}
       >
         <MoodJarDetail entry={selectedEntry} formatMoodDate={formatMoodDate} />
       </MoodJarModal>
