@@ -321,6 +321,7 @@ export default function MoodJarVisual({
                   }}
                   className={`
                       pointer-events-auto absolute
+                      cursor-pointer
                       ${positions[index % positions.length]}
                       h-[58px] w-[58px]
                       rounded-[3px]

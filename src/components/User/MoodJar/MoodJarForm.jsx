@@ -13,7 +13,7 @@ export default function MoodJarForm({
 }) {
 
   return (
-    <div className="h-full rounded-2xl bg-base-100/60 p-6 shadow lg:h-[560px]">
+    <div className="h-full rounded-2xl bg-base-100/60 p-6 shadow min-h-[560px]">
       {hasTodayEntry && (
         <div className="alert alert-warning mb-4">
           <span>
@@ -158,14 +158,20 @@ export default function MoodJarForm({
         <button
           type="submit"
           disabled={hasTodayEntry || submitLoading}
-          className="cursor-pointer
-            w-full rounded-xl bg-[#49769F] py-3
-            font-medium text-[#FFFFFF]
-            shadow-md
-            transition
-            hover:bg-[#BDD8E9]
-            active:scale-[0.98] disabled:opacity-50 " >
-          {submitLoading ? "Menyimpan..." : "Simpan Mood Hari Ini"}
+          className={`
+            w-full rounded-xl py-3 font-medium text-white shadow-md transition
+            ${
+              hasTodayEntry || submitLoading
+                ? "cursor-not-allowed bg-gray-400 opacity-50"
+                : "cursor-pointer bg-[#49769F] hover:bg-[#BDD8E9] active:scale-[0.98]"
+            }
+          `}
+        >
+          {submitLoading
+            ? "Menyimpan..."
+            : hasTodayEntry
+            ? "Mood Hari Ini Sudah Diisi"
+            : "Simpan Mood Hari Ini"}
         </button>
       </form>
     </div>

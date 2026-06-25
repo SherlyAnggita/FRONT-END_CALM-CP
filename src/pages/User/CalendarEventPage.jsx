@@ -351,36 +351,6 @@ export default function CalendarEventPage() {
                       : "-"}
                   </p>
                 </div>
-
-                <div>
-                  <p className="text-xs text-slate-500">Last Updated</p>
-                  <p className="font-semibold">
-                    {googleStatus.updatedAt
-                      ? new Date(googleStatus.updatedAt).toLocaleString(
-                          "id-ID",
-                          {
-                            dateStyle: "medium",
-                            timeStyle: "short",
-                          },
-                        )
-                      : "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-500">Token Expiry</p>
-                  <p className="font-semibold">
-                    {googleStatus.tokenExpiry
-                      ? new Date(googleStatus.tokenExpiry).toLocaleString(
-                          "id-ID",
-                          {
-                            dateStyle: "medium",
-                            timeStyle: "short",
-                          },
-                        )
-                      : "-"}
-                  </p>
-                </div>
               </div>
             </div>
           )}

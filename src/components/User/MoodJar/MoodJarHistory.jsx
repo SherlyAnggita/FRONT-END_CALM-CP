@@ -47,7 +47,7 @@ export default function MoodJarHistory({
             </p>
           </div>
 
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-[#0a4174] bg-[#ffffff] p-4 backdrop-blur-sm dark:border-slate-600 dark:bg-slate-900">
+          <div className="cursor-pointer flex items-center justify-between gap-3 rounded-2xl border border-[#0a4174] bg-[#ffffff] p-4 backdrop-blur-sm dark:border-slate-600 dark:bg-slate-900">
             <p className="min-w-0 text-sm leading-relaxed text-[#51465a] dark:text-slate-200">
               {entry.feelingText}
             </p>

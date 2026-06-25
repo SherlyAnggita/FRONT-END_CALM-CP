@@ -17,7 +17,7 @@ export default function SettingPage() {
         <button
           type="button"
           onClick={() => navigate("/user/settings/change-password")}
-          className="flex w-full items-center justify-between rounded-xl p-4 text-left transition "
+          className="cursor-pointer flex w-full items-center justify-between rounded-xl p-4 text-left transition "
         >
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-primary/20 p-3 text-primary">
@@ -39,7 +39,7 @@ export default function SettingPage() {
         <button
           type="button"
           onClick={() => navigate("/privacy-policy")}
-          className="flex w-full items-center justify-between rounded-xl p-4 text-left transition "
+          className="cursor-pointer flex w-full items-center justify-between rounded-xl p-4 text-left transition "
         >
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-primary/20 p-3 text-primary">
@@ -61,7 +61,7 @@ export default function SettingPage() {
         <button
           type="button"
           onClick={() => navigate("/terms")}
-          className="flex w-full items-center justify-between rounded-xl p-4 text-left transition "
+          className="cursor-pointer flex w-full items-center justify-between rounded-xl p-4 text-left transition "
         >
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-primary/20 p-3 text-primary">

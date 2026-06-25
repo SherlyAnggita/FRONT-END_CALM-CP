@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import {
@@ -32,6 +32,13 @@ function SocialBatteryHistoryPage() {
   const [dateLoading, setDateLoading] = useState(false);
   const [dateSearched, setDateSearched] = useState(false);
   const [error, setError] = useState("");
+
+  const dateInputRef = useRef(null);
+
+  const openDatePicker = () => {
+    dateInputRef.current?.showPicker?.();
+    dateInputRef.current?.focus();
+  };
 
   async function fetchSocialBatteryHistory(page = 1) {
     try {
@@ -113,22 +120,28 @@ function SocialBatteryHistoryPage() {
           </div>
 
           <div className="flex flex-row gap-2">
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(event) => {
-                setSelectedDate(event.target.value);
-                if (!event.target.value) {
-                  setDateSearched(false);
-                  setSelectedData(null);
-                }
-              }}
-              className="rounded-xl border border-[#B9D8EB]/70 bg-white/70 px-4 py-2 text-sm text-[#1E3557] outline-none shadow-[inset_0_1px_2px_rgba(255,255,255,0.9)] focus:border-[#4C8FEF] dark:border-white/10 dark:bg-white/10 dark:text-white"
-            />
+            <div
+              onClick={openDatePicker}
+              className="cursor-pointer rounded-xl border border-[#B9D8EB]/70 bg-white/70 px-4 py-2 text-sm text-[#1E3557] outline-none shadow-[inset_0_1px_2px_rgba(255,255,255,0.9)] dark:border-white/10 dark:bg-white/10 dark:text-white"
+            >
+              <input
+                ref={dateInputRef}
+                type="date"
+                value={selectedDate}
+                onChange={(event) => {
+                  setSelectedDate(event.target.value);
+                  if (!event.target.value) {
+                    setDateSearched(false);
+                    setSelectedData(null);
+                  }
+                }}
+                className="cursor-pointer bg-transparent outline-none"
+              />
+            </div>
             <button
               onClick={handleSearchByDate}
               disabled={dateLoading || !selectedDate}
-              className="rounded-xl bg-[#0A4774] px-4 py-2 text-sm font-semibold text-white shadow-[0_4px_10px_rgba(10,71,116,0.25)] transition hover:bg-[#0E5A92] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-blue-600 dark:hover:bg-blue-500"
+              className="cursor-pointer rounded-xl bg-[#0A4774] px-4 py-2 text-sm font-semibold text-white shadow-[0_4px_10px_rgba(10,71,116,0.25)] transition hover:bg-[#0E5A92] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-blue-600 dark:hover:bg-blue-500"
             >
               {dateLoading ? "Searching..." : "Search"}
             </button>
